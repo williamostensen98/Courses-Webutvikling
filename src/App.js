@@ -1,14 +1,12 @@
 import React from 'react';
 import './css/main.css';
 import SearchBar from './components/SearchBar';
+import {createStore} from "redux";
 
-
-function App() {
-  return (
-    <div className="App">
+export default function App() {
+  return ( 
+    <div className="App"> 
       <SearchBar />
     </div>
   );
 }
-
-export default App;
