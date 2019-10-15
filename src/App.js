@@ -5,34 +5,38 @@ import SearchBar from './components/SearchBar';
 import Header from "./components/Header"
 import { connect } from 'react-redux';
 
-
+import store from './store/store'
 
 class App extends Component {
 
   mapStateToProps = (state) => {
     return {
       //TODO Add mapStateToProps
-      //age: state.age hadde det vært age
+      //EKS:
+        //age: state.age
     }
   }
   
-  mapDispachToProps = (dispach) => {
+  mapDispatchToProps = (dispatch) => {
     return {
       //TODO Add dispachToProps
-      //onButtonClick: () => dispach({type: 'BUTTON_CLICK'})
+      //EKS:
+        //onAgeUp: () => dispatch({type: 'AGE_UP'})
     }
   }
 
   render () {
     return ( 
-        <body>
-          <div className="App"> 
-            <Header />
-            <SearchBar />
-          </div>
-        </body>
+      <Provider store={store}>
+          <body>
+            <div className="App"> 
+              <Header />
+              <SearchBar />
+            </div>
+          </body>
+        </Provider>
       )
   } 
 }
 
-export default connect(mapStateToProps, mapDispachToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)
