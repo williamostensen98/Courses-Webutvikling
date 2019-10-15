@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import "./default_files/App.css"
 import "./default_files/index.css"
 import SearchBar from './components/SearchBar';
@@ -19,7 +19,7 @@ class App extends Component {
   
   mapDispatchToProps = (dispatch) => {
     return {
-      //TODO Add dispachToProps
+      //TODO Add mapdispachToProps
       //EKS:
         //onAgeUp: () => dispatch({type: 'AGE_UP'})
     }
@@ -28,13 +28,13 @@ class App extends Component {
   render () {
     return ( 
       <Provider store={store}>
-          <body>
-            <div className="App"> 
-              <Header />
-              <SearchBar />
-            </div>
-          </body>
-        </Provider>
+        <body>
+          <div className="App"> 
+            <Header />
+            <SearchBar />
+          </div>
+        </body>
+      </Provider>
       )
   } 
 }

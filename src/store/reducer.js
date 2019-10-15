@@ -8,12 +8,12 @@ import {SEARCH_MOVIE} from './actionTypes'
 - Call non-pure functions, e.g. Date.now() or Math.random(). */
 
 const initialState = {
-    //TODO Add initialState
     text: '',
+    //TODO Add initialState
 }
 
 
-const searchReducer = (state= initialState, action) => {
+const reducer = (state= initialState, action) => {
     switch(action.type) {
         case SEARCH_MOVIE:
             return {
@@ -27,14 +27,14 @@ const searchReducer = (state= initialState, action) => {
 }
 
 
-//classic, no use
+/* //classic, no use
 const reducer = (state = initialState, action) => {
     const newState = {...state}  
     //TODO Fill out reducer
     //if(action === blablabla)
 
     return newState
-}
+} */
 
 
 export default reducer
