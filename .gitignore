@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 
+# frontend
 /frontend/node_modules
 
 # testing
