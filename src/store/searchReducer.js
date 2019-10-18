@@ -16,27 +16,15 @@ const initialState = {
 }
 
 
-
-
 export default function(state = initialState, action) {
     switch(action.type) {
         case SEARCH_COURSE:
             return {
                 ...state,
-                text: action.payload,
+                text: action.payload, //setter staten text til action.payload som er input i søkefelt
                 loading: false
             }
         default:
             return state
     }
 }
-
-
-/* //classic, no use
-const reducer = (state = initialState, action) => {
-    const newState = {...state}  
-    //TODO Fill out reducer
-    //if(action === blablabla)
-
-    return newState
-} */
