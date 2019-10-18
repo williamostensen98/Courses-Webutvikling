@@ -1,10 +1,10 @@
-import { SEARCH_MOVIE } from './actionTypes'
+import { SEARCH_COURSE } from './actionTypes'
 
 
 
-export const searchMovie = text => dispatch => {
+export const searchCourse = text => dispatch => {
     dispatch ({
-        type: SEARCH_MOVIE,
+        type: SEARCH_COURSE,
         payload: text
     })
 }

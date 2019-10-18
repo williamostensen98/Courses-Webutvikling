@@ -1,2 +1,2 @@
 
-export const SEARCH_MOVIE = 'SEARCH_MOVIE'
+export const SEARCH_COURSE = 'SEARCH_COURSE'

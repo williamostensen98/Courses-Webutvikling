@@ -1,4 +1,5 @@
-import {SEARCH_MOVIE} from './actionTypes'
+import {SEARCH_COURSE} from './actionTypes'
+
 
 
 /* Things you should never do inside a reducer:
@@ -9,13 +10,17 @@ import {SEARCH_MOVIE} from './actionTypes'
 
 const initialState = {
     text: '',
+    courses: [],
+    loading: false,
     //TODO Add initialState
 }
 
 
-const reducer = (state= initialState, action) => {
+
+
+export default function(state = initialState, action) {
     switch(action.type) {
-        case SEARCH_MOVIE:
+        case SEARCH_COURSE:
             return {
                 ...state,
                 text: action.payload,
@@ -35,6 +40,3 @@ const reducer = (state = initialState, action) => {
 
     return newState
 } */
-
-
-export default reducer

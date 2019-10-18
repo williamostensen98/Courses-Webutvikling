@@ -1,26 +1,32 @@
 import React from 'react';
 import '../css/searchBar.css';
-import {searchMovie} from './action'
-import { connect } from 'redux';
-
-function SearchBar() {
+import {searchCourse} from '../store/action'
+import { connect } from 'react-redux';
+import {Component} from 'react';
+ 
+class SearchBar extends Component {
 
     onChange = e => {
-        this.props.searchMovie(e.target.value)
+        this.props.searchCourse(e.target.value)
     }
 
-
-    return (
-        <div className="searchbar-container">
-              <input id="searchBar" 
-                    type="text" 
-                    placeholder="Search.."
-                    onChange={this.onChange}
-                />
-        </div>
-    )
+    render() {
+        return (
+            <div className="searchbar-container">
+                <input id="searchBar" 
+                        type="text" 
+                        placeholder="Search courses, coursecodes or grades"
+                        onChange={this.onChange}
+                    />
+            </div>
+        )
+    }
 }
 
-export default connect(mapStateToProps)(SearchBar)
 
+const mapStateToProps = state => ({
+    text: state.courses.text
+})
+
+export default connect(mapStateToProps, {searchCourse})(SearchBar)
 

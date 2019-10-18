@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
 import "./default_files/App.css"
 import "./default_files/index.css"
-import SearchBar from './components/SearchBar';
+import Landing from './components/Landing'
 import Header from "./components/Header"
-import { connect } from 'react-redux';
+//import { connect } from 'react-redux';
+import {Provider} from 'react-redux'
 
-import store from './store/store'
+import {store} from './store/store'
 
 class App extends Component {
-
+/* 
   mapStateToProps = (state) => {
     return {
       //TODO Add mapStateToProps
@@ -23,7 +24,7 @@ class App extends Component {
       //EKS:
         //onAgeUp: () => dispatch({type: 'AGE_UP'})
     }
-  }
+  } */
 
   render () {
     return ( 
@@ -31,7 +32,7 @@ class App extends Component {
         <body>
           <div className="App"> 
             <Header />
-            <SearchBar />
+            <Landing />
           </div>
         </body>
       </Provider>
@@ -39,4 +40,5 @@ class App extends Component {
   } 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+/* export default connect(mapStateToProps, mapDispatchToProps)(App) */
+export default App
