@@ -1,4 +1,4 @@
-import {SEARCH_COURSE} from './actionTypes'
+import {SEARCH_COURSE} from '../store/actionTypes'
 
 
 

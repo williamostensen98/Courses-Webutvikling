@@ -6,9 +6,7 @@ import {Component} from 'react';
  
 class SearchBar extends Component {
 
-    //searchAction triggerer dispatch av text (action.js), som triggerer typen SEARCH_COURSE, 
-    //som i searchReducer triggerer riktig case
-    //
+    //searchAction triggerer dispatch av text (action.js), som triggerer typen SEARCH_COURSE-casen i searchReducer, 
     onChange = e => {
         this.props.searchCourse(e.target.value)
     }
