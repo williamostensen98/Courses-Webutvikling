@@ -1,12 +1,19 @@
 import React, {Component} from 'react';
 import "./default_files/App.css"
 import "./default_files/index.css"
+
+
 import Landing from './components/Landing'
-import Header from "./components/Header"
+import Header from "./components/Navbar"
+
+
+
 //import { connect } from 'react-redux';
 import {Provider} from 'react-redux'
 
+
 import {store} from './store/store'
+
 
 class App extends Component {
 /* 
@@ -31,8 +38,10 @@ class App extends Component {
       <Provider store={store}>
         <body>
           <div className="App"> 
-            <Header />
+            
+            <Header/>
             <Landing />
+            
           </div>
         </body>
       </Provider>

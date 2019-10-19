@@ -1,8 +1,11 @@
 import React from 'react';
-import '../css/searchBar.css';
+// import '../css/searchBar.css';
 import {searchCourse} from '../store/action'
 import { connect } from 'react-redux';
 import {Component} from 'react';
+import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
+import FormControl from 'react-bootstrap/FormControl'
  
 class SearchBar extends Component {
 
@@ -14,11 +17,10 @@ class SearchBar extends Component {
     render() {
         return (
             <div className="searchbar-container">
-                <input id="searchBar" 
-                        type="text" 
-                        placeholder="Search courses, coursecodes or grades"
-                        onChange={this.onChange}
-                    />
+                <Form inline>
+                    <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+                    <Button variant="outline-success">Search</Button>
+                </Form>
             </div>
         )
     }
