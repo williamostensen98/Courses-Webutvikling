@@ -5,6 +5,7 @@ import path from 'path';
 import cors from 'cors';
 import Data from 'data'
 import courseRoutes from "./routes/course"
+import gradeRoutes from "./routes/grades"
 import Course from './models/course.model'
 // Babel is added as a dependency in package.json and used to type modern .js syntax and then transpiled. 
 // import express from 'express' is equal to const express = require('express')
@@ -17,6 +18,7 @@ const app = express(); // Creating an express-object
 app.use(bodyParser.json());
 app.use(cors());
 app.use('/courses', courseRoutes)
+app.use('/grades', gradeRoutes)
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
