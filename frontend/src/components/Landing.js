@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import SearchBar from './SearchBar';
+import Button from './Button'
 
 
 class Landing extends Component {
@@ -7,6 +8,7 @@ class Landing extends Component {
         return (
             <div className="container">
                 <SearchBar />
+                <Button />
             </div>
         )
     }

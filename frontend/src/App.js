@@ -26,9 +26,11 @@ class App extends Component {
     }
   } */
 
+
+  //Provider gjør at alle elementer under den i hierarkiet får rekursivt tilgang til store (og dermed også statesene)
   render () {
     return ( 
-      <Provider store={store}>
+      <Provider store={store}> 
         <body>
           <div className="App"> 
             <Header />
