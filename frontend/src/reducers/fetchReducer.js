@@ -13,7 +13,7 @@ export default function(state = initalState.course, action) {
         case FETCH_COURSES_SUCCESS:
             return{
                 ...state,
-                data: action.data, //HM???
+                data: action.data, //TODO HM??? finn ut av dette
                 loading: false
             }
         case FETCH_COURSES_FAILURE:
