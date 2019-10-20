@@ -18,30 +18,48 @@ gradeRoutes.use(cors());
 // Further on, we're calling Course.find to get a list of all course items from the MongoDB. The find function takes one argument, a callback function
 // which is executed once the result is available. All results available in courses are added in JSON format to the response by calling res.json(courses).
 gradeRoutes.route('/').get(async function(req, res) {
+    let sorting = req.query.sorting ? req.query.sorting: 'norwegian_name';
+    let order = req.query.order ? req.query.order : '1';
+    let page = req.query.page ? req.query.page : 1;
+    let pages=parseInt(page);
+    let limit = req.query.limit ? req.query.limit : 5;
+    let lim=parseInt(limit);
     // Saving all possible attributes for a course document in the collection in content object
     let content = {};
-    let body = await req.body;
-    content.course_code =  body.course_code ? body.course_code : "";
-    content.semesters = body.semesters ? body.semesters : "";
+    let query = await req.query;
+    if (query.course_code) { content.course_code = {$regex : RegExp(query.course_code), $options:'-i'} }
+    if (query.semesters) { content.semesters = query.semesters }
+    if (query.semester_code) { content.semester_code = query.semester_code }
     
-    const grades = await Grade.find(req.query, function(err, grades) {});
+    // The content object being send into find is of the form e.g., {course_code = "TDT4140"}
+    const grades = await Grade.find(content, function(err, grades) {});
     console.log(req.query)
     
-    body.course_code ? console.log("Body: " +  body.course_code) : null 
-    body.semesters ? console.log("Semesters: " +  body.semesters) : null 
-    
     // The content in json() is what is being returned in the HTTP Response
-    res.status(200).json(grades).send();
+    // res.status(200).json(grades).send();
+
+    Grade.paginate(content,{
+        page: pages,
+        limit: lim,
+        sort: {[sorting]:[order]
+        }
+      }).then(page => {
+        res.json(page);
+      })
+        .catch(err => {
+          res.status(500).json(err);
+        })
 });
 
-// gradeRoutes.route('/grades').get(async function(req, res) {
-//     console.log(req)
-//     let course_code = await req.body.course_code;
-//     grades = await Grade.findById(course_code, function(err, grade) {
-//         res.json(grades);
-//     });
-//     res.status(200).json(grades).send();
-// });
+gradeRoutes.route('/:course_code').get(async function(req, res) {
+    let course_code = req.params.course_code;
+    const grades = await Grade.find({course_code : course_code}, function(err, grades) {
+        res.json(grades);
+    });
+    res.status(200).json(grades).send();
+
+   
+});
 
 export default gradeRoutes;
 
