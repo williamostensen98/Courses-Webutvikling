@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import mongoosePaginate from 'mongoose-paginate';
+
 const Schema = mongoose.Schema;
 
 let Grade = new Schema({
@@ -11,5 +13,8 @@ let Grade = new Schema({
 
     { collection : 'grades' }
     )
+    Grade.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Grade', Grade);
+
+export default Grade
