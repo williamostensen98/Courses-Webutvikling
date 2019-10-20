@@ -2,7 +2,9 @@ import express from 'express';
 import cors from 'cors';
 import Course from '../models/course.model'
 
+
 const courseRoutes = express.Router()
+
 
 courseRoutes.use(cors());
   // Allow client to fetch data
@@ -30,20 +32,23 @@ courseRoutes.route('/').get(async function(req, res) {
     content.content =  body.content ? body.content : "";
     content.learning_goal =  body.learning_goal ? body.learning_goal : "";
     
-    const courses = await Course.find(body, function(err, courses) {});
-    console.log("Body: "+ content)
+    // if (req.query.credits) {
+    //     const courses = await Course.find(({credits: Number(req.query.credits)}), function(err, courses) {}).catch(err => console.log(err));    
+    // }
+    console.log(req.query)
+    const courses = await Course.find((req.query), function(err, courses) {}).catch(err => console.log(err));
     // The content in json() is what is being returned in the HTTP Response
     res.status(200).json(courses).send();
 });
 
 // This path endpoint is used to retrieve a course by its ID. This will return a course object in JSON format as response to a GET request on id.
-courseRoutes.route('/courses/course').get(async function(req, res) {
-    let course_code = await req.body.course_code;
-    course = await Course.findById(course_code, function(err, course) {
-        res.json(course);
-    });
-    res.status(200).json(course).send();
-});
+// courseRoutes.route('/courses').get(async function(req, res) {
+//     let course_code = await req.body.course_code;
+//     course = await Course.findById(course_code, function(err, course) {
+//         res.json(course);
+//     });
+//     res.status(200).json(course).send();
+// });
 
 
 // TODO: Rewrite this to handle adding reviews of courses
