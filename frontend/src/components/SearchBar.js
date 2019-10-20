@@ -3,7 +3,7 @@ import '../css/searchBar.css';
 import {searchCourse} from '../store/action'
 import { connect } from 'react-redux';
 import {Component} from 'react';
-import Button from 'react-bootstrap/Button'
+import Button from './Button'
 import Form from 'react-bootstrap/Form'
 import FormControl from 'react-bootstrap/FormControl'
 import Jumbotron from 'react-bootstrap/Jumbotron'
@@ -29,7 +29,7 @@ class SearchBar extends Component {
                     </h2>
                     <Form > 
                         <FormControl type="text" placeholder="Search" className="mr-sm-2" onChange={this.onChange}/>   
-                        <Button className="btn btn-success btn-bg mt-3">Search</Button>
+                        <Button/>
                     </Form> 
                     </div>
                  </Jumbotron>

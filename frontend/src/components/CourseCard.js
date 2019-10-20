@@ -6,7 +6,7 @@ export class CourseCard extends Component {
         const {course} = this.props;
         return (
             <div>
-                <Card>
+                <Card> 
                     <Card.Body>
                         <h5>{course.code} - {course.norwegian_name}</h5>
                     </Card.Body>

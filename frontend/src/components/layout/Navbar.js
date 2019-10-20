@@ -14,7 +14,7 @@ function Header() {
             </Navbar>
             <div className="logo container" >
                 
-                <i class="fas fa-chart-bar fa-6x"></i>
+                <i className="fas fa-chart-bar fa-6x"></i>
                 <h1 id="logo-text">COURSES</h1>
             </div>
             

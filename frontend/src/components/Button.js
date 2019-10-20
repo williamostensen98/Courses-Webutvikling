@@ -11,11 +11,11 @@ export class Button extends Component {
     }
     render() {
         return (
-            <button
+            <button className="btn btn-success btn-bg mt-3"
                 type = "button"
                 onClick={this.onClick}
             >
-            Søk
+            Search
             </button>
         )
     }

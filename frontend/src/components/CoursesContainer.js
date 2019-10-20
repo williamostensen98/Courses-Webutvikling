@@ -5,7 +5,7 @@ import CourseCard from "./CourseCard"
 
 export class CoursesContainer extends Component {
     render() {
-        const {courses} = this.props.courses;
+        const {courses} = this.props;
         let content = '';
 
         content = courses.length > 0 ? courses.map((course, index) => <CourseCard key={index} course={course} />) : null;
@@ -18,7 +18,7 @@ export class CoursesContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    courses: state.courses.courses
+    courses: state.courses.coursedata
 })
 
 
