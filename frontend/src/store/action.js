@@ -40,7 +40,7 @@ export const fetchCourses = text => {
     return (dispatch) => {
         dispatch(fetchCoursesBegin())
         console.log(initialState.courses.loading) //false med en gang fordi det settes i initState
-        axios.get('https://localhost:3100/'+text)//TODO Riktig request
+        axios.get('http://it2810-39.idi.ntnu.no:3100/'+text)//TODO Riktig request
         .then(response => {
             dispatch(fetchCoursesSuccess(response.data))
         })
