@@ -1,24 +1,64 @@
+/* 
+PRIMARY COLOR: #484d5c
+SECONDARY COLOR: #3b3f4b
 
-.App {
-  text-align: center;
-  margin: 0px;
+HEADLINE COLOR: #ffce00
+TEXT COLOR: #c0ccd4
+
+*/
+
+body{
+  
+  background-color: #484d5c;
+  font-family: 'Cardo', serif;
+  
+  
 }
-
-.App-logo {
-  height: 40vmin;
+input{
+  font-family: 'Oswald', sans-serif;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+ 
+ h1, h2, h3, h4, h5, h6 {
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+ }
+h1, h5{
+  color: #ffce00;
+}
+.logo{
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-content: space-evenly;
+  margin-top: 5vh;
+  
+  
+  
+}
+.fa-chart-bar{
+  color:#ffce00;
+}
+#logo-text{
+  font-size: 5em;
+  margin-left: 1vh;
+  /* font-style: italic; */
+}
+h2{
+  color: #d9dff0;
 }
 
-.App-link {
-  color: #09d3ac;
+
+#jumbo{
+  background-color: #484d5c !important;
+  border-radius: 10px;
+}
+Button{
+  background-color: #ffce00 !important;
+  border-style: none !important;
+  color: #484d5c !important;
+  font-family: 'Oswald', sans-serif;
+}
+nav{
+  background-color: #3b3f4b ;
+  border-bottom: 1px solid #ffce00;
 }

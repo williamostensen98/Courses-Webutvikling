@@ -3,7 +3,14 @@ import '../css/searchBar.css';
 import {searchCourse} from '../store/action'
 import { connect } from 'react-redux';
 import {Component} from 'react';
- 
+import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
+import FormControl from 'react-bootstrap/FormControl'
+import Jumbotron from 'react-bootstrap/Jumbotron'
+import Accordion from 'react-bootstrap/Accordion'
+import Card from 'react-bootstrap/Card'
+
+
 class SearchBar extends Component {
 
     //searchCourse triggerer dispatch av text (action.js), som triggerer typen SEARCH_COURSE-casen i searchReducer, 
@@ -14,12 +21,21 @@ class SearchBar extends Component {
     render() {
         return (
             <div className="searchbar-container">
-                <input id="searchBar" 
-                        type="text" 
-                        placeholder="Search courses, coursecodes or grades"
-                        onChange={this.onChange}
-                    />
-            </div>
+                
+                <Jumbotron id="jumbo" className="mt-5 text-center">
+                    <div className="container">
+                    <h2 className="mb-3">
+                        <i className="fa fa-search"/> Search for course names or codes...
+                    </h2>
+                    <Form > 
+                        <FormControl type="text" placeholder="Search" className="mr-sm-2" onChange={this.onChange}/>   
+                        <Button className="btn btn-success btn-bg mt-3">Search</Button>
+                    </Form> 
+                    </div>
+                 </Jumbotron>
+                
+               
+            </div> 
         )
     }
 }

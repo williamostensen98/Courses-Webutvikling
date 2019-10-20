@@ -1,13 +1,3 @@
-.header {
-  background-color: #464646;
-  color: white;
-
-  margin: 0;
-  padding: 20px 0px;
-  width: 100%;
-
-  text-align: center;
-  font-size: 40px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
+nav{
+    background-color: #c0ccd4 !important;
 }
