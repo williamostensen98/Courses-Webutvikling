@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
-import "./default_files/App.css"
-import "./default_files/index.css"
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "./default_files/index.css"
+import "./default_files/App.css"
 
 import Landing from './components/Landing'
 import Header from "./components/layout/Navbar"
+
 
 
 
@@ -36,14 +38,15 @@ class App extends Component {
   render () {
     return ( 
       <Provider store={store}>
-        <body>
+       
           <div className="App"> 
             
             <Header/>
             <Landing />
             
+            
           </div>
-        </body>
+   
       </Provider>
       )
   } 
