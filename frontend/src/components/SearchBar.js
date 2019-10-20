@@ -13,7 +13,7 @@ import Card from 'react-bootstrap/Card'
 
 class SearchBar extends Component {
 
-    //searchAction triggerer dispatch av text (action.js), som triggerer typen SEARCH_COURSE-casen i searchReducer, 
+    //searchCourse triggerer dispatch av text (action.js), som triggerer typen SEARCH_COURSE-casen i searchReducer, 
     onChange = e => {
         this.props.searchCourse(e.target.value)
     }
@@ -42,7 +42,7 @@ class SearchBar extends Component {
 
 
 const mapStateToProps = state => ({
-    //"Får" courses fra combindeReducers.js automatisk, da den blir satt som rootReducer i store.js
+    //"Får" courses fra combineReducers.js automatisk, da den blir satt som rootReducer i store.js
     text: state.courses.text //text er staten til Courses som blir oppdatert ved input i søkebaren
 })
 
