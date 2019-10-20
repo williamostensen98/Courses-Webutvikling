@@ -7,7 +7,7 @@ export class Button extends Component {
     //fetchCourses triggerer dispatch av text (action.js), som triggerer FETCH-casene i fetchReducer
     onClick = e => {
         e.preventDefault()
-        this.props.fetchCourses(this.props.text)
+        this.props.fetchCourses(this.props.input)
     }
     render() {
         return (
@@ -22,7 +22,7 @@ export class Button extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    text: state.courses.text //text er staten til Courses som blir oppdatert ved input i søkebaren
+    input: state.courses.text //text er staten til Courses som blir oppdatert ved input i søkebaren
 })
 
 /* 

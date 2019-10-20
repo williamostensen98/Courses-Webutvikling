@@ -1,30 +1,33 @@
-import {FETCH_COURSES_BEGIN,
+/* import {FETCH_COURSES_BEGIN,
         FETCH_COURSES_SUCCESS,
         FETCH_COURSES_FAILURE} from '../store/actionTypes'
 import initalState from '../store/initialState'
 
-export default function(state = initalState, action) {
-    /* console.log("ACTION TRIGGERED:", action.type); */
-    switch(action.type) {
+
+//Have to split an asynchronous action into three synchronous ones
+export default function fetchReducer(state = initalState, action) {
+    /* console.log("ACTION TRIGGERED:", action.type);*/
+ /*   switch(action.type) {
         case FETCH_COURSES_BEGIN:
             return{
-                ...state,
+                state,
                 loading: true
             }
         case FETCH_COURSES_SUCCESS:
             return {
-                ...state,
-                data: action.data,
+                state,
+                coursedata: action.data,
                 loading: false,
             }
             
         case FETCH_COURSES_FAILURE:
             return{
-                ...state,
+                state,
                 loading: false
             }
         default:
             return state
     }
-}
+} 
 
+ */

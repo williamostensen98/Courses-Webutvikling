@@ -3,7 +3,7 @@ const initialState = {
     courses: 
         {
         text: '',
-        data: [],
+        coursedata: [],
         loading: false,
         error: false
     }

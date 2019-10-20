@@ -4,6 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import rootReducer from '../reducers/combineReducers';
 import initialState from './initialState';
 
+//Specifying the use of Thunk as middleware
 const middleware = [thunk]
 
 
