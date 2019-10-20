@@ -3,6 +3,8 @@ import "./default_files/App.css"
 import "./default_files/index.css"
 import Landing from './components/Landing'
 import Header from "./components/Header"
+import "bootstrap/dist/css/bootstrap.min.css";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom"; //
 //import { connect } from 'react-redux';
 import {Provider} from 'react-redux'
 import {store} from './store/store'
