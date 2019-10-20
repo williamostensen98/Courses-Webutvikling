@@ -19,11 +19,20 @@ class SearchBar extends Component {
         return (
             <div className="searchbar-container">
                 
-                <Form inline>
-                    <FormControl type="text" placeholder="Search" className="mr-sm-2" onChange={this.onChange}/>
-                    <Button variant="outline-success">Search</Button>
-                </Form>
-            </div>
+                <div className="jumbotron jumbotron-fluid mt-5 text-center container">
+                    <div className="container">
+                    <h1 className="display-4 mb-3">
+                        <i className="fa fa-search"/> Search for course names or codes...
+                    </h1>
+                    <Form >
+                        <FormControl type="text" placeholder="Search" className="mr-sm-2" onChange={this.onChange}/>
+                        <Button className="btn btn-success btn-bg mt-3">Search</Button>
+                    </Form> 
+                    </div>
+                </div>
+                
+               
+            </div> 
         )
     }
 }

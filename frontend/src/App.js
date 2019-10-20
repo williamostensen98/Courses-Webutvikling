@@ -4,7 +4,7 @@ import "./default_files/index.css"
 
 
 import Landing from './components/Landing'
-import Header from "./components/Navbar"
+import Header from "./components/layout/Navbar"
 
 
 
