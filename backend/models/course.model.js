@@ -22,25 +22,8 @@ let Course = new Schema({
     },
     learning_goal: {
         type: String
-    },
-    
-
-    // grades: [{
-    //         semester_code: {
-    //             type: String
-    //         },
-    //         average_grade: {
-    //             type: Number
-    //         },
-    //         passed: {
-    //             type: Boolean
-    //         },
-    //         grades: {
-    //             'a': Number, 'b': Number, 'c': Number, 'd': Number, 'e': Number, 'f': Number
-    //         }
-    //     }],
-    },
-    { collection : 'grades' }
+    }},
+    { collection : 'courses' }
     )
 
 module.exports = mongoose.model('Course', Course);

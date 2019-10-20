@@ -5,38 +5,20 @@ import Landing from './components/Landing'
 import Header from "./components/Header"
 //import { connect } from 'react-redux';
 import {Provider} from 'react-redux'
-
 import {store} from './store/store'
 
 class App extends Component {
-/* 
-  mapStateToProps = (state) => {
-    return {
-      //TODO Add mapStateToProps
-      //EKS:
-        //age: state.age
-    }
-  }
-  
-  mapDispatchToProps = (dispatch) => {
-    return {
-      //TODO Add mapdispachToProps
-      //EKS:
-        //onAgeUp: () => dispatch({type: 'AGE_UP'})
-    }
-  } */
 
+  //Provider gjør at alle elementer under den i hierarkiet får rekursivt tilgang til store (og dermed også statesene)
   render () {
     return ( 
-      <Provider store={store}>
-        <body>
-          <div className="App"> 
-            <Header />
-            <Landing />
-          </div>
-        </body>
+      <Provider store={store}> 
+        <div className="App"> 
+          <Header />
+          <Landing />
+        </div>
       </Provider>
-      )
+    )
   } 
 }
 
