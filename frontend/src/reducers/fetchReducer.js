@@ -4,7 +4,7 @@ import {FETCH_COURSES_BEGIN,
 import initalState from '../store/initialState'
 
 export default function(state = initalState, action) {
-    console.log("ACTION TRIGGERED:", action.type);
+    /* console.log("ACTION TRIGGERED:", action.type); */
     switch(action.type) {
         case FETCH_COURSES_BEGIN:
             return{

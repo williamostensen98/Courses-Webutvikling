@@ -23,7 +23,7 @@ export const fetchCoursesSuccess = (response) => dispatch => {
         type: FETCH_COURSES_SUCCESS,
         data: response
     })
-    console.log("SUCCESS:",response)
+    /* console.log("SUCCESS:",response) */
 }
 
 export const fetchCoursesFailure = (error) => dispatch =>{
@@ -37,7 +37,7 @@ export const fetchCoursesFailure = (error) => dispatch =>{
 export const fetchCourses = text => {
     return (dispatch) => {
         dispatch(fetchCoursesBegin())
-        axios.get('http://it2810-39.idi.ntnu.no:3001/'+text)//TODO Riktig request
+        axios.get('http://it2810-39.idi.ntnu.no:3001/'+text)
         .then(response => {
             dispatch(fetchCoursesSuccess(response.data))
             console.log("RESPONSE:",response.data)
