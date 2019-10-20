@@ -4,7 +4,7 @@ import {fetchCourses} from '../store/action'
 
 export class Button extends Component {
 
-    //TODO Sende input til request
+    //fetchCourses triggerer dispatch av text (action.js), som triggerer FETCH-casene i fetchReducer
     onClick = e => {
         e.preventDefault()
         this.props.fetchCourses(this.props.text)
@@ -24,6 +24,7 @@ export class Button extends Component {
 const mapStateToProps = (state) => ({
     text: state.courses.text //text er staten til Courses som blir oppdatert ved input i søkebaren
 })
+
 /* 
 const mapDispatchToProps = {
     

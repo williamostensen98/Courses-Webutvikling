@@ -1,21 +1,23 @@
 import {FETCH_COURSES_BEGIN,
         FETCH_COURSES_SUCCESS,
         FETCH_COURSES_FAILURE} from '../store/actionTypes'
-import initialState from '../store/initialState'
+import initalState from '../store/initialState'
 
-export default function(state = initalState.course, action) {
+export default function(state = initalState, action) {
+    console.log("ACTION TRIGGERED:", action.type);
     switch(action.type) {
         case FETCH_COURSES_BEGIN:
-            return {
+            return{
                 ...state,
                 loading: true
             }
         case FETCH_COURSES_SUCCESS:
-            return{
+            return {
                 ...state,
-                data: action.data, //TODO HM??? finn ut av dette
-                loading: false
+                data: action.data,
+                loading: false,
             }
+            
         case FETCH_COURSES_FAILURE:
             return{
                 ...state,
@@ -24,6 +26,5 @@ export default function(state = initalState.course, action) {
         default:
             return state
     }
-
 }
 

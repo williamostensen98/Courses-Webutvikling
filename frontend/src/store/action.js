@@ -3,9 +3,6 @@ import { SEARCH_COURSE,
          FETCH_COURSES_SUCCESS, 
          FETCH_COURSES_FAILURE} from './actionTypes'
 import axios from 'axios'
-import initialState from './initialState'
-
-
 
 
 export const searchCourse = text => dispatch => {
@@ -15,34 +12,35 @@ export const searchCourse = text => dispatch => {
     })
 }
 
-export const fetchCoursesBegin = () => {
-    return {
+export const fetchCoursesBegin = () => dispatch => {
+    dispatch ({
         type: FETCH_COURSES_BEGIN
-    }
+    })
 }
 
-export const fetchCoursesSuccess = (data) => {
-    return {
+export const fetchCoursesSuccess = (response) => dispatch => {
+    dispatch ({
         type: FETCH_COURSES_SUCCESS,
-        data: data
-    }
+        data: response
+    })
+    console.log("SUCCESS:",response)
 }
 
-export const fetchCoursesFailure = (error) => {
-    return {
+export const fetchCoursesFailure = (error) => dispatch =>{
+    dispatch ({
         type: FETCH_COURSES_FAILURE,
         error: error
-    }
+    })
 }
 
 
 export const fetchCourses = text => {
     return (dispatch) => {
         dispatch(fetchCoursesBegin())
-        console.log(initialState.courses.loading) //false med en gang fordi det settes i initState
-        axios.get('http://it2810-39.idi.ntnu.no:3100/'+text)//TODO Riktig request
+        axios.get('http://it2810-39.idi.ntnu.no:3001/'+text)//TODO Riktig request
         .then(response => {
             dispatch(fetchCoursesSuccess(response.data))
+            console.log("RESPONSE:",response.data)
         })
         .catch(error => {
             dispatch(fetchCoursesFailure(error))
