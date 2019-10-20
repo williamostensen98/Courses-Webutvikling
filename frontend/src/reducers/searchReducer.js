@@ -1,14 +1,14 @@
-import {SEARCH_COURSE,
-        FETCH_COURSES_BEGIN,
-        FETCH_COURSES_SUCCESS,
-        FETCH_COURSES_FAILURE} from '../store/actionTypes'
-import initialState from '../store/initialState'
-
 /* Things you should never do inside a reducer:
 
 - Mutate its arguments;
 - Perform side effects like API calls and routing transitions;
 - Call non-pure functions, e.g. Date.now() or Math.random(). */
+
+import {SEARCH_COURSE,
+        FETCH_COURSES_BEGIN,
+        FETCH_COURSES_SUCCESS,
+        FETCH_COURSES_FAILURE} from '../store/actionTypes'
+import initialState from '../store/initialState'
 
 
 /*Different cases:
