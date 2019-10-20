@@ -34,13 +34,13 @@ export const fetchCoursesFailure = (error) => dispatch =>{
 }
 
 
-export const fetchCourses = text => {
+export const fetchCourses = input => {
     return (dispatch) => {
         dispatch(fetchCoursesBegin())
-        axios.get('http://it2810-39.idi.ntnu.no:3001/'+text)
+        axios.get('http://it2810-39.idi.ntnu.no:3001/'+input)
         .then(response => {
             dispatch(fetchCoursesSuccess(response.data))
-            console.log("RESPONSE:",response.data)
+            console.log("RESPONSE: ",response.data)
         })
         .catch(error => {
             dispatch(fetchCoursesFailure(error))
