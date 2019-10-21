@@ -1,4 +1,5 @@
 
+//Separate module that defines the action types to be used. 
 export const SEARCH_COURSE = 'SEARCH_COURSE'
 export const FETCH_COURSES_BEGIN = 'FETCH_COURSES_BEGIN'
 export const FETCH_COURSES_SUCCESS = 'FETCH_COURSES_SUCCESS'
