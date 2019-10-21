@@ -1,3 +1,28 @@
 nav{
-    background-color: #c0ccd4 !important;
-}
+    background-color: #3b3f4b ;
+    border-bottom: 1px solid #ffce00;
+  }
+
+.logo{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: space-evenly;
+    margin-top: 5vh; 
+  }
+
+  .fa-chart-bar{
+    color:#ffce00;
+  }
+
+  #logo-text{
+    font-size: 5em;
+    margin-left: 1vh;
+    font-style: italic;
+  }
+
+  h2{
+    color: #d9dff0;
+  }
+  

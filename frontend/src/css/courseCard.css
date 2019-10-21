@@ -1,0 +1,17 @@
+
+#card{
+    background-color: #3b3f4b;
+    border-radius: 5px;
+    color: #c0ccd4;
+  }
+  .card-wrap{
+    width: 70%;
+   
+  }
+  
+  .fa-chevron-down{
+    float: right;
+    color:#ffce00;
+  
+      
+    }

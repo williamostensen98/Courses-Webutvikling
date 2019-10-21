@@ -7,8 +7,6 @@ import Button from './Button'
 import Form from 'react-bootstrap/Form'
 import FormControl from 'react-bootstrap/FormControl'
 import Jumbotron from 'react-bootstrap/Jumbotron'
-import Accordion from 'react-bootstrap/Accordion'
-import Card from 'react-bootstrap/Card'
 
 
 class SearchBar extends Component {

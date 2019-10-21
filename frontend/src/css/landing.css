@@ -1,0 +1,9 @@
+#loading-spinner{
+    color: #ffce00 !important;
+    
+}
+.spinner-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
