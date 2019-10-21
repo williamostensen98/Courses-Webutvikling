@@ -125,7 +125,6 @@ export default courseRoutes;
 
 function containsCode(query) {
   let codes = "tma tdt ttm it tfy"
-  console.log("FAGKODE")
   return codes.includes(query.toLowerCase())
 }
 
@@ -137,6 +136,5 @@ function allLetters(query) {
 
 function containsNumber(query) {
   let numbers = /\d/
-  console.log("FAGKODE MED TALL")
   return numbers.test(query)
 }
