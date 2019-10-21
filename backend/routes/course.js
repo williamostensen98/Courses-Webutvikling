@@ -32,6 +32,7 @@ courseRoutes.route('/').get(async function(req, res) {
     let query = await req.query;
     var stringQuery = Object.keys(query)[0]
 
+    
     if(allLetters(stringQuery)) {
       content.norwegian_name = {$regex : RegExp(stringQuery), $options:'-i'}
       console.log("BOKSTAVER")
