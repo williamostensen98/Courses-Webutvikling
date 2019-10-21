@@ -7,13 +7,11 @@ import Button from './Button'
 import Form from 'react-bootstrap/Form'
 import FormControl from 'react-bootstrap/FormControl'
 import Jumbotron from 'react-bootstrap/Jumbotron'
-import Accordion from 'react-bootstrap/Accordion'
-import Card from 'react-bootstrap/Card'
 
 
 class SearchBar extends Component {
 
-    //searchCourse triggerer dispatch av text (action.js), som triggerer typen SEARCH_COURSE-casen i searchReducer, 
+    //searchCourse triggers dispatching of text (in action.js), that triggers the SEARCH_COURSE-case i searchReducer 
     onChange = e => {
         this.props.searchCourse(e.target.value)
     }

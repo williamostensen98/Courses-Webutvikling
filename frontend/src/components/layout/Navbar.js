@@ -1,5 +1,5 @@
 import React from "react"
-// import "../css/header.css"
+import "../../css/header.css"
 import Navbar from "react-bootstrap/Navbar"
 
 
@@ -13,7 +13,7 @@ function Header() {
                     </Navbar.Brand>
             </Navbar>
             <div className="logo container" >
-                
+                 {/* LOGO HEADER */}
                 <i className="fas fa-chart-bar fa-6x"></i>
                 <h1 id="logo-text">COURSES</h1>
             </div>

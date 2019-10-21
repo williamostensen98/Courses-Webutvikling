@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import SearchBar from './SearchBar';
+import "../css/landing.css"
 import CoursesCointainer from "./CoursesContainer"
 import Spinner from 'react-bootstrap/Spinner'
 
@@ -8,17 +9,17 @@ import Spinner from 'react-bootstrap/Spinner'
 export class Landing extends Component {
     render() {
         const { loading } = this.props;
-        console.log({loading})
         return (
             <div className="container">
                 <SearchBar />
-                
-                {loading ? <Spinner animation="border" variant="light" />: <CoursesCointainer/>}
+                {/* If the site is loading a spinner will be displayed and when it is done loading i will display a coursecontainer */}
+                {loading ? <div className="spinner-container"><Spinner id="loading-spinner" animation="border" variant="light" /></div>: <CoursesCointainer/>}
             </div>
         )
     }
 }
 
+// puts the loading state into a loading prop
 const mapStateToProps = (state) => ({ 
     loading: state.courses.loading
 })

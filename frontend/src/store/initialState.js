@@ -1,4 +1,4 @@
-
+//Initiates the  states that will be set when user makes searches
 const initialState = {
     courses: 
         {
