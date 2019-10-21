@@ -30,14 +30,15 @@ courseRoutes.route('/').get(async function(req, res) {
 
     
     if(allLetters(stringQuery)) {
-      content.norwegian_name = {$regex : RegExp(stringQuery), $options:'-i'}
-      console.log("BOKSTAVER")
-      // const courses = await Course.find({'norwegian_name': {$regex : RegExp(/query/), $options:'-i'}})
+      if(containsCode(stringQuery)) {
+        content.course_code = {$regex: RegExp(stringQuery), $options:'-i'}
+      }
+      else {
+        content.norwegian_name = {$regex : RegExp(stringQuery), $options:'-i'}
+      }
     }
     else if (containsNumber(stringQuery)) {
       content.course_code = {$regex: RegExp(stringQuery), $options:'-i'}
-      // const courses = await Course.find({'course_code': {$regex : RegExp(/query/), $options:'-i'}})
-      console.log("TALL")
     }
 
 
@@ -122,6 +123,11 @@ courseRoutes.put('/:course_code', (req, res) => {
 
 export default courseRoutes;
 
+function containsCode(query) {
+  let codes = "tma tdt ttm it tfy"
+  console.log("FAGKODE")
+  return codes.includes(query.toLowerCase())
+}
 
 
 function allLetters(query) {
@@ -131,5 +137,6 @@ function allLetters(query) {
 
 function containsNumber(query) {
   let numbers = /\d/
+  console.log("FAGKODE MED TALL")
   return numbers.test(query)
 }

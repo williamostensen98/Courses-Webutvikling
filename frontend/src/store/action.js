@@ -50,9 +50,9 @@ export const fetchCoursesFailure = (error) => dispatch =>{
 export const fetchCourses = input => {
     return (dispatch) => {
         dispatch(fetchCoursesBegin())
-        axios.get('http://it2810-39.idi.ntnu.no:3001/'+input)
+        axios.get('http://it2810-39.idi.ntnu.no:3001/courses?'+input)
         .then(response => {
-            dispatch(fetchCoursesSuccess(response.data))
+            dispatch(fetchCoursesSuccess(response.data)) 
         })
         .catch(error => {
             dispatch(fetchCoursesFailure(error))
