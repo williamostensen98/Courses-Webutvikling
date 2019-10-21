@@ -13,7 +13,7 @@ import Card from 'react-bootstrap/Card'
 
 class SearchBar extends Component {
 
-    //searchCourse triggerer dispatch av text (action.js), som triggerer typen SEARCH_COURSE-casen i searchReducer, 
+    //searchCourse triggers dispatching of text (in action.js), that triggers the SEARCH_COURSE-case i searchReducer 
     onChange = e => {
         this.props.searchCourse(e.target.value)
     }
