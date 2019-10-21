@@ -4,6 +4,12 @@ import Accordion from 'react-bootstrap/Accordion'
 import "../css/courseCard.css"
 
 export class CourseCard extends Component {
+
+    constructor(props){
+        super(props);
+        this.toggleSidenav = this.toggleSidenav.bind(this);
+    }
+
     render() {
         const {course} = this.props; // fetches course thats sent as prop from CourseContainer
         let taught_in = ''
@@ -11,7 +17,7 @@ export class CourseCard extends Component {
         return (
             <div className="card-wrap container">
                 <Accordion>
-                    <Card id="card"> 
+                    <Card ref="card" id="card"> 
                         <Accordion.Toggle as={Card.Header} eventKey="0">
                             <div className="row">
                                 <div className="col-9">
@@ -20,7 +26,8 @@ export class CourseCard extends Component {
                                 </div>
                                 <div className="col">
                                     {/* Icon on the right side of the card */}
-                                    <i className="fas fa-chevron-down fa-2x"></i>
+                                    {}
+                                    <i ref="icon" className="fas fa-chevron-down fa-2x"></i>
                                 </div>
                             </div> 
                         </Accordion.Toggle>
@@ -42,6 +49,18 @@ export class CourseCard extends Component {
             </div>
               
         )
+    }
+
+    toggleSidenav() {
+        this.refs.icon.classList.toggle('flip');
+    }
+
+    componentDidMount() {
+        this.refs.card.addEventListener('click', this.toggleSidenav);
+    }
+
+    componentWillUnmount() {
+        this.refs.card.removeEventListener('click', this.toggleSidenav);
     }
 }
 
