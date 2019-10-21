@@ -30,18 +30,32 @@ courseRoutes.route('/').get(async function(req, res) {
     // Checks if attribute exists on req.query and saves it if it exists.
     let content = {};
     let query = await req.query;
-    if (query._id) { content._id = query._id} 
-    if (query.course_code) { content.course_code = {$regex: RegExp(query.course_code), $options:'-i'}}
-    if (query.credits) { content.credits = Number(query.credits)}
-    if (query.norwegian_name) { content.norwegian_name = {$regex : RegExp(query.norwegian_name), $options:'-i'}}
-    if (query.taught_in_spring) { content.taught_in_spring = true} 
-    if (query.taught_in_autumn) { content.taught_in_autumn = true} 
-    if (query.content) { content.content = {$regex: RegExp(query.content), $options:'-i'}}
-    if (query.learning_goal) { content.learning_goal = {$regex: RegExp(query.learning_goal), $options:'-i'}}
+    var stringQuery = Object.keys(query)[0]
+
+    if(allLetters(stringQuery)) {
+      content.norwegian_name = {$regex : RegExp(stringQuery), $options:'-i'}
+      console.log("BOKSTAVER")
+      // const courses = await Course.find({'norwegian_name': {$regex : RegExp(/query/), $options:'-i'}})
+    }
+    else if (containsNumber(stringQuery)) {
+      content.course_code = {$regex: RegExp(stringQuery), $options:'-i'}
+      // const courses = await Course.find({'course_code': {$regex : RegExp(/query/), $options:'-i'}})
+      console.log("TALL")
+    }
+
+
+    // if (query._id) { content._id = query._id } 
+    // if (query.course_code) { content.course_code = {$regex: RegExp(query.course_code), $options:'-i'}}
+    // if (query.credits) { content.credits = Number(query.credits)}
+    // if (query.norwegian_name) { content.norwegian_name = {$regex : RegExp(query.norwegian_name), $options:'-i'}}
+    // if (query.taught_in_spring) { content.taught_in_spring = true} 
+    // if (query.taught_in_autumn) { content.taught_in_autumn = true} 
+    // if (query.content) { content.content = {$regex: RegExp(query.content), $options:'-i'}}
+    // if (query.learning_goal) { content.learning_goal = {$regex: RegExp(query.learning_goal), $options:'-i'}}
 
     // Syntax to find partial match by using MongoDB find()-function:
     // find(({norwegian_name : {$regex : /Ava/}})
-    console.log(content)
+    console.log("CONTENT:",content)
     const courses = await Course.find((content), function(err, courses) {}).catch(err => console.log(err));
     // The content in json() is what is being returned in the HTTP Response
     // res.status(200).json(courses).send();
@@ -60,14 +74,14 @@ courseRoutes.route('/').get(async function(req, res) {
         })
 });
 
-// This path endpoint is used to retrieve a course by its ID. This will return a course object in JSON format as response to a GET request on id.
-courseRoutes.route('/:course_code').get(async function(req, res) {
-    let course_code = req.params.course_code;
-    course = await Course.find({course_code : course_code}, function(err, course) {
-        res.json(course);
-    });
-    res.status(200).json(course).send();
-});
+// // This path endpoint is used to retrieve a course by its ID. This will return a course object in JSON format as response to a GET request on id.
+// courseRoutes.route('/:course_code').get(async function(req, res) {
+//     let course_code = req.params.course_code;
+//     course = await Course.find({course_code : course_code}, function(err, course) {
+//         res.json(course);
+//     });
+//     res.status(200).json(course).send();
+// });
 
 
 
@@ -85,3 +99,15 @@ courseRoutes.route('/:course_code').get(async function(req, res) {
 
 
 export default courseRoutes;
+
+
+
+function allLetters(query) {
+  let letters = /^[A-Za-z]+$/
+  return letters.test(query)
+}
+
+function containsNumber(query) {
+  let numbers = /\d/
+  return numbers.test(query)
+}

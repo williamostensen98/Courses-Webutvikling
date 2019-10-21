@@ -14,8 +14,8 @@ gradeRoutes.use(cors());
       next();
 });
 
-// The function passed into the get function handles all GET requests sent to /courses 
-// Further on, we're calling Course.find to get a list of all course items from the MongoDB. The find function takes one argument, a callback function
+// The function passed into the get function handles all GET requests sent to /grades 
+// Further on, we're calling Grades.find to get a list of all course items from the MongoDB. The find function takes one argument, a callback function
 // which is executed once the result is available. All results available in courses are added in JSON format to the response by calling res.json(courses).
 gradeRoutes.route('/').get(async function(req, res) {
     let sorting = req.query.sorting ? req.query.sorting: 'norwegian_name';
@@ -27,11 +27,13 @@ gradeRoutes.route('/').get(async function(req, res) {
     // Saving all possible attributes for a course document in the collection in content object
     let content = {};
     let query = await req.query;
+
+    if(query.all)
     if (query.course_code) { content.course_code = {$regex : RegExp(query.course_code), $options:'-i'} }
     if (query.semesters) { content.semesters = query.semesters }
     if (query.semester_code) { content.semester_code = query.semester_code }
     
-    // The content object being send into find is of the form e.g., {course_code = "TDT4140"}
+    // The content object being sent into find is of the form e.g., {course_code = "TDT4140"}
     const grades = await Grade.find(content, function(err, grades) {});
     console.log(req.query)
     
@@ -65,3 +67,4 @@ export default gradeRoutes;
 
 // Format for spørringer:
 // http://localhost:3001/grades?course_code=TDT4110&semesters.semester_code=H2018
+
