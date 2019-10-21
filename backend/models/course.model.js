@@ -7,7 +7,7 @@ let Course = new Schema({
     norwegian_name: {
         type: String
     },
-    code : {
+    course_code : {
         type: String
     },
     credit: {
@@ -24,7 +24,14 @@ let Course = new Schema({
     },
     learning_goal: {
         type: String
-    }},
+    },
+    reviews: {
+        type: Array
+    },
+    difficulty: {
+        type: Array
+    }
+    },
     { collection : 'courses' }
     )
 
