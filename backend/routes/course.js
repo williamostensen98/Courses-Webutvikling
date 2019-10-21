@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import Course from '../models/course.model';
+import { model } from 'mongoose';
 
 
 const courseRoutes = express.Router()
@@ -11,7 +12,7 @@ courseRoutes.use(cors());
   courseRoutes.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*'); // Can change * to allow request from specific clients. In this project we dont care to handle security issues.
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-      res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+      res.header('Access-Control-Allow-Methods', 'GET, PUT'); // We only allow GET and PUT requests. On purpose, we decided to not have any functionality to add courses, neither delete them.
       next();
 });
 
@@ -19,12 +20,7 @@ courseRoutes.use(cors());
 // Further on, we're calling Course.find to get a list of all course items from the MongoDB. The find function takes one argument, a callback function
 // which is executed once the result is available. All results available in courses are added in JSON format to the response by calling res.json(courses).
 courseRoutes.route('/').get(async function(req, res) {
-    let sorting = req.query.sorting ? req.query.sorting: 'norwegian_name';
-    let order = req.query.order ? req.query.order : '1';
-    let page = req.query.page ? req.query.page : 1;
-    let pages=parseInt(page);
-    let limit = req.query.limit ? req.query.limit : 10;
-    let lim=parseInt(limit);
+    
 
     // Saving all possible attributes for a course document in the collection in content object. 
     // Checks if attribute exists on req.query and saves it if it exists.
@@ -41,32 +37,57 @@ courseRoutes.route('/').get(async function(req, res) {
 
     // Syntax to find partial match by using MongoDB find()-function:
     // find(({norwegian_name : {$regex : /Ava/}})
-    console.log(content)
-    const courses = await Course.find((content), function(err, courses) {}).catch(err => console.log(err));
-    // The content in json() is what is being returned in the HTTP Response
-    // res.status(200).json(courses).send();
+    // console.log(content)
+    // const courses = await Course.find((content), function(err, courses) {}).catch(err => console.log(err));
+    
+    // Values retrieved by the query, else set to default values. Used in pagination and sorting of results.
+    let sorting = req.query.sorting ? req.query.sorting: 'norwegian_name';
+    let order = req.query.order ? req.query.order : '1';
+    let page = req.query.page ? req.query.page : 1;
+    let pages=parseInt(page);
+    let limit = req.query.limit ? req.query.limit : 10;
+    let lim=parseInt(limit);
 
-    // Uses mongoose-paginate to paginate results. Plugin in imported in the course.model.js.
-    Course.paginate(content,{
-        page: pages,
-        limit: lim,
-        sort: {[sorting]:[order]
-        }
-      }).then(page => {
-        res.json(page);
-      })
-        .catch(err => {
-          res.status(500).json(err);
+    // Uses mongoose-paginate to paginate results. Plugin in imported in the course.model.js. Response to client is sent in this function. 
+    // Takes to arguments. One content object, and one object containing pages, page limit and what to sort by.
+    Course.paginate(content,
+        {   page: pages,
+            limit: lim,
+            sort: {[sorting]:[order]}
+        })
+        .then(paginated_content => {
+            // The content in json() is what is being returned in the HTTP Response. In this case paginated_content is the entire page containing all #page of objects
+            res.json(paginated_content);
+        })
+        .catch(error => {
+            // In case of error, return status 500 and error message.
+          res.status(500).json(error);
         })
 });
 
-// This path endpoint is used to retrieve a course by its ID. This will return a course object in JSON format as response to a GET request on id.
-courseRoutes.route('/:course_code').get(async function(req, res) {
+// This path endpoint is used to retrieve a course by its course_code. This will return a course object in JSON format as response to a GET request on course_code.
+courseRoutes.route('/:course_code').get(async (req, res) => {
     let course_code = req.params.course_code;
-    course = await Course.find({course_code : course_code}, function(err, course) {
+    course = await Course.find({course_code : course_code}, (err, course) => {
         res.json(course);
-    });
-    res.status(200).json(course).send();
+    }).catch(error => res.status(500).json(error));
+});
+
+
+// For updating rows in collection with reviews and rated difficulty. PUT requests to it2810.39.idi.ntnu.no:3001/courses/<COURSE_CODE> will update the course 
+// if the request contains a review AND a difficulty. 
+courseRoutes.put('/:course_code', (req, res) => {
+    console.log(req.body.difficulty)
+    let difficulty = parseInt(req.body.difficulty)
+    // Find the correct course in the DB. Course_code is a primary key, and the search will always return one result.
+    let course = Course.find({course_code : req.params.course_code})
+    if (req.body.review && 6>difficulty>0) {
+        console.log(req.params.course_code)
+        // Find document "course" in db and push the review to the review array on the document. Also update difficulty to new average.
+        Course.findOneAndUpdate(course, {"$push": { "reviews": req.body.review },  "$push" : {"difficulty" : parseInt(req.body.difficulty)}})
+        .then(course => res.json(course))
+        .catch(err => res.status(500).json(err))   
+    }    
 });
 
 
