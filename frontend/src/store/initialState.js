@@ -6,6 +6,10 @@ const initialState = {
         coursedata: [],
         loading: false,
         error: false
+    }, 
+    toggle: 
+    {
+        value: false
     }
 }
 

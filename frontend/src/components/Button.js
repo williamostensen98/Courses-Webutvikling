@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {fetchCourses} from '../store/action'
+import {fetchCourses} from '../store/searchAction'
 import "../css/button.css"
 
 export class Button extends Component {
