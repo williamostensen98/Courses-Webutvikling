@@ -3,10 +3,12 @@ import cors from 'cors';
 import Course from '../models/course.model';
 import { model } from 'mongoose';
 
+// TODO: Add catch blocks for all functions to handle warnings in the console.
 
 const courseRoutes = express.Router()
 
-
+// Cross-Origin Resource Sharing (CORS). Used to specify what type of requests is allowed, who may send requests and what header-types. 
+// CORS works by adding new HTTP headers that let servers describe which origins are permitted to read information from a web browser.
 courseRoutes.use(cors());
   // Allow client to fetch data
   courseRoutes.use(function(req, res, next) {
@@ -68,6 +70,9 @@ courseRoutes.route('/').get(async function(req, res) {
 
     // Uses mongoose-paginate to paginate results. Plugin in imported in the course.model.js. Response to client is sent in this function. 
     // Takes to arguments. One content object, and one object containing pages, page limit and what to sort by.
+    // To go to next page of query results, add &page=<page_number> to the end of the query.
+    // Sorts by norwegian name unless sorting is specified in the query in ascending order (order : 1, use -1 for descending).
+    // Sorting and order may also be added to the query &sorting=course_code&order=-1.
     console.log("Content: ", content)
     Course.paginate(content,
         {   page: pages,
@@ -75,8 +80,9 @@ courseRoutes.route('/').get(async function(req, res) {
             sort: {[sorting]:[order]}
         })
         .then(paginated_content => {
-            // The content in json() is what is being returned in the HTTP Response. In this case paginated_content is the entire page containing all #page of objects
-            res.json(paginated_content);
+            // The content in json() is what is being returned in the HTTP Response. 
+            // In this case paginated_content is the entire page containing all #page of objects
+            res.status(200).json(paginated_content);
         })
         .catch(error => {
             // In case of error, return status 500 and error message.
@@ -84,7 +90,9 @@ courseRoutes.route('/').get(async function(req, res) {
         })
 });
 
-// This path endpoint is used to retrieve a course by its course_code. This will return a course object in JSON format as response to a GET request on course_code.
+// This path endpoint is used to retrieve a course by its course_code. 
+// This will return a single course object in JSON format as response to a GET request on course_code. 
+// Course_code works as a key in the database (is unique for all documents in the collection)
 courseRoutes.route('/:course_code').get(async (req, res) => {
     let course_code = req.params.course_code;
     course = await Course.find({course_code : course_code}, (err, course) => {
@@ -110,18 +118,6 @@ courseRoutes.put('/:course_code', (req, res) => {
 });
 
 
-
-// TODO: Rewrite this to handle adding reviews of courses
-// courseRoutes.route('/:course_code/add').post(function(req, res) {
-//     let course = new Course(req.body);
-//     course.save()
-//         .then(course => {
-//             res.status(200).json({'Course': 'Reviews added successfully.'});
-//         })
-//         .catch(err => {
-//             res.status(400).send('Adding new review to course, ', course, ', failed');
-//         });
-// });
 
 
 export default courseRoutes;
