@@ -47,7 +47,7 @@ export class CourseCard extends Component {
                                 {course.content}
                                 <div className="row">
                                     <div id="rating" className="col">
-                                        <RatingModal />
+                                        <RatingModal course={course} />
                                     </div>
                                     <div id="grade" className="col">
                                         <GradeModal />

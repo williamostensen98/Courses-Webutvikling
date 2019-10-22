@@ -1,7 +1,8 @@
 import { SEARCH_COURSE, 
          FETCH_COURSES_BEGIN, 
          FETCH_COURSES_SUCCESS, 
-         FETCH_COURSES_FAILURE} from './actionTypes'
+         FETCH_COURSES_FAILURE,
+         ADD_REVIEW} from './actionTypes'
 import axios from 'axios'
 
 //Plain JavaScript objects, action creators
@@ -46,16 +47,30 @@ export const fetchCoursesFailure = (error) => dispatch =>{
 }
 
 
+
 //The actual fetching through url from the virtual machine
 export const fetchCourses = input => {
     return (dispatch) => {
         dispatch(fetchCoursesBegin())
-        axios.get('http://it2810-39.idi.ntnu.no:3001/courses?'+input)
+        // axios.get('http://it2810-39.idi.ntnu.no:3001/courses?'+input)
+        axios.get('http://localhost:3001/courses?'+input)
         .then(response => {
             dispatch(fetchCoursesSuccess(response.data)) 
         })
         .catch(error => {
             dispatch(fetchCoursesFailure(error))
+        })
+    }
+}
+
+export const addReview = (input, course_code) => {
+    return (dispatch) => {
+        axios.put('http://localhost:3001/courses/' + course_code)
+        .then(res => {
+            console.log("Review added!")
+        })
+        .catch(err => {
+            console.log("Something went wrong. Review was not added.")
         })
     }
 }

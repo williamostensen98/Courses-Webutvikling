@@ -110,16 +110,18 @@ courseRoutes.route('/:course_code').get(async (req, res) => {
 courseRoutes.put('/:course_code', (req, res) => {
     // console.log(req.body.difficulty)
     let difficulty = parseInt(req.body.difficulty)
+    let review = req.body.review
     // Find the correct course in the DB. Course_code is a primary key, and the search will always return one result.
     let course = Course.find({course_code : req.params.course_code})
+    console.log("review: ", review)
     if (req.body.review && 6>difficulty>0) {
         // console.log(req.params.course_code)
         // Find document "course" in db and push the review to the review array on the document. Also update difficulty to new average.
-        Course.findOneAndUpdate(course, {"$push": { "reviews": req.body.review },  "$push" : {"difficulty" : parseInt(req.body.difficulty)}})
-        .then(course => res.json(course))
-        .catch(err => res.status(500).json(err))   
-    }    
-});
+        Course.findOneAndUpdate(course, {"$push" : {"reviews": review, "difficulty" : parseInt(req.body.difficulty)}})
+        .then(res.json("Your review was successfully added!"))
+        .catch(err => console.log(err))
+      }  
+  });
 
 
 
