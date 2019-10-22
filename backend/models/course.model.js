@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
 import mongoosePaginate from 'mongoose-paginate';
 
+
+// This file is a representation of the docs in the collection courses. 
+// We have used Mongoose, which is a ODM (Object Data Modeling) library for MongoDB. 
+// Mongoose manages relationships between data and translates between objects in code and the objects in MongoDB.
+
 const Schema = mongoose.Schema;
 
 let Course = new Schema({
@@ -32,10 +37,13 @@ let Course = new Schema({
         type: Array
     }
     },
-    { collection : 'courses' }
-    )
 
-    Course.plugin(mongoosePaginate);
+    // Specifying the name of the collection in MongoDB
+    { collection : 'courses'}
+)
+
+// mongoose-paginate is used to paginate query results. Pagination is imported and activated in this file, but used in routes/course.js
+Course.plugin(mongoosePaginate);
 
 
 module.exports = mongoose.model('Course', Course);

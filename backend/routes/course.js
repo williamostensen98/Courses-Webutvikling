@@ -3,10 +3,12 @@ import cors from 'cors';
 import Course from '../models/course.model';
 import { model } from 'mongoose';
 
+// TODO: Add catch blocks for all functions to handle warnings in the console.
 
 const courseRoutes = express.Router()
 
-
+// Cross-Origin Resource Sharing (CORS). Used to specify what type of requests is allowed, who may send requests and what header-types. 
+// CORS works by adding new HTTP headers that let servers describe which origins are permitted to read information from a web browser.
 courseRoutes.use(cors());
   // Allow client to fetch data
   courseRoutes.use(function(req, res, next) {
@@ -26,19 +28,36 @@ courseRoutes.route('/').get(async function(req, res) {
     // Checks if attribute exists on req.query and saves it if it exists.
     let content = {};
     let query = await req.query;
-    if (query._id) { content._id = query._id} 
-    if (query.course_code) { content.course_code = {$regex: RegExp(query.course_code), $options:'-i'}}
-    if (query.credits) { content.credits = Number(query.credits)}
-    if (query.norwegian_name) { content.norwegian_name = {$regex : RegExp(query.norwegian_name), $options:'-i'}}
-    if (query.taught_in_spring) { content.taught_in_spring = true} 
-    if (query.taught_in_autumn) { content.taught_in_autumn = true} 
-    if (query.content) { content.content = {$regex: RegExp(query.content), $options:'-i'}}
-    if (query.learning_goal) { content.learning_goal = {$regex: RegExp(query.learning_goal), $options:'-i'}}
+    var stringQuery = Object.keys(query)[0]
+
+    //Check input from search bar. User only searches for norwegian_name og course_code
+    //Filters the other opions
+    if(allLetters(stringQuery) && stringQuery) {
+      if(containsCode(stringQuery)) {
+        content.course_code = {$regex: RegExp(stringQuery), $options:'-i'}
+      }
+      else {
+        content.norwegian_name = {$regex : RegExp(stringQuery), $options:'-i'}
+      }
+    }
+    else if (containsNumber(stringQuery)) {
+      content.course_code = {$regex: RegExp(stringQuery), $options:'-i'}
+    }
+
+    //Makes query from user chosen filtering
+    // if (query._id) { content._id = query._id } 
+    // if (query.course_code) { content.course_code = {$regex: RegExp(query.course_code), $options:'-i'}}
+    // if (query.credits) { content.credits = Number(query.credits)}
+    // if (query.norwegian_name) { content.norwegian_name = {$regex : RegExp(query.norwegian_name), $options:'-i'}}
+    // if (query.taught_in_spring) { content.taught_in_spring = true} 
+    // if (query.taught_in_autumn) { content.taught_in_autumn = true} 
+    // if (query.content) { content.content = {$regex: RegExp(query.content), $options:'-i'}}
+    // if (query.learning_goal) { content.learning_goal = {$regex: RegExp(query.learning_goal), $options:'-i'}}
 
     // Syntax to find partial match by using MongoDB find()-function:
     // find(({norwegian_name : {$regex : /Ava/}})
     // console.log(content)
-    // const courses = await Course.find((content), function(err, courses) {}).catch(err => console.log(err));
+    const courses = await Course.find((content), function(err, courses) {}).catch(err => console.log(err));
     
     // Values retrieved by the query, else set to default values. Used in pagination and sorting of results.
     let sorting = req.query.sorting ? req.query.sorting: 'norwegian_name';
@@ -47,17 +66,23 @@ courseRoutes.route('/').get(async function(req, res) {
     let pages=parseInt(page);
     let limit = req.query.limit ? req.query.limit : 10;
     let lim=parseInt(limit);
+    console.log(content)
 
     // Uses mongoose-paginate to paginate results. Plugin in imported in the course.model.js. Response to client is sent in this function. 
     // Takes to arguments. One content object, and one object containing pages, page limit and what to sort by.
+    // To go to next page of query results, add &page=<page_number> to the end of the query.
+    // Sorts by norwegian name unless sorting is specified in the query in ascending order (order : 1, use -1 for descending).
+    // Sorting and order may also be added to the query &sorting=course_code&order=-1.
+    console.log("Content: ", content)
     Course.paginate(content,
         {   page: pages,
             limit: lim,
             sort: {[sorting]:[order]}
         })
         .then(paginated_content => {
-            // The content in json() is what is being returned in the HTTP Response. In this case paginated_content is the entire page containing all #page of objects
-            res.json(paginated_content);
+            // The content in json() is what is being returned in the HTTP Response. 
+            // In this case paginated_content is the entire page containing all #page of objects
+            res.status(200).json(paginated_content);
         })
         .catch(error => {
             // In case of error, return status 500 and error message.
@@ -65,7 +90,9 @@ courseRoutes.route('/').get(async function(req, res) {
         })
 });
 
-// This path endpoint is used to retrieve a course by its course_code. This will return a course object in JSON format as response to a GET request on course_code.
+// This path endpoint is used to retrieve a course by its course_code. 
+// This will return a single course object in JSON format as response to a GET request on course_code. 
+// Course_code works as a key in the database (is unique for all documents in the collection)
 courseRoutes.route('/:course_code').get(async (req, res) => {
     let course_code = req.params.course_code;
     course = await Course.find({course_code : course_code}, (err, course) => {
@@ -92,17 +119,21 @@ courseRoutes.put('/:course_code', (req, res) => {
 
 
 
-// TODO: Rewrite this to handle adding reviews of courses
-// courseRoutes.route('/:course_code/add').post(function(req, res) {
-//     let course = new Course(req.body);
-//     course.save()
-//         .then(course => {
-//             res.status(200).json({'Course': 'Reviews added successfully.'});
-//         })
-//         .catch(err => {
-//             res.status(400).send('Adding new review to course, ', course, ', failed');
-//         });
-// });
-
 
 export default courseRoutes;
+
+function containsCode(query) {
+  let codes = "tma tdt ttm it tfy"
+  return codes.includes(query.toLowerCase())
+}
+
+
+function allLetters(query) {
+  let letters = /^[A-Za-z]+$/
+  return letters.test(query)
+}
+
+function containsNumber(query) {
+  let numbers = /\d/
+  return numbers.test(query)
+}

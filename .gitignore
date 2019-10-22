@@ -4,7 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
-backend/node_modules/.cache/@babel/register/.babel.7.6.4.development.json
+/backend/node_modules/.cache/@babel/register/.babel.7.6.4.development.json
 
 # frontend
 /frontend/node_modules
