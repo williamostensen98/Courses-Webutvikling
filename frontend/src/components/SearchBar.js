@@ -1,6 +1,6 @@
 import React from 'react';
 import '../css/searchBar.css';
-import {searchCourse} from '../store/action'
+import {searchCourse, fetchCourses} from '../store/action'
 import { connect } from 'react-redux';
 import {Component} from 'react';
 import Button from './Button'
@@ -15,7 +15,13 @@ class SearchBar extends Component {
     onChange = e => {
         this.props.searchCourse(e.target.value)
     }
-
+    keyPressed = e => {
+        if (e.key === "Enter") {
+            e.preventDefault()
+            this.props.fetchCourses(this.props.text)
+        }
+      }
+   
     render() {
         return (
             <div className="searchbar-container">
@@ -26,8 +32,8 @@ class SearchBar extends Component {
                         <i className="fa fa-search"/> Search for course names or codes...
                     </h2>
                     <Form > 
-                        <FormControl type="text" placeholder="Search" className="mr-sm-2" onChange={this.onChange}/>   
-                        <Button/>
+                        <FormControl type="text" placeholder="Search" className="mr-sm-2" onChange={this.onChange} onKeyPress={this.keyPressed}/>   
+                        <Button />
                     </Form> 
                     </div>
                  </Jumbotron>
@@ -44,5 +50,5 @@ const mapStateToProps = state => ({
     text: state.courses.text //text er staten til Courses som blir oppdatert ved input i søkebaren
 })
 
-export default connect(mapStateToProps, {searchCourse})(SearchBar)
+export default connect(mapStateToProps, {searchCourse, fetchCourses})(SearchBar)
 
