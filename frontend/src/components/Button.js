@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-<<<<<<< HEAD
-import {fetchCourses} from '../store/courseActions'
-=======
-import {fetchCourses} from '../store/searchAction'
->>>>>>> 5236af43868f58a386e81d61776df9bbc6c90fd3
+import {fetchCourses} from '../store/searchActions'
 import "../css/button.css"
 
 export class Button extends Component {

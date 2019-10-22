@@ -1,27 +1,27 @@
 import React, { Component } from 'react'
 // import "../css/courseCard.css"
 import {Animated} from "react-animated-css";
-import {toggleValue} from '../store/toggleAction'
+import {toggleFilter} from '../store/toggleActions'
 import { connect } from 'react-redux'
 import "../css/filtering.css"
 
 export class Filtering extends Component{
 
     
-    toggleFilter = () => {
+    handleToggle = () => {
         if (!this.props.check){
             this.refs.foot.classList.add('foot-display');
             this.refs.foot.classList.remove('footer');
         }
-       this.props.toggleValue(this.props.check)
+       this.props.toggleFilter(this.props.check)
     }
     componentDidMount() {
         
-        this.refs.filterButton.addEventListener('click', this.toggleFilter);
+        this.refs.filterButton.addEventListener('click', this.handleToggle);
     }
 
     componentWillUnmount() {
-        this.refs.filterButton.removeEventListener('click', this.toggleFilter);
+        this.refs.filterButton.removeEventListener('click', this.handleToggle);
     }
    
     render() {
@@ -77,7 +77,7 @@ export class Filtering extends Component{
 }
 
 const mapStateToProps = (state) => ({
-    check: state.toggle.value
+    check: state.toggle.filter
 })
 
-export default connect(mapStateToProps, {toggleValue})(Filtering)
+export default connect(mapStateToProps, {toggleFilter})(Filtering)

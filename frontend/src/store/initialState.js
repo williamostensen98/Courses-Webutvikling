@@ -13,7 +13,8 @@ const initialState = {
     }, 
     toggle: 
     {
-        value: false
+        filter: false,
+        modal: false
     }
 }
 
