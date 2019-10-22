@@ -14,10 +14,12 @@ function CenteredModal(props) {
         return (
             <Modal
             {...props}
+            
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
           >
+          
             <Modal.Header >
               <Modal.Title id="contained-modal-title-vcenter">
                 Grade stats
@@ -33,6 +35,7 @@ function CenteredModal(props) {
             <Modal.Footer>
               <Button onClick={props.onHide}>Close</Button>
             </Modal.Footer>
+            
           </Modal>
   
     )
@@ -56,7 +59,7 @@ export class GradeModal extends Component {
           </Button>
     
           <CenteredModal
-            className="fade"
+            
             show={this.props.check}
             onHide={this.onClick}
           />
