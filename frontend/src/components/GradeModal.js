@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, Component } from 'react'
 import "../css/courseCard.css"
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
+import {toggleModal} from "../store/toggleActions"
+import {connect} from 'react-redux'
+import {fetchGrades} from '../store/gradeActions'
 
 
 
@@ -11,10 +14,12 @@ function CenteredModal(props) {
         return (
             <Modal
             {...props}
+            
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
           >
+          
             <Modal.Header >
               <Modal.Title id="contained-modal-title-vcenter">
                 Grade stats
@@ -30,27 +35,41 @@ function CenteredModal(props) {
             <Modal.Footer>
               <Button onClick={props.onHide}>Close</Button>
             </Modal.Footer>
+            
           </Modal>
   
     )
 }
-function GradeModal() {
-    const [modalShow, setModalShow] = useState(false);
-  
-    return (
-      <ButtonToolbar id="grade" >
-        <Button className="mt-4"  variant="primary" onClick={() => setModalShow(true)}>
-          Grades
-        </Button>
-  
-        <CenteredModal
-          show={modalShow}
-          onHide={() => setModalShow(false)}
-        />
-      </ButtonToolbar>
-    );
+export class GradeModal extends Component {
+    // const [modalShow, setModalShow] = useState(false);
+
+
+
+    onClick = e => {
+      // e.preventDefault();
+      this.props.toggleModal(this.props.check)
+      this.props.fetchGrades(this.props.coursecode)
+    }
+    render() {
+
+      return (
+        <ButtonToolbar id="grade" >
+          <Button className="mt-4"  variant="primary" onClick={this.onClick}>
+            Grades
+          </Button>
+    
+          <CenteredModal
+            
+            show={this.props.check}
+            onHide={this.onClick}
+          />
+        </ButtonToolbar>
+      );
+    }
   }
-  
 
-export default GradeModal
+const mapStateToProps = (state) => ({
+    check: state.toggle.modal
+})
 
+export default connect(mapStateToProps, {toggleModal, fetchGrades })(GradeModal)
