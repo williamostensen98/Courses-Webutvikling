@@ -10,6 +10,10 @@ const initialState = {
         gradedata: [],
         loading: false,
         error: false
+    }, 
+    toggle: 
+    {
+        value: false
     }
 }
 

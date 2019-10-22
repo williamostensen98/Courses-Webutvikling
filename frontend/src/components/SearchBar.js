@@ -1,6 +1,6 @@
 import React from 'react';
 import '../css/searchBar.css';
-import {searchCourse, fetchCourses} from '../store/courseActions'
+import {searchCourse, fetchCourses} from '../store/searchAction'
 import { connect } from 'react-redux';
 import {Component} from 'react';
 import Button from './Button'

@@ -1,35 +1,19 @@
 import React, { Component } from 'react'
 // import "../css/courseCard.css"
 import {Animated} from "react-animated-css";
-
+import {toggleValue} from '../store/toggleAction'
+import { connect } from 'react-redux'
 import "../css/filtering.css"
 
-// import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
-
-
-
-
-
 export class Filtering extends Component{
-    constructor(props) { 
-        super(props);
-        this.toggleFilter = this.toggleFilter.bind(this);
-        this.handleClick = this.handleClick.bind(this);
-        this.state = {
-           check: false
-        };
-     };
 
-    handleClick(){
-        this.refs.button1.classList.add('foot-display');
-
-    }
-    toggleFilter(){
-        if (!this.state.check){
+    
+    toggleFilter = () => {
+        if (!this.props.check){
             this.refs.foot.classList.add('foot-display');
             this.refs.foot.classList.remove('footer');
         }
-        this.setState(prevState => ({check: !prevState.check}))
+       this.props.toggleValue(this.props.check)
     }
     componentDidMount() {
         
@@ -41,13 +25,13 @@ export class Filtering extends Component{
     }
    
     render() {
-        
+    
   
     return (
         <div>
       
 
-        <Animated className="fixed-bottom" animationIn="fadeInUpBig" animationOut="fadeOutDownBig" animationInDuration={500} animationOutDuration={1000} isVisible={this.state.check}>
+        <Animated className="fixed-bottom" animationIn="fadeInUpBig" animationOut="fadeOutDownBig" animationInDuration={300} animationOutDuration={1000} isVisible={this.props.check}>
         <div>
             <div ref="foot" id="footer" className="footer fixed-bottom">
                 <div className="container-fluid">
@@ -85,33 +69,15 @@ export class Filtering extends Component{
                
         </button>
        
-        
-      
 
-      
       </div>
       
     );
   }
 }
 
+const mapStateToProps = (state) => ({
+    check: state.toggle.value
+})
 
-// function Filtering() {
-//     return (
-       
-
-//         <div className="card-wrap container">
-                
-//                 <button id="but" class="btn btn-rounded fixed-bottom">
-//                     <i id="tune" className="material-icons">tune</i>
-//                 </button>
-               
-                           
-                   
-//                 <br></br>
-//             </div>
-              
-//     )
-// }
-
-export default Filtering
+export default connect(mapStateToProps, {toggleValue})(Filtering)
