@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import Course from '../models/course.model';
 import { model } from 'mongoose';
+import { clearScreenDown } from 'readline';
 
 
 const courseRoutes = express.Router()
@@ -25,36 +26,40 @@ courseRoutes.route('/').get(async function(req, res) {
     // Saving all possible attributes for a course document in the collection in content object. 
     // Checks if attribute exists on req.query and saves it if it exists.
     let content = {};
-    let query = await req.query;
-    var stringQuery = Object.keys(query)[0]
+    const query = await req.query;
+    var stringQuery = Object.keys(query)[0] //This will be the input the user writes in the search bar
 
-    //Check input from search bar. User only searches for norwegian_name og course_code
-    //Filters the other opions
-    if(allLetters(stringQuery)) {
-      if(containsCode(stringQuery)) {
+    //Checks if there are any sort/filter specifications the query other than the key words
+    Object.keys(query).length > 1 ? ( delete query[stringQuery], filtSort(query)) : searchOnly(stringQuery)
+   
+  
+    //Makes query from user chosen filtering/sorting
+    function filtSort(query) {
+
+      if (query._id) { content._id = query._id } 
+      if (query.credits) { content.credits = Number(query.credits)}
+      if (query.taught_in_spring) { content.taught_in_spring = true} 
+      if (query.taught_in_autumn) { content.taught_in_autumn = true} 
+      if (query.content) { content.content = {$regex: RegExp(query.content), $options:'-i'}}
+      if (query.learning_goal) { content.learning_goal = {$regex: RegExp(query.learning_goal), $options:'-i'}}
+
+      //Have to make the search as well, in addition to the sorting/filtering
+      searchOnly(stringQuery)
+    }
+  
+    //Only handles input from written in search bar in GUI. User only searches for norwegian_name or course_code
+    function searchOnly(stringQuery) {
+      if(allLetters(stringQuery)) {
+        containsCode(stringQuery) ? content.course_code = {$regex: RegExp(stringQuery), $options:'-i'} : 
+                                    content.norwegian_name = {$regex : RegExp(stringQuery), $options:'-i'}
+      }
+      else if (containsNumber(stringQuery)) {
         content.course_code = {$regex: RegExp(stringQuery), $options:'-i'}
       }
-      else {
-        content.norwegian_name = {$regex : RegExp(stringQuery), $options:'-i'}
-      }
     }
-    else if (containsNumber(stringQuery)) {
-      content.course_code = {$regex: RegExp(stringQuery), $options:'-i'}
-    }
+    
 
-    //Makes query from user chosen filtering
-    if (query._id) { content._id = query._id } 
-    // if (query.course_code) { content.course_code = {$regex: RegExp(query.course_code), $options:'-i'}}
-    if (query.credits) { content.credits = Number(query.credits)}
-    // if (query.norwegian_name) { content.norwegian_name = {$regex : RegExp(query.norwegian_name), $options:'-i'}}
-    if (query.taught_in_spring) { content.taught_in_spring = true} 
-    if (query.taught_in_autumn) { content.taught_in_autumn = true} 
-    if (query.content) { content.content = {$regex: RegExp(query.content), $options:'-i'}}
-    if (query.learning_goal) { content.learning_goal = {$regex: RegExp(query.learning_goal), $options:'-i'}}
 
-    // Syntax to find partial match by using MongoDB find()-function:
-    // find(({norwegian_name : {$regex : /Ava/}})
-    // console.log(content)
     const courses = await Course.find((content), function(err, courses) {}).catch(err => console.log(err));
     
     // Values retrieved by the query, else set to default values. Used in pagination and sorting of results.
@@ -131,7 +136,7 @@ function containsCode(query) {
 
 
 function allLetters(query) {
-  let letters = /^[A-Za-z]+$/
+  let letters = /^[A-Za-z\s]+$/
   return letters.test(query)
 }
 
