@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Card from "react-bootstrap/Card"
 import Accordion from 'react-bootstrap/Accordion'
+import RatingModal from "./RatingModal"
+import GradeModal from "./GradeModal"
 import "../css/courseCard.css"
 
 export class CourseCard extends Component {
@@ -11,11 +13,13 @@ export class CourseCard extends Component {
     }
 
     render() {
+        
         const {course} = this.props; // fetches course thats sent as prop from CourseContainer
         let taught_in = ''
         taught_in = course.taught_in_spring ? "Spring" : "Fall" // check if course is taught in spring or fall
         return (
             <div className="card-wrap container">
+                
                 <Accordion>
                     <Card ref="card" id="card"> 
                         <Accordion.Toggle as={Card.Header} eventKey="0">
@@ -26,7 +30,7 @@ export class CourseCard extends Component {
                                 </div>
                                 <div className="col">
                                     {/* Icon on the right side of the card */}
-                                    {}
+                                
                                     <i ref="icon" className="fas fa-chevron-down fa-2x"></i>
                                 </div>
                             </div> 
@@ -41,6 +45,15 @@ export class CourseCard extends Component {
                                 <br></br>
                                 <b>Content: </b>
                                 {course.content}
+                                <div className="row">
+                                    <div id="rating" className="col">
+                                        <RatingModal />
+                                    </div>
+                                    <div id="grade" className="col">
+                                        <GradeModal />
+                                    </div>
+                                </div>
+                               
                             </Card.Body>
                         </Accordion.Collapse>
                     </Card>

@@ -10,11 +10,19 @@ export class Button extends Component {
         e.preventDefault()
         this.props.fetchCourses(this.props.input)
     }
+    keyPressed = e => {
+        if (e.key === "Enter") {
+            e.preventDefault()
+            this.props.fetchCourses(this.props.input)
+        }
+      }
     render() {
         return (
-            <button className="btn btn-success btn-bg mt-3"
+            
+            <button id="searchbutton" className="btn btn-success btn-bg mt-3"
                 type = "button"
                 onClick={this.onClick}
+                onKeyPress={this.keyPressed}
             >
             Search
             </button>
