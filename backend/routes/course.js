@@ -70,14 +70,14 @@ courseRoutes.route('/').get(async function(req, res) {
     let pages=parseInt(page);
     let limit = req.query.limit ? req.query.limit : 10;
     let lim=parseInt(limit);
-    console.log(content)
+    // console.log(content)
 
     // Uses mongoose-paginate to paginate results. Plugin in imported in the course.model.js. Response to client is sent in this function. 
     // Takes to arguments. One content object, and one object containing pages, page limit and what to sort by.
     // To go to next page of query results, add &page=<page_number> to the end of the query.
     // Sorts by norwegian name unless sorting is specified in the query in ascending order (order : 1, use -1 for descending).
     // Sorting and order may also be added to the query &sorting=course_code&order=-1.
-    console.log("Content: ", content)
+    // console.log("Content: ", content)
     Course.paginate(content,
         {   page: pages,
             limit: lim,
@@ -108,12 +108,12 @@ courseRoutes.route('/:course_code').get(async (req, res) => {
 // For updating rows in collection with reviews and rated difficulty. PUT requests to it2810.39.idi.ntnu.no:3001/courses/<COURSE_CODE> will update the course 
 // if the request contains a review AND a difficulty. 
 courseRoutes.put('/:course_code', (req, res) => {
-    console.log(req.body.difficulty)
+    // console.log(req.body.difficulty)
     let difficulty = parseInt(req.body.difficulty)
     // Find the correct course in the DB. Course_code is a primary key, and the search will always return one result.
     let course = Course.find({course_code : req.params.course_code})
     if (req.body.review && 6>difficulty>0) {
-        console.log(req.params.course_code)
+        // console.log(req.params.course_code)
         // Find document "course" in db and push the review to the review array on the document. Also update difficulty to new average.
         Course.findOneAndUpdate(course, {"$push": { "reviews": req.body.review },  "$push" : {"difficulty" : parseInt(req.body.difficulty)}})
         .then(course => res.json(course))
