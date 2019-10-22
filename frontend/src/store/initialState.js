@@ -1,9 +1,9 @@
-
+//Initiates the  states that will be set when user makes searches
 const initialState = {
     courses: 
         {
         text: '',
-        data: [],
+        coursedata: [],
         loading: false,
         error: false
     }

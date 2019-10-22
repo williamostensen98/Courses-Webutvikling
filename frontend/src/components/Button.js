@@ -1,33 +1,31 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {fetchCourses} from '../store/action'
+import "../css/button.css"
 
 export class Button extends Component {
 
-    //fetchCourses triggerer dispatch av text (action.js), som triggerer FETCH-casene i fetchReducer
+    //fetchCourses triggers dispatching of text (in action.js), that triggers the FETCH-cases i searchReducer
     onClick = e => {
         e.preventDefault()
-        this.props.fetchCourses(this.props.text)
+        this.props.fetchCourses(this.props.input)
     }
     render() {
         return (
-            <button
+            <button className="btn btn-success btn-bg mt-3"
                 type = "button"
                 onClick={this.onClick}
             >
-            Søk
+            Search
             </button>
         )
     }
 }
 
+//Maps state 'text' to as a props named 'input'
 const mapStateToProps = (state) => ({
-    text: state.courses.text //text er staten til Courses som blir oppdatert ved input i søkebaren
+    input: state.courses.text 
 })
 
-/* 
-const mapDispatchToProps = {
-    
-} */
 
 export default connect(mapStateToProps, {fetchCourses})(Button)

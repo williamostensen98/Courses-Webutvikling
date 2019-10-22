@@ -1,10 +1,22 @@
 .searchbar-container {
     display: flex;
     justify-content: center;
+    
+
 }
 
 #searchBar {
-    border-radius: 5px;
+    border-radius: 10px;
     width: 80%;
     height: 20px;
 }
+input{
+    font-family: 'Oswald', sans-serif;
+  }
+ 
+#jumbo{
+    background-color: #484d5c !important;
+    border-radius: 10px;
+}
+  
+  
