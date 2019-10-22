@@ -4,6 +4,7 @@ import Accordion from 'react-bootstrap/Accordion'
 import RatingModal from "./RatingModal"
 import GradeModal from "./GradeModal"
 import "../css/courseCard.css"
+import axios from "axios";
 
 export class CourseCard extends Component {
 
@@ -11,12 +12,43 @@ export class CourseCard extends Component {
         super(props);
         this.toggleSidenav = this.toggleSidenav.bind(this);
     }
+    
+    componentDidMount() {
+        this.calculateAverageGrade();
+    }
+    componentDidUpdate() {
+        this.calculateAverageGrade();
+    }
+
+    calculateAverageGrade = async () => {
+        try {
+            let docs = await axios.get("http://it2810-39.idi.ntnu.no:3001/courses/" + this.props.course.course_code + "/grades")
+            let semesters = docs.data
+            // console.log(semesters)
+            
+        }
+        
+        catch (err) {
+            // console.log(err)
+        }
+        let all = document.getElementsByClassName("average_grade");
+        console.log(all[0])
+        for (let i; i < 10; i++) {
+            all[i] = <p className="average_grade">7</p> 
+        }
+        // let semesters = docs.data.docs[0].semesters
+        // console.log("Docs: ",semesters)
+        // let total = semesters.forEach(function(sem) {
+        //     total += sem.average_grade
+        // })
+    }
 
     render() {
         
         const {course} = this.props; // fetches course thats sent as prop from CourseContainer
         let taught_in = ''
         taught_in = course.taught_in_spring ? "Spring" : "Fall" // check if course is taught in spring or fall
+        const average_grade= this.calculateAverageGrade()
         return (
             <div className="card-wrap container">
                 
@@ -43,8 +75,9 @@ export class CourseCard extends Component {
                                 
                                 <b>Taught in:</b> {taught_in}
                                 <br></br>
-                                <b>Content: </b>
-                                {course.content}
+                                <b>Content: </b> {course.content}
+                                <br></br>
+                                <b>Average grade: </b> <p className="average_grade"></p> 
                                 <div className="row">
                                     <div id="rating" className="col">
                                         <RatingModal course={course} />
@@ -63,6 +96,8 @@ export class CourseCard extends Component {
               
         )
     }
+
+   
 
     toggleSidenav() {
         this.refs.icon.classList.toggle('flip');

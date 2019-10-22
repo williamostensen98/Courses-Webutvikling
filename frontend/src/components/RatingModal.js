@@ -41,7 +41,7 @@ function RatingModal(props) {
     return (
       <ButtonToolbar id="rating">
         <Button className="mt-4" variant="primary" onClick={() => setModalShow(true)}>
-          Ratings
+          Review {props.course.course_code}
         </Button>
   
         <CenteredModal

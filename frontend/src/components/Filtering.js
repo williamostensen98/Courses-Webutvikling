@@ -51,7 +51,7 @@ export class Filtering extends Component{
         <div>
             <div ref="foot" id="footer" className="footer fixed-bottom">
                 <div className="container-fluid">
-                    <div classNAame="row text-center">
+                    <div className="row text-center">
                         <h2 className="top-text">Filter/Sort</h2>
                    </div>
                    <div className="row text-center">
