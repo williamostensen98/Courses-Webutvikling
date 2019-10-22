@@ -35,3 +35,7 @@
 .coursecontainer{
   margin-bottom: 10rem;
 }
+
+.modal-backdrop.fade{
+  opacity: .05;
+}

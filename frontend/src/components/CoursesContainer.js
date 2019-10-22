@@ -11,7 +11,7 @@ export class CoursesContainer extends Component {
         
         // tries to add CourseCards or no result to content when searching
         try{
-            
+
             content = courses.length > 0 ? courses.map((course, index) => <CourseCard key={index} course={course} />) : <h4>The search got no results</h4>;
             filter = content !== '' ?  <Filtering/> : null;
         }

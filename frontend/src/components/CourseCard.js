@@ -83,7 +83,7 @@ export class CourseCard extends Component {
                                         <RatingModal course={course} />
                                     </div>
                                     <div id="grade" className="col">
-                                        <GradeModal />
+                                        <GradeModal coursecode={course.course_code}/>
                                     </div>
                                 </div>
                                

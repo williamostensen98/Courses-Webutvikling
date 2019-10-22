@@ -62,15 +62,3 @@ export const fetchCourses = input => {
         })
     }
 }
-
-export const addReview = (input, course_code) => {
-    return (dispatch) => {
-        axios.put('http://localhost:3001/courses/' + course_code)
-        .then(res => {
-            console.log("Review added!")
-        })
-        .catch(err => {
-            console.log("Something went wrong. Review was not added.")
-        })
-    }
-}
