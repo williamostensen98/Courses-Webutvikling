@@ -48,10 +48,11 @@ export const fetchCoursesFailure = (error) => dispatch =>{
 
 
 //The actual fetching through url from the virtual machine
-export const fetchCourses = input => {
+export const fetchCourses = (oldQuery, newQuery) => {
     return (dispatch) => {
         dispatch(fetchCoursesBegin())
-        axios.get('http://it2810-39.idi.ntnu.no:3001/courses?'+input)
+        console.log("QUERY:",oldQuery+newQuery)
+        axios.get("http://it2810-39.idi.ntnu.no:3001/courses?"+oldQuery+newQuery)
         .then(response => {
             dispatch(fetchCoursesSuccess(response.data)) 
         })

@@ -1,6 +1,7 @@
 import React from 'react';
 import '../css/searchBar.css';
 import {searchCourse, fetchCourses} from '../store/searchActions'
+import {setQuery} from '../store/queryAction'
 import { connect } from 'react-redux';
 import {Component} from 'react';
 import Button from './Button'
@@ -18,7 +19,8 @@ class SearchBar extends Component {
     keyPressed = e => {
         if (e.key === "Enter") {
             e.preventDefault()
-            this.props.fetchCourses(this.props.text)
+            this.props.setQuery(this.props.text)
+            this.props.fetchCourses(this.props.text, '')
         }
       }
    
@@ -50,5 +52,5 @@ const mapStateToProps = state => ({
     text: state.courses.text //text er staten til Courses som blir oppdatert ved input i søkebaren
 })
 
-export default connect(mapStateToProps, {searchCourse, fetchCourses})(SearchBar)
+export default connect(mapStateToProps, {searchCourse, fetchCourses, setQuery})(SearchBar)
 
