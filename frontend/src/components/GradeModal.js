@@ -1,4 +1,4 @@
-import React, { useState, Component } from 'react'
+import React, { Component } from 'react'
 import "../css/courseCard.css"
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'

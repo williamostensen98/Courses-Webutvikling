@@ -4,7 +4,7 @@ import Accordion from 'react-bootstrap/Accordion'
 import RatingModal from "./RatingModal"
 import GradeModal from "./GradeModal"
 import "../css/courseCard.css"
-import axios from "axios";
+
 
 export class CourseCard extends Component {
 
@@ -13,24 +13,6 @@ export class CourseCard extends Component {
         this.toggleSidenav = this.toggleSidenav.bind(this);
     }
     
-    componentDidMount() {
-        this.calculateAverageGrade();
-    }
-    componentDidUpdate() {
-        this.calculateAverageGrade();
-    }
-
-    calculateAverageGrade = async () => {
-        try {
-            let docs = await axios.get("http://it2810-39.idi.ntnu.no:3001/courses/" + this.props.course.course_code + "/grades")
-            let semesters = docs.data
-            // console.log(semesters)
-        }
-        catch (err) {
-            // console.log(err)
-        }
-    }
-
     render() {
         
         const {course} = this.props; // fetches course thats sent as prop from CourseContainer
@@ -42,14 +24,13 @@ export class CourseCard extends Component {
             taught_in = course.taught_in_spring ? "Spring" : "Fall" // check if course is taught in spring or fall
         }
         
-        const average_grade= this.calculateAverageGrade()
         return (
             <div className="card-wrap container">
                 
                 <Accordion >
-                    <Card id="card"> 
-                        <Accordion.Toggle as={Card.Header} eventKey="0">
-                            <div ref="card" className="row">
+                    <Card id="card" > 
+                        <Accordion.Toggle as={Card.Header} eventKey="0" onClick={this.toggleSidenav}>
+                            <div className="row" >
                                 <div className="col-9">
                                     {/* displays coursecode and name inside the card */}
                                     <h5>{course.course_code} - {course.norwegian_name}</h5> 
@@ -91,18 +72,8 @@ export class CourseCard extends Component {
         )
     }
 
-   
-
     toggleSidenav() {
         this.refs.icon.classList.toggle('flip');
-    }
-
-    componentDidMount() {
-        this.refs.card.addEventListener('click', this.toggleSidenav);
-    }
-
-    componentWillUnmount() {
-        this.refs.card.removeEventListener('click', this.toggleSidenav);
     }
 }
 

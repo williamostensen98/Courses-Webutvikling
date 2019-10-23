@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
-import Accordion from 'react-bootstrap/Accordion'
-import GradeModal from "./GradeModal"
-import PropTypes from 'prop-types'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import { connect } from 'react-redux';
+
 import axios from 'axios'
 
 

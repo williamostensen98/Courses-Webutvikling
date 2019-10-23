@@ -1,8 +1,6 @@
 import React from "react"
 import "../../css/header.css"
 import Navbar from "react-bootstrap/Navbar"
-import { Animated } from "react-animated-css";
-
 
 
 function Header() {

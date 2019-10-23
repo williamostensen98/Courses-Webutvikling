@@ -3,8 +3,7 @@
 import { SEARCH_COURSE, 
          FETCH_COURSES_BEGIN, 
          FETCH_COURSES_SUCCESS, 
-         FETCH_COURSES_FAILURE,
-         ADD_REVIEW} from './actionTypes'
+         FETCH_COURSES_FAILURE} from './actionTypes'
 import axios from 'axios'
 
 

@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-// import "../css/courseCard.css"
+
 import {Animated} from "react-animated-css";
 import {toggleFilter} from '../store/toggleActions'
-import {setFclicked, setSclicked, filterSemester} from '../store/filterActions'
-
+import {setFclicked, setSclicked} from '../store/filterActions'
+import {fetchCourses} from "../store/searchActions"
+import {setQuery} from "../store/queryAction"
 import { connect } from 'react-redux'
 import "../css/filtering.css"
 
@@ -34,34 +35,27 @@ export class Filtering extends Component{
     applyFilter = () => {
         const fall = this.props.fall_is_clicked
         const spring = this.props.spring_is_clicked
-        if(spring){
-            this.props.filterSemester(this.props.input, 'spring', spring)   
-            this.props.toggleFilter(this.props.check)
-        }
-        else if(fall){
-            this.props.filterSemester(this.props.input, 'autumn', fall)
-            this.props.toggleFilter(this.props.check)
-        }
-        else{
-            return
-        }
+        
+        let filter = ''
+        let sort = ''
+        let concat = ''
+        filter = spring ? "&taught_in_spring=true" : ''
+        filter = fall ? "&taught_in_autumn=true" : filter
+        concat = filter + sort
+        let newQuery = this.props.query + concat
+        console.log("NEW", newQuery)
+        this.props.fetchCourses(this.props.query, concat)
+        this.props.setQuery(newQuery)
+        this.props.toggleFilter(this.props.check)
+
     }
     
-    // resetFilter = () => {
-    //     const fall = this.props.fall_is_clicked
-    //     const spring = this.props.spring_is_clicked
-    //     if(spring){
-    //         this.props.setSclicked(spring)
-    //         this.props.filterSemester(this.props.input, 'spring', spring)   
-    //         this.props.toggleFilter(this.props.check)
-    //     }
-    //     else if(fall){
-    //         this.props.setFclicked(fall)
-    //         this.props.filterSemester(this.props.input, 'autumn', fall)
-    //         this.props.toggleFilter(this.props.check)
-    //     }
-    // }
-
+    resetFilter = () => {
+        this.props.fetchCourses(this.props.input, '')
+        this.props.setQuery(this.props.input)
+        this.props.toggleFilter(this.props.check)
+    }
+    
     handleToggle = () => {
         if (!this.props.check){
             this.refs.foot.classList.add('foot-display');
@@ -140,7 +134,8 @@ const mapStateToProps = (state) => ({
     check: state.toggle.filter, 
     fall_is_clicked: state.filter.fclicked, 
     spring_is_clicked: state.filter.sclicked,
-    input: state.courses.text
+    input: state.courses.text, 
+    query: state.query.query
 })
 
-export default connect(mapStateToProps, {toggleFilter, setFclicked, setSclicked, filterSemester})(Filtering)
+export default connect(mapStateToProps, {toggleFilter, setFclicked, setSclicked, setQuery, fetchCourses})(Filtering)
