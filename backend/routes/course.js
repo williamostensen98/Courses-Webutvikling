@@ -1,8 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import Course from '../models/course.model';
-import { model } from 'mongoose';
-import { clearScreenDown } from 'readline';
+
 
 // TODO: Add catch blocks for all functions to handle warnings in the console.
 
@@ -31,13 +30,12 @@ courseRoutes.route('/').get(async function(req, res) {
     const query = await req.query;
     var stringQuery = Object.keys(query)[0] //This will be the input the user writes in the search bar
 
-    //Checks if there are any sort/filter specifications the query other than the key words
+    //Checks if there are any sort/filter specifications the query, or only search words
     Object.keys(query).length > 1 ? ( delete query[stringQuery], filtSort(query)) : searchOnly(stringQuery)
    
   
     //Makes query from user chosen filtering/sorting
     function filtSort(query) {
-
       if (query._id) { content._id = query._id } 
       if (query.credits) { content.credits = Number(query.credits)}
       if (query.taught_in_spring) { content.taught_in_spring = true} 
@@ -50,10 +48,12 @@ courseRoutes.route('/').get(async function(req, res) {
     }
   
     //Only handles input from written in search bar in GUI. User only searches for norwegian_name or course_code
+    //Uses selfwritten functions to check the search words. See bottom of this file to see the functions
     function searchOnly(stringQuery) {
       if(allLetters(stringQuery)) {
-        containsCode(stringQuery) ? content.course_code = {$regex: RegExp(stringQuery), $options:'-i'} : 
-                                    content.norwegian_name = {$regex : RegExp(stringQuery), $options:'-i'}
+        containsCode(stringQuery) 
+          ? content.course_code = {$regex: RegExp(stringQuery), $options:'-i'} 
+          : content.norwegian_name = {$regex : RegExp(stringQuery), $options:'-i'}
       }
       else if (containsNumber(stringQuery)) {
         content.course_code = {$regex: RegExp(stringQuery), $options:'-i'}
@@ -70,14 +70,12 @@ courseRoutes.route('/').get(async function(req, res) {
     let pages=parseInt(page);
     let limit = req.query.limit ? req.query.limit : 10;
     let lim=parseInt(limit);
-    // console.log(content)
 
     // Uses mongoose-paginate to paginate results. Plugin in imported in the course.model.js. Response to client is sent in this function. 
     // Takes to arguments. One content object, and one object containing pages, page limit and what to sort by.
     // To go to next page of query results, add &page=<page_number> to the end of the query.
     // Sorts by norwegian name unless sorting is specified in the query in ascending order (order : 1, use -1 for descending).
     // Sorting and order may also be added to the query &sorting=course_code&order=-1.
-    // console.log("Content: ", content)
     Course.paginate(content,
         {   page: pages,
             limit: lim,
@@ -108,14 +106,12 @@ courseRoutes.route('/:course_code').get(async (req, res) => {
 // For updating rows in collection with reviews and rated difficulty. PUT requests to it2810.39.idi.ntnu.no:3001/courses/<COURSE_CODE> will update the course 
 // if the request contains a review AND a difficulty. 
 courseRoutes.put('/:course_code', (req, res) => {
-    // console.log(req.body.difficulty)
     let difficulty = parseInt(req.body.difficulty)
     let review = req.body.review
     // Find the correct course in the DB. Course_code is a primary key, and the search will always return one result.
     let course = Course.find({course_code : req.params.course_code})
     console.log("review: ", review)
     if (req.body.review && 6>difficulty>0) {
-        // console.log(req.params.course_code)
         // Find document "course" in db and push the review to the review array on the document. Also update difficulty to new average.
         Course.findOneAndUpdate(course, {"$push" : {"reviews": review, "difficulty" : parseInt(req.body.difficulty)}})
         .then(res.json("Your review was successfully added!"))
@@ -128,17 +124,21 @@ courseRoutes.put('/:course_code', (req, res) => {
 
 export default courseRoutes;
 
+//Checks if the query contains any of the course code prefixes
+//If it returns true, it means that the user is searching for a course code, not name
 function containsCode(query) {
   let codes = "tma tdt ttm it tfy"
   return codes.includes(query.toLowerCase())
 }
 
-
+//Checks if the query only contains letters or spaces
 function allLetters(query) {
   let letters = /^[A-Za-z\s]+$/
   return letters.test(query)
 }
 
+//Checks if the query contains a number. 
+//A number will indicate that it is a course code, not a course name
 function containsNumber(query) {
   let numbers = /\d/
   return numbers.test(query)

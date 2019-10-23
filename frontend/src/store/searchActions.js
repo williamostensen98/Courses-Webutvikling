@@ -1,12 +1,11 @@
+//Actions creators for search and course fetching
+
 import { SEARCH_COURSE, 
          FETCH_COURSES_BEGIN, 
          FETCH_COURSES_SUCCESS, 
          FETCH_COURSES_FAILURE,
          ADD_REVIEW} from './actionTypes'
 import axios from 'axios'
-
-//Plain JavaScript objects, action creators
-//Dispatches the results
 
 
 //'payload' is set to the text given as a parameter
