@@ -14,3 +14,9 @@ export const FETCH_GRADES_FAILURE = 'FETCH_GRADES_FAILURE'
 //Action types for handling toggling of boolean value used in components
 export const TOGGLE_FILTER = 'TOGGLE_FILTER'
 export const TOGGLE_MODAL = 'TOGGLE_MODAL'
+
+
+//Action type for which semester is chosen as filter
+export const FILTER_SEMESTER = 'FILTER_SEMESTER'
+export const SET_FCLICKED = 'SET_FCLICKED'
+export const SET_SCLICKED = 'SET_SCLICKED'

@@ -11,10 +11,18 @@ const initialState = {
         loading: false,
         error: false
     }, 
-    toggle: 
-    {
+    toggle: {
         filter: false,
         modal: false
+    },
+    filter: {
+        // semester: '',
+        fclicked: false,
+        sclicked: false,
+    },
+    sort: {
+        sortby: '',
+        orderby: '1',
     }
 }
 
