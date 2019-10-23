@@ -41,17 +41,15 @@ function CenteredModal(props) {
     )
 }
 export class GradeModal extends Component {
-    // const [modalShow, setModalShow] = useState(false);
 
-
-
-    onClick = e => {
-      // e.preventDefault();
+    //Toggles value of CenteredModal (child component) by using our predefined actions and states
+    onClick = () => {
       this.props.toggleModal(this.props.check)
       this.props.fetchGrades(this.props.coursecode)
     }
-    render() {
 
+
+    render() {
       return (
         <ButtonToolbar id="grade" >
           <Button className="mt-4"  variant="primary" onClick={this.onClick}>
@@ -59,7 +57,6 @@ export class GradeModal extends Component {
           </Button>
     
           <CenteredModal
-            
             show={this.props.check}
             onHide={this.onClick}
           />
