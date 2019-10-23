@@ -81,6 +81,12 @@ export class Filtering extends Component{
         this.props.fetchCourses(this.props.input, '')
         this.props.setQuery(this.props.input)
         this.props.toggleFilter(this.props.check)
+        
+        //Reset all button-is-clicked-values. Inverts the value taken in as parameter
+        this.props.setFclicked(true)
+        this.props.setSclicked(true)
+        this.props.setCodeClicked(true)
+        this.props.setNameClicked(true)
     }
 
     handleToggle = () => {
