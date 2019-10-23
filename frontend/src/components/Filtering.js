@@ -35,15 +35,20 @@ export class Filtering extends Component{
         <div>
             <div ref="foot" id="footer" className="footer fixed-bottom">
                 <div className="container-fluid">
-                    <div classNAame="row text-center">
+                    <div className="row text-center">
                         <h2 className="top-text">Filter/Sort</h2>
                    </div>
                    <div className="row text-center">
                         <div className="col filter text-center">
                                 <h3 className="filter-text">Filter</h3>
-                                <div className="button-wrap">
+                                <div className="row button-wrap">
                                     <button ref="button1" className="btn sort-button">F</button>
                                     <button className="btn sort-button">S</button>
+                                   
+                                </div>
+                                <div className="col">
+                                    <h6>Fall</h6>
+                                    <h6>Spring</h6>
                                 </div>
                         </div>
                         <div className="col text-center">
