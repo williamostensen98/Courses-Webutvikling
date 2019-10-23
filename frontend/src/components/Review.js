@@ -22,10 +22,14 @@ export class Review extends Component {
         e.preventDefault()
         let form = e.target.elements
         let content = {
-            review: String(form.review.value),
-            difficulty: parseInt(form.difficulty.value)
+            difficulty: parseInt(form.difficulty.value),
+            review: String(form.review.value)
+            
         }
-        axios.put('http://it2810-39.idi.ntnu.no:3001/courses/'+ this.props.course.course_code, content)
+        
+        axios.put('http://localhost:3001/courses/'+ this.props.course.course_code, content)
+        document.getElementById("review").value = "";
+        document.getElementById("difficulty").value = "";
     }
 
 
@@ -35,14 +39,14 @@ export class Review extends Component {
                 <Form onSubmit={this.onSubmit}>
                     <Form.Group controlId="formReview">
                         <Form.Label>Write your review of this course here</Form.Label>
-                        <Form.Control type="textarea" placeholder="This course is amazing..." name="review" required  />
+                        <Form.Control type="textarea" placeholder="This course is amazing..." name="review" required id="review" />
                         <Form.Text className="text-muted">
                         </Form.Text>
                     </Form.Group>
 
                     <Form.Group controlId="formDifficulty">
                         <Form.Label>Difficulty</Form.Label>
-                    <Form.Control type="number" placeholder="1-5" min="1" max="5" name="difficulty" required/>
+                    <Form.Control type="number" placeholder="1-5" min="1" max="5" name="difficulty" required id="difficulty"/>
                     </Form.Group>
                 
                     <Button variant="primary" type="submit" >
