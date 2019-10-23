@@ -2,12 +2,32 @@ import React, { Component } from 'react'
 // import "../css/courseCard.css"
 import {Animated} from "react-animated-css";
 import {toggleFilter} from '../store/toggleActions'
+import {setFclicked, setSclicked, filterSemester} from '../store/filterActions'
+
 import { connect } from 'react-redux'
 import "../css/filtering.css"
 
 export class Filtering extends Component{
+   
+    setFclicked = () => {
+        if(this.props.spring_is_clicked){
+            return
+        }
+        this.props.setFclicked(this.props.fall_is_clicked)
+        this.props.filterSemester(this.props.input, 'autumn', this.props.fall_is_clicked)
+        
+    }
+    setSclicked = () => {
+        if(this.props.fall_is_clicked){
+            return
+        }
+        
+        
+        this.props.setSclicked(this.props.spring_is_clicked)
+        this.props.filterSemester(this.props.input, 'spring', this.props.spring_is_clicked)
+        
+    }
 
-    
     handleToggle = () => {
         if (!this.props.check){
             this.refs.foot.classList.add('foot-display');
@@ -15,18 +35,12 @@ export class Filtering extends Component{
         }
        this.props.toggleFilter(this.props.check)
     }
-    componentDidMount() {
-        
-        this.refs.filterButton.addEventListener('click', this.handleToggle);
-    }
 
-    componentWillUnmount() {
-        this.refs.filterButton.removeEventListener('click', this.handleToggle);
-    }
+    
    
     render() {
     
-  
+    
     return (
         <div>
       
@@ -37,13 +51,14 @@ export class Filtering extends Component{
                 <div className="container-fluid">
                     <div className="row text-center">
                         <h2 className="top-text">Filter/Sort</h2>
+                        
                    </div>
                    <div className="row text-center">
                         <div className="col filter text-center">
                                 <h3 className="filter-text">Filter</h3>
                                 <div className="row button-wrap">
-                                    <button ref="button1" className="btn sort-button">F</button>
-                                    <button className="btn sort-button">S</button>
+                                    <button className={"btn " + (this.props.fall_is_clicked ? "clicked": "sort-button")} onClick={this.setFclicked}>F</button>
+                                    <button className={"btn " + (this.props.spring_is_clicked ? "clicked": "sort-button")} onClick={this.setSclicked}>S</button>
                                    
                                 </div>
                                 <div className="col">
@@ -69,7 +84,7 @@ export class Filtering extends Component{
         <div className="foot-filter fixed-bottom">
                    
         </div>
-        <button ref="filterButton" id="but" className="btn btn-info fixed-bottom">
+        <button ref="filterButton" id="but" onClick={this.handleToggle} className="btn btn-info fixed-bottom">
                 <i id="tune" className="large material-icons">tune</i>
                
         </button>
@@ -82,7 +97,10 @@ export class Filtering extends Component{
 }
 
 const mapStateToProps = (state) => ({
-    check: state.toggle.filter
+    check: state.toggle.filter, 
+    fall_is_clicked: state.filter.fclicked, 
+    spring_is_clicked: state.filter.sclicked,
+    input: state.courses.text
 })
 
-export default connect(mapStateToProps, {toggleFilter})(Filtering)
+export default connect(mapStateToProps, {toggleFilter, setFclicked, setSclicked, filterSemester})(Filtering)

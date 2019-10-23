@@ -1,5 +1,6 @@
 import { SET_FCLICKED,
          SET_SCLICKED } from "./actionTypes"
+import {fetchCourses} from "./searchActions"
 
 
 export const setFclicked = (value) => dispatch => {
@@ -18,6 +19,7 @@ export const setSclicked = (value) => dispatch => {
 
 export const filterSemester = (input, semester, value) => {
     return (dispatch) => {
+        // console.log(input, '&taught_in_',semester,'=',value)
         dispatch(fetchCourses(input + '&taught_in_'+semester+'='+value))
     }
 }
