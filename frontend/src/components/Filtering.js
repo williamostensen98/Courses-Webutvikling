@@ -9,24 +9,58 @@ import "../css/filtering.css"
 
 export class Filtering extends Component{
    
-    setFclicked = () => {
+    onFClicked = () => {
         if(this.props.spring_is_clicked){
-            return
+            this.props.setFclicked(this.props.fall_is_clicked)
+            this.props.setSclicked(this.props.spring_is_clicked)
         }
-        this.props.setFclicked(this.props.fall_is_clicked)
-        this.props.filterSemester(this.props.input, 'autumn', this.props.fall_is_clicked)
+        else{
+            this.props.setFclicked(this.props.fall_is_clicked)
+        }
+        // this.props.filterSemester(this.props.input, 'autumn', this.props.fall_is_clicked)
         
     }
-    setSclicked = () => {
+    onSClicked = () => {
         if(this.props.fall_is_clicked){
-            return
+            this.props.setFclicked(this.props.fall_is_clicked)
+            this.props.setSclicked(this.props.spring_is_clicked)
         }
-        
-        
-        this.props.setSclicked(this.props.spring_is_clicked)
-        this.props.filterSemester(this.props.input, 'spring', this.props.spring_is_clicked)
+        else{
+            this.props.setSclicked(this.props.spring_is_clicked)
+        }
+        // this.props.filterSemester(this.props.input, 'spring', this.props.spring_is_clicked)
         
     }
+    applyFilter = () => {
+        const fall = this.props.fall_is_clicked
+        const spring = this.props.spring_is_clicked
+        if(spring){
+            this.props.filterSemester(this.props.input, 'spring', spring)   
+            this.props.toggleFilter(this.props.check)
+        }
+        else if(fall){
+            this.props.filterSemester(this.props.input, 'autumn', fall)
+            this.props.toggleFilter(this.props.check)
+        }
+        else{
+            return
+        }
+    }
+    
+    // resetFilter = () => {
+    //     const fall = this.props.fall_is_clicked
+    //     const spring = this.props.spring_is_clicked
+    //     if(spring){
+    //         this.props.setSclicked(spring)
+    //         this.props.filterSemester(this.props.input, 'spring', spring)   
+    //         this.props.toggleFilter(this.props.check)
+    //     }
+    //     else if(fall){
+    //         this.props.setFclicked(fall)
+    //         this.props.filterSemester(this.props.input, 'autumn', fall)
+    //         this.props.toggleFilter(this.props.check)
+    //     }
+    // }
 
     handleToggle = () => {
         if (!this.props.check){
@@ -39,7 +73,8 @@ export class Filtering extends Component{
     
    
     render() {
-    
+    const reset = this.props.spring_is_clicked | this.props.fall_is_clicked ? <button id="applybutton" className="btn apply" onClick={this.resetFilter}>RESET FILTER</button>: null;
+
     
     return (
         <div>
@@ -50,31 +85,36 @@ export class Filtering extends Component{
             <div ref="foot" id="footer" className="footer fixed-bottom">
                 <div className="container-fluid">
                     <div className="row text-center">
-                        <h2 className="top-text">Filter/Sort</h2>
+                        <h2 className="top-text">Filter & Sort</h2>
                         
                    </div>
                    <div className="row text-center">
-                        <div className="col filter text-center">
+                        <div className="col-5 filter text-center">
                                 <h3 className="filter-text">Filter</h3>
                                 <div className="row button-wrap">
-                                    <button className={"btn " + (this.props.fall_is_clicked ? "clicked": "sort-button")} onClick={this.setFclicked}>F</button>
-                                    <button className={"btn " + (this.props.spring_is_clicked ? "clicked": "sort-button")} onClick={this.setSclicked}>S</button>
+                                    <button className={"btn " + (this.props.fall_is_clicked ? "clicked": "sort-button")} onClick={this.onFClicked}>FALL</button>
+                                    <button className={"btn " + (this.props.spring_is_clicked ? "clicked": "sort-button")} onClick={this.onSClicked}>SPRING</button>
                                    
                                 </div>
-                                <div className="col">
-                                    <h6>Fall</h6>
-                                    <h6>Spring</h6>
-                                </div>
+                               
                         </div>
-                        <div className="col text-center">
+                        
+                        <div className="col-2">
+                            <div className="row apply-wrap">
+                                    <button id="applybutton" className="btn apply" onClick={this.applyFilter}>APPLY</button>
+                                    {reset}
+                            </div>
+                        </div>
+                        <div className="col-5 text-center">
                             <h3 className="sort-text">Sort</h3>
                             <div className="button-wrap">
-                                <button className="btn sort-button">C</button>
-                                <button className="btn sort-button">N</button>
+                                <button className="btn sort-button">CODE</button>
+                                <button className="btn sort-button">NAME</button>
                             </div>
 
                         </div>
                    </div>
+                  
                 </div>
             </div>
             
