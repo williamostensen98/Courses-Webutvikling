@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import {Animated} from "react-animated-css";
 import {toggleFilter} from '../store/toggleActions'
 import {setFclicked, setSclicked} from '../store/filterActions'
+import {setCodeClicked, setNameClicked} from '../store/sortActions'
 import {fetchCourses} from "../store/searchActions"
 import {setQuery} from "../store/queryAction"
 import { connect } from 'react-redux'
@@ -18,7 +19,7 @@ export class Filtering extends Component{
         else{
             this.props.setFclicked(this.props.fall_is_clicked)
         }
-        // this.props.filterSemester(this.props.input, 'autumn', this.props.fall_is_clicked)
+        
         
     }
     onSClicked = () => {
@@ -29,18 +30,44 @@ export class Filtering extends Component{
         else{
             this.props.setSclicked(this.props.spring_is_clicked)
         }
-        // this.props.filterSemester(this.props.input, 'spring', this.props.spring_is_clicked)
+        
+        
+    }
+    onCodeClicked = () => {
+        if(this.props.name_is_clicked){
+            this.props.setCodeClicked(this.props.code_is_clicked)
+            this.props.setNameClicked(this.props.name_is_clicked)
+        }
+        else{
+            this.props.setCodeClicked(this.props.code_is_clicked)
+        }
+        
+        
+    }
+    onNameClicked = () => {
+        if(this.props.code_is_clicked){
+            this.props.setCodeClicked(this.props.code_is_clicked)
+            this.props.setNameClicked(this.props.name_is_clicked)
+        }
+        else{
+            this.props.setNameClicked(this.props.name_is_clicked)
+        }
+        
         
     }
     applyFilter = () => {
         const fall = this.props.fall_is_clicked
         const spring = this.props.spring_is_clicked
+        const code = this.props.code_is_clicked
+        const name = this.props.name_is_clicked
         
         let filter = ''
         let sort = ''
         let concat = ''
         filter = spring ? "&taught_in_spring=true" : ''
         filter = fall ? "&taught_in_autumn=true" : filter
+        sort = code ? "&sorting=course_code" : ''
+        sort = name ? "&sorting=norwegian_name" : sort
         concat = filter + sort
         let newQuery = this.props.query + concat
         console.log("NEW", newQuery)
@@ -55,7 +82,7 @@ export class Filtering extends Component{
         this.props.setQuery(this.props.input)
         this.props.toggleFilter(this.props.check)
     }
-    
+
     handleToggle = () => {
         if (!this.props.check){
             this.refs.foot.classList.add('foot-display');
@@ -102,8 +129,8 @@ export class Filtering extends Component{
                         <div className="col-5 text-center">
                             <h3 className="sort-text">Sort</h3>
                             <div className="button-wrap">
-                                <button className="btn sort-button">CODE</button>
-                                <button className="btn sort-button">NAME</button>
+                                <button className={"btn " + (this.props.code_is_clicked ? "clicked": "sort-button")} onClick={this.onCodeClicked}>CODE</button>
+                                <button className={"btn " + (this.props.name_is_clicked ? "clicked": "sort-button")} onClick={this.onNameClicked}>NAME</button>
                             </div>
 
                         </div>
@@ -135,7 +162,9 @@ const mapStateToProps = (state) => ({
     fall_is_clicked: state.filter.fclicked, 
     spring_is_clicked: state.filter.sclicked,
     input: state.courses.text, 
-    query: state.query.query
+    query: state.query.query,
+    code_is_clicked: state.sort.codeClicked,
+    name_is_clicked: state.sort.nameClicked
 })
 
-export default connect(mapStateToProps, {toggleFilter, setFclicked, setSclicked, setQuery, fetchCourses})(Filtering)
+export default connect(mapStateToProps, {toggleFilter, setFclicked, setSclicked, setQuery, fetchCourses, setCodeClicked, setNameClicked})(Filtering)

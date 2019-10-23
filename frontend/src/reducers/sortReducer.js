@@ -7,7 +7,7 @@ export default function sortReducer(state = initialState, action) {
         case SET_CODE_CLICKED:
             return {
                 ...state, 
-                courseClicked: !action.clicked
+                codeClicked: !action.clicked
             }
         case SET_NAME_CLICKED: 
             return {
