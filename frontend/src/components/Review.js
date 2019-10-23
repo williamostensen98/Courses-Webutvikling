@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
+import ReactDOM from "react-dom"
 import Accordion from 'react-bootstrap/Accordion'
 import GradeModal from "./GradeModal"
 import PropTypes from 'prop-types'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import Alert from 'react-bootstrap/Alert'
 import { connect } from 'react-redux';
 import axios from 'axios'
 
@@ -12,6 +14,8 @@ export class Review extends Component {
     constructor(props) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this)
+        this.renderAlert = this.renderAlert.bind(this)
+        this.renderReviews = this.renderReviews.bind(this)
     }
 
     static propTypes = {
@@ -30,12 +34,41 @@ export class Review extends Component {
         axios.put('http://localhost:3001/courses/'+ this.props.course.course_code, content)
         document.getElementById("review").value = "";
         document.getElementById("difficulty").value = "";
+        const alert = this.renderAlert();
+        ReactDOM.render(alert, document.getElementById("alert-container"))
+    }
+
+    // Render green alert message to user after a review is successfully added to the course document in the db.
+    renderAlert = () => {
+        return (
+        <Alert variant="success">
+            Your review was successfully added! 
+        </Alert>
+        )
+    }
+
+
+    // Rendering reviews from the course document in the database, along with the difficulty the reviewer gave.
+    renderReviews = () => {
+        let reviews = this.props.course.reviews.slice(0, 6)
+        let difficulty = this.props.course.difficulty.slice(0, 6)
+        let i = 0;
+        let myReviews = reviews.map(rev => <h5 style={{'fontStyle' : 'italic', 'color' : 'grey'}}>
+            "{rev}" - {difficulty[i++]}
+            </h5>
+        )
+        return (
+            <div className="student-reviews">
+                {myReviews }
+            </div>
+        )
     }
 
 
     render() {
         return (
             <div>
+                <div id="alert-container"></div>
                 <Form onSubmit={this.onSubmit}>
                     <Form.Group controlId="formReview">
                         <Form.Label>Write your review of this course here</Form.Label>
@@ -53,11 +86,24 @@ export class Review extends Component {
                         Submit
                     </Button>
                     </Form>
+                    <br/>
+                
+                
+                <div className="review-wrapper">
+                    <h3 style={{'fontStyle': 'bold'}}>Other students reviews:</h3>
+                    {console.log(this.props.course)}
+                    {this.renderReviews()}
+
+                </div>
+
             </div>
         )
     }
 }
 
+const mapStateToProps = (state) => ({
+    grades: state.grades.gradedata
+})
 
 
-export default Review
+export default connect(mapStateToProps)(Review)

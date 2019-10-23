@@ -11,6 +11,7 @@ export class CourseCard extends Component {
     constructor(props){
         super(props);
         this.toggleSidenav = this.toggleSidenav.bind(this);
+        this.renderAverageDifficulty = this.renderAverageDifficulty.bind(this);
     }
     
     componentDidMount() {
@@ -20,15 +21,25 @@ export class CourseCard extends Component {
         this.calculateAverageGrade();
     }
 
-    calculateAverageGrade = async () => {
-        try {
-            let docs = await axios.get("http://it2810-39.idi.ntnu.no:3001/courses/" + this.props.course.course_code + "/grades")
-            let semesters = docs.data
-            // console.log(semesters)
+    renderAverageDifficulty() {
+        console.log(this.props.course.difficulty)
+        if (this.props.course.difficulty.length > 0) {
+            const difficulty = this.props.course.difficulty
+            if (difficulty.length == 1) {
+                return difficulty[0] + "/5"
+            }
+            let sum = 0;
+            let length = difficulty.length ;
+            for (var i in difficulty) {
+                sum += parseInt(i)
+            }
+            console.log("Length: ", length, "\nSum: ", sum)
+            return sum/length + "/5"
         }
-        catch (err) {
-            // console.log(err)
-        }
+        return "No ratings yet"
+        
+
+
     }
 
     render() {
@@ -41,8 +52,7 @@ export class CourseCard extends Component {
         else{
             taught_in = course.taught_in_spring ? "Spring" : "Fall" // check if course is taught in spring or fall
         }
-        
-        const average_grade= this.calculateAverageGrade()
+     
         return (
             <div className="card-wrap container">
                 
@@ -64,14 +74,14 @@ export class CourseCard extends Component {
                         {/* This is shown when clicking on the card */}
                         <Accordion.Collapse eventKey="0">
                             <Card.Body>
-                                <b>Credits:</b> {course.credit}
+                                <b>Credits:</b> {course.credits}
                                 <br></br>
                                 
                                 <b>Taught in:</b> {taught_in}
                                 <br></br>
                                 <b>Content: </b> {course.content}
                                 <br></br>
-                                <b>Average grade: </b> <p className="average_grade"></p> 
+                                <b>Average difficulty: {this.renderAverageDifficulty()} </b>
                                 <div className="row">
                                     <div id="rating" className="col">
                                         <RatingModal course={course} />
@@ -105,5 +115,8 @@ export class CourseCard extends Component {
         this.refs.card.removeEventListener('click', this.toggleSidenav);
     }
 }
+
+
+
 
 export default CourseCard

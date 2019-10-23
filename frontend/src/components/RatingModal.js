@@ -21,12 +21,9 @@ function CenteredModal(props) {
                 <h2>Review of Course</h2>
               </Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body style={{'max-height': 'calc(100vh - 210px)', 'overflow-y': 'auto'}}>
               <h4>Review</h4>
               <Review course={props.course}/>
-              {/* <p>
-                Here you can add your own rating with level of difficulty and a comment on the subject.
-              </p> */}
             </Modal.Body>
             <Modal.Footer>
               <Button onClick={props.onHide}>Close</Button>
@@ -48,7 +45,6 @@ function RatingModal(props) {
           show={modalShow}
           onHide={() => setModalShow(false)}
           course={props.course}
-          
         />
       </ButtonToolbar>
     );
