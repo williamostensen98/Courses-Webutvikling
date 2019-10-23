@@ -4,7 +4,8 @@ const initialState = {
         text: '',
         coursedata: [],
         loading: false,
-        error: false
+        error: false, 
+        limit: 10,
     },
     grades: {
         gradedata: [],

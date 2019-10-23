@@ -3,7 +3,8 @@
 import { SEARCH_COURSE, 
          FETCH_COURSES_BEGIN, 
          FETCH_COURSES_SUCCESS, 
-         FETCH_COURSES_FAILURE} from './actionTypes'
+         FETCH_COURSES_FAILURE,
+         LOAD_MORE_COURSES} from './actionTypes'
 import axios from 'axios'
 
 
@@ -45,7 +46,7 @@ export const fetchCoursesFailure = (error) => dispatch =>{
 }
 
 
-
+ 
 //The actual fetching through url from the virtual machine
 export const fetchCourses = (oldQuery, newQuery) => {
     return (dispatch) => {
@@ -58,4 +59,11 @@ export const fetchCourses = (oldQuery, newQuery) => {
             dispatch(fetchCoursesFailure(error))
         })
     }
+}
+
+export const loadMoreCourses = () => dispatch => {
+    dispatch({
+        type: LOAD_MORE_COURSES,
+    })
+    return Promise.resolve()
 }
