@@ -21,6 +21,20 @@
     outline: none;
 
 }
+.apply{
+    background-color: #ffce00;
+    color: #3b3f4b;
+    border: 3px solid black;
+    /* align-self: center; */
+    margin: 1vh;
+    font-family: 'Oswald', sans-serif;
+    outline: none;
+}
+
+.apply:hover{
+    background-color: black !important;
+    color: #ffce00 !important;
+}
 .btn{
     outline: none !important;
 }
@@ -74,7 +88,20 @@
     /* align-items: center; */
     
 }
+.apply-wrap{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-top: 3rem;
+}
 .clicked{
+    height: 5rem;
+    width: 5rem;
     background-color: black !important;
     color: #ffce00 !important;
+    border: 3px solid black;
+    border-radius: 100%;
+    margin: 1vh;
+    font-family: 'Oswald', sans-serif;
 }

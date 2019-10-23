@@ -35,7 +35,13 @@ export class CourseCard extends Component {
         
         const {course} = this.props; // fetches course thats sent as prop from CourseContainer
         let taught_in = ''
-        taught_in = course.taught_in_spring ? "Spring" : "Fall" // check if course is taught in spring or fall
+        if(course.taught_in_spring && course.taught_in_autumn){
+            taught_in = 'Fall, Spring'
+        }
+        else{
+            taught_in = course.taught_in_spring ? "Spring" : "Fall" // check if course is taught in spring or fall
+        }
+        
         const average_grade= this.calculateAverageGrade()
         return (
             <div className="card-wrap container">
