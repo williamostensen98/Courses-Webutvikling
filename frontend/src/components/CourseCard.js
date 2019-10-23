@@ -25,22 +25,10 @@ export class CourseCard extends Component {
             let docs = await axios.get("http://it2810-39.idi.ntnu.no:3001/courses/" + this.props.course.course_code + "/grades")
             let semesters = docs.data
             // console.log(semesters)
-            
         }
-        
         catch (err) {
             // console.log(err)
         }
-        let all = document.getElementsByClassName("average_grade");
-        console.log(all[0])
-        for (let i; i < 10; i++) {
-            all[i] = <p className="average_grade">7</p> 
-        }
-        // let semesters = docs.data.docs[0].semesters
-        // console.log("Docs: ",semesters)
-        // let total = semesters.forEach(function(sem) {
-        //     total += sem.average_grade
-        // })
     }
 
     render() {
@@ -83,7 +71,7 @@ export class CourseCard extends Component {
                                         <RatingModal course={course} />
                                     </div>
                                     <div id="grade" className="col">
-                                        <GradeModal coursecode={course.course_code}/>
+                                        <GradeModal />
                                     </div>
                                 </div>
                                
