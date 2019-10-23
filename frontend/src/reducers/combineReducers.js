@@ -3,6 +3,7 @@ import searchReducer from './searchReducer'
 import gradeReducer from './gradeReducer'
 import toggleReducer from './toggleReducer'
 import filterReducer from './filterReducer'
+import sortReducer from './sortReducer'
 import queryReducer from './queryReducer'
 
 //Combines reducers and states 
@@ -12,5 +13,6 @@ export default combineReducers({
     grades:  (gradeReducer),   //will access and update all the gradeReducer states
     toggle:  (toggleReducer),  //will access and update all the toggleReducer states
     filter:  (filterReducer),
+    sort:    (sortReducer),
     query:   (queryReducer)
 })

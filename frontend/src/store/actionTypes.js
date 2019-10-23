@@ -16,8 +16,11 @@ export const FETCH_GRADES_FAILURE = 'FETCH_GRADES_FAILURE'
 export const TOGGLE_FILTER = 'TOGGLE_FILTER'
 export const TOGGLE_MODAL = 'TOGGLE_MODAL'
 
-
-//Action type for which semester is chosen as filter
-export const FILTER_SEMESTER = 'FILTER_SEMESTER'
+//Action types for which semester is chosen as filter
 export const SET_FCLICKED = 'SET_FCLICKED'
 export const SET_SCLICKED = 'SET_SCLICKED'
+
+
+//Action types for what is chosen to be sorted by
+export const SET_CODE_CLICKED = 'SET_CODE_CLICKED'
+export const SET_NAME_CLICKED = 'SET_NAME_CLICKED'
