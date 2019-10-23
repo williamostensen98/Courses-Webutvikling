@@ -40,10 +40,10 @@ export class CourseCard extends Component {
         return (
             <div className="card-wrap container">
                 
-                <Accordion>
-                    <Card ref="card" id="card"> 
+                <Accordion >
+                    <Card id="card"> 
                         <Accordion.Toggle as={Card.Header} eventKey="0">
-                            <div className="row">
+                            <div ref="card" className="row">
                                 <div className="col-9">
                                     {/* displays coursecode and name inside the card */}
                                     <h5>{course.course_code} - {course.norwegian_name}</h5> 
@@ -58,7 +58,7 @@ export class CourseCard extends Component {
                         {/* This is shown when clicking on the card */}
                         <Accordion.Collapse eventKey="0">
                             <Card.Body>
-                                <b>Credits:</b> {course.credits}
+                                <b>Credits:</b> {course.credit}
                                 <br></br>
                                 
                                 <b>Taught in:</b> {taught_in}
