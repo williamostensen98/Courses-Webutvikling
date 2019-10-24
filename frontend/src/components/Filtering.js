@@ -60,7 +60,6 @@ export class Filtering extends Component{
         const spring = this.props.spring_is_clicked
         const code = this.props.code_is_clicked
         const name = this.props.name_is_clicked
-        
         let filter = ''
         let sort = ''
         let concat = ''
@@ -100,7 +99,8 @@ export class Filtering extends Component{
     
    
     render() {
-    const reset = this.props.spring_is_clicked | this.props.fall_is_clicked ? <button id="applybutton" className="btn apply" onClick={this.resetFilter}>RESET FILTER</button>: null;
+    let resetButton = this.props.spring_is_clicked | this.props.fall_is_clicked | this.props.code_is_clicked | this.props.name_is_clicked
+    const reset = resetButton ? <button id="applybutton" className="btn apply" onClick={this.resetFilter}>RESET FILTER</button>: null;
 
     
     return (
