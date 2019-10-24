@@ -3,7 +3,46 @@ import { connect } from 'react-redux'
 import CourseCard from "./CourseCard"
 import Filtering from "./Filtering"
 
+import {loadMoreCourses, fetchCourses} from '../store/searchActions'
+
 export class CoursesContainer extends Component {
+    
+    // event-listeners for scrolling. Enables dynamic loading upon reaching page bottom.
+  componentWillMount() {
+    window.addEventListener("scroll", e => {this.handleScroll(e)});
+  }
+
+  // componentWillUnmount() {
+  //   window.removeEventListener("scroll", this.handleScroll);
+  // }
+  
+  // componentWillUpdate() {
+  //   this.scrollHeight = document.documentElement.scrollHeight;
+  //   this.scrollTop = document.documentElement.scrollTop;
+  // }
+
+  // componentDidUpdate () {
+  //   document.documentElement.scrollTop = this.scrollTop+(document.documentElement.scrollHeight-this.scrollHeight)
+  // }
+
+  // Handler that is run when scrolling. Will load more items (increase pagination limit) if close to bottom
+  handleScroll = (e) => {
+    e.preventDefault()
+    // if(this.props.limit >= total) //TODO trengs denne sjekken?
+    // if (
+    //   window.innerHeight + document.documentElement.scrollTop+200
+    //   >= document.documentElement.scrollHeight
+    //   && !this.props.isLoading
+    // )
+    if((window.innerHeight + window.scrollY+200) >= document.body.offsetHeight && !this.props.isLoading)
+     {
+      this.props.loadMoreCourses().then(()=>{
+          this.props.fetchCourses(this.props.query, "&limit="+this.props.limit) // Run fetch_items async upon state update.
+      })
+    }
+  }
+
+
     render() {
         const {courses} = this.props;
         let content = '';
@@ -33,12 +72,22 @@ export class CoursesContainer extends Component {
     }
 }
 
-// fetches and stores coursesdata from state and into prop courses
-const mapStateToProps = (state) => ({
-    courses: state.courses.coursedata.docs
-})
+// // fetches and stores coursesdata from state and into prop courses
+// const mapStateToProps = (state) => ({
+//     courses: state.courses.coursedata.docs
+// })
 
 
 
-export default connect(mapStateToProps)(CoursesContainer)
+// export default connect(mapStateToProps)(CoursesContainer)
 
+
+
+const mapStateToProps = state => ({
+    courses: state.courses.coursedata.docs,
+    query: state.query.query,
+    limit: state.courses.limit,
+    isLoading: state.courses.loading
+  })
+  
+  export default connect(mapStateToProps, {loadMoreCourses, fetchCourses})(CoursesContainer)

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {fetchCourses} from '../store/searchActions'
+import {fetchCourses, resetLimit} from '../store/searchActions'
 import {setQuery} from '../store/queryAction'
 import "../css/button.css"
 
@@ -13,7 +13,7 @@ export class Button extends Component {
         this.props.fetchCourses(this.props.input,'') // Fetches courses based on the input in searchbar with the fetchcourses action in store
                                                     // since the only thing that should be taken into account when fetching courses
                                                     // is the input newQuery is set to an empty string (see fetchCourses in actions)
-        
+        this.props.resetLimit()
     }
 
     // Makes it possible to search by clicking on enter
@@ -22,6 +22,7 @@ export class Button extends Component {
             e.preventDefault()
             this.props.setQuery(this.props.input)
             this.props.fetchCourses(this.props.input, '')
+            this.props.resetLimit()
         }
       }
 
@@ -43,8 +44,9 @@ export class Button extends Component {
 //Maps state 'text' and 'query' as props named 'input' and 'query'
 const mapStateToProps = (state) => ({
     input: state.courses.text,
-    query: state.query.query
+    query: state.query.query,
+    limit: state.courses.limit
 })
 
 
-export default connect(mapStateToProps, {fetchCourses, setQuery})(Button)
+export default connect(mapStateToProps, {fetchCourses, setQuery, resetLimit})(Button)

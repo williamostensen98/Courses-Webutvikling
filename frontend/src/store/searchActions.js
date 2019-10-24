@@ -4,7 +4,8 @@ import { SEARCH_COURSE,
          FETCH_COURSES_BEGIN, 
          FETCH_COURSES_SUCCESS, 
          FETCH_COURSES_FAILURE,
-         LOAD_MORE_COURSES} from './actionTypes'
+         LOAD_MORE_COURSES,
+         RESET_LIMIT} from './actionTypes'
 import axios from 'axios'
 
 
@@ -66,4 +67,10 @@ export const loadMoreCourses = () => dispatch => {
         type: LOAD_MORE_COURSES,
     })
     return Promise.resolve()
+}
+
+export const resetLimit = () => dispatch => {
+    dispatch({
+        type: RESET_LIMIT
+    })
 }
