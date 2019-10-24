@@ -10,7 +10,7 @@ import {fetchGrades} from '../store/gradeActions'
 
 const renderAverageDifficulty = (props) => {
   const grades = props.grades
-  console.log(grades)
+  // console.log(grades)
 }
 
 function CenteredModal(props) {

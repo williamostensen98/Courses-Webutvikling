@@ -20,7 +20,16 @@ body{
 h1, h5{
   color: #ffce00;
 }
-.btn:focus,.btn:active, .btn:visited, .btn:link {
+.btn{
+  background-color: #ffce00;
+  color: #3b3f4b;
+  border-style: none; 
+  outline: none; 
+  font-family: 'Oswald', 'sans-serif'
+}
+.btn:focus,.btn:active,.btn:visited, .btn:hover{
+  background-color: #ffce00;
+  color: #3b3f4b;
   outline: none !important;
   box-shadow: none;
 }

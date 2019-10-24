@@ -37,7 +37,7 @@ function RatingModal(props) {
   
     return (
       <ButtonToolbar id="rating">
-        <Button className="mt-4" variant="primary" onClick={() => setModalShow(true)}>
+        <Button className="btn mt-4 review"  onClick={() => setModalShow(true)}>
           Review {props.course.course_code}
         </Button>
   
