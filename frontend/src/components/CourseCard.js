@@ -7,43 +7,24 @@ import "../css/courseCard.css"
 import axios from "axios";
 
 export class CourseCard extends Component {
-
     constructor(props){
         super(props);
         this.toggleSidenav = this.toggleSidenav.bind(this);
-        this.renderAverageDifficulty = this.renderAverageDifficulty.bind(this);
     }
-    
-    componentDidMount() {
-        this.calculateAverageGrade();
-    }
-    componentDidUpdate() {
-        this.calculateAverageGrade();
-    }
-
+    // Render average difficulty. Iterates through difficulty ratings if available and calculates avergage. Returns "No ratings yet" if not ratings are present.
     renderAverageDifficulty() {
-        console.log(this.props.course.difficulty)
         if (this.props.course.difficulty.length > 0) {
             const difficulty = this.props.course.difficulty
-            if (difficulty.length == 1) {
-                return difficulty[0] + "/5"
-            }
+            if (difficulty.length == 1) { return difficulty[0] + "/5" }
             let sum = 0;
             let length = difficulty.length ;
-            for (var i in difficulty) {
-                sum += parseInt(i)
-            }
-            console.log("Length: ", length, "\nSum: ", sum)
+            for (var i in difficulty) { sum += parseInt(i) }
             return sum/length + "/5"
         }
         return "No ratings yet"
-        
-
-
     }
 
     render() {
-        
         const {course} = this.props; // fetches course thats sent as prop from CourseContainer
         let taught_in = ''
         if(course.taught_in_spring && course.taught_in_autumn){
@@ -52,7 +33,7 @@ export class CourseCard extends Component {
         else{
             taught_in = course.taught_in_spring ? "Spring" : "Fall" // check if course is taught in spring or fall
         }
-     
+
         return (
             <div className="card-wrap container">
                 
@@ -87,7 +68,7 @@ export class CourseCard extends Component {
                                         <RatingModal course={course} />
                                     </div>
                                     <div id="grade" className="col">
-                                        <GradeModal />
+                                        <GradeModal course_code={course.course_code}/>
                                     </div>
                                 </div>
                                
@@ -101,8 +82,6 @@ export class CourseCard extends Component {
         )
     }
 
-   
-
     toggleSidenav() {
         this.refs.icon.classList.toggle('flip');
     }
@@ -115,8 +94,5 @@ export class CourseCard extends Component {
         this.refs.card.removeEventListener('click', this.toggleSidenav);
     }
 }
-
-
-
 
 export default CourseCard
