@@ -11,8 +11,37 @@ export class CourseCard extends Component {
     constructor(props){
         super(props);
         this.toggleSidenav = this.toggleSidenav.bind(this);
+        this.renderAverageDifficulty = this.renderAverageDifficulty.bind(this);
     }
     
+    componentDidMount() {
+        this.calculateAverageGrade();
+    }
+    componentDidUpdate() {
+        this.calculateAverageGrade();
+    }
+
+    renderAverageDifficulty() {
+        console.log(this.props.course.difficulty)
+        if (this.props.course.difficulty.length > 0) {
+            const difficulty = this.props.course.difficulty
+            if (difficulty.length == 1) {
+                return difficulty[0] + "/5"
+            }
+            let sum = 0;
+            let length = difficulty.length ;
+            for (var i in difficulty) {
+                sum += parseInt(i)
+            }
+            console.log("Length: ", length, "\nSum: ", sum)
+            return sum/length + "/5"
+        }
+        return "No ratings yet"
+        
+
+
+    }
+
     render() {
         
         const {course} = this.props; // fetches course thats sent as prop from CourseContainer
@@ -45,14 +74,14 @@ export class CourseCard extends Component {
                         {/* This is shown when clicking on the card */}
                         <Accordion.Collapse eventKey="0">
                             <Card.Body>
-                                <b>Credits:</b> {course.credit}
+                                <b>Credits:</b> {course.credits}
                                 <br></br>
                                 
                                 <b>Taught in:</b> {taught_in}
                                 <br></br>
                                 <b>Content: </b> {course.content}
                                 <br></br>
-                                <b>Average grade: </b> <p className="average_grade"></p> 
+                                <b>Average difficulty: {this.renderAverageDifficulty()} </b>
                                 <div className="row">
                                     <div id="rating" className="col">
                                         <RatingModal course={course} />
@@ -76,5 +105,8 @@ export class CourseCard extends Component {
         this.refs.icon.classList.toggle('flip');
     }
 }
+
+
+
 
 export default CourseCard

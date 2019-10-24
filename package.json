@@ -1,0 +1,25 @@
+{
+  "name": "prosjekt_3",
+  "version": "1.0.0",
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "cypress": "^3.4.1",
+    "express": "^4.17.1",
+    "mongoose-paginate": "^5.0.3"
+  },
+  "devDependencies": {
+    "eslint-plugin-cypress": "^2.7.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cypress:open": "cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.stud.idi.ntnu.no/IT2810-H19/teams/team-39/prosjekt_3.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
