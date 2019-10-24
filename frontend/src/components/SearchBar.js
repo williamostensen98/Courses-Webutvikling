@@ -23,6 +23,10 @@ class SearchBar extends Component {
             this.props.fetchCourses(this.props.text, '')
         }
       }
+
+    componentDidMount() {
+        this.refs.searchbar.focus(); // Sets cursor on the searchbar when the site has mounted
+    }
    
     render() {
         return (
@@ -34,7 +38,7 @@ class SearchBar extends Component {
                         <i className="fa fa-search"/> Search for course names or codes...
                     </h2>
                     <Form > 
-                        <FormControl type="text" placeholder="Search" className="mr-sm-2" onChange={this.onChange} onKeyPress={this.keyPressed}/>   
+                        <FormControl ref="searchbar" id="searchbar" type="text" placeholder="Search" className="mr-sm-2" onChange={this.onChange} onKeyPress={this.keyPressed}/>   
                         <Button />
                     </Form> 
                     </div>
@@ -48,8 +52,8 @@ class SearchBar extends Component {
 
 
 const mapStateToProps = state => ({
-    //"Får" courses fra combineReducers.js automatisk, da den blir satt som rootReducer i store.js
-    text: state.courses.text //text er staten til Courses som blir oppdatert ved input i søkebaren
+    // fetches the text input from state and maps it to a prop called text
+    text: state.courses.text 
 })
 
 export default connect(mapStateToProps, {searchCourse, fetchCourses, setQuery})(SearchBar)

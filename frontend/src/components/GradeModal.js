@@ -8,6 +8,10 @@ import {connect} from 'react-redux'
 import {fetchGrades} from '../store/gradeActions'
 
 
+const renderAverageDifficulty = (props) => {
+  const grades = props.grades
+  // console.log(grades)
+}
 
 function CenteredModal(props) {
 
@@ -25,8 +29,9 @@ function CenteredModal(props) {
                 Grade stats
               </Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body style={{'max-height': 'calc(100vh - 210px)', 'overflow-y': 'auto'}}>
               <h4>Average grades</h4>
+              {renderAverageDifficulty(props)}
               <i className="fas fa-chart-bar fa-10x"></i>
               <p>
                 Here you can choose a semester and see the average grade for this course in this semester.
@@ -66,7 +71,9 @@ export class GradeModal extends Component {
   }
 
 const mapStateToProps = (state) => ({
-    check: state.toggle.modal
+    check: state.toggle.modal,
+    course: state.courses.coursedata,
+    grades: state.grades.gradedata
 })
 
-export default connect(mapStateToProps, {toggleModal, fetchGrades })(GradeModal)
+export default connect(mapStateToProps, {toggleModal, fetchGrades })(GradeModal, CenteredModal)

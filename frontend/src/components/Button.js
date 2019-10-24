@@ -9,12 +9,14 @@ export class Button extends Component {
     //fetchCourses triggers dispatching of text (in action.js), that triggers the FETCH-cases i searchReducer
     onClick = e => {
         e.preventDefault()
-        this.props.setQuery(this.props.input)
-        this.props.fetchCourses(this.props.input,'')
+        this.props.setQuery(this.props.input)  // Updates the query in state to be the input that was written in the searchbar
+        this.props.fetchCourses(this.props.input,'') // Fetches courses based on the input in searchbar with the fetchcourses action in store
+                                                    // since the only thing that should be taken into account when fetching courses
+                                                    // is the input newQuery is set to an empty string (see fetchCourses in actions)
         
     }
 
-
+    // Makes it possible to search by clicking on enter
     keyPressed = e => {
         if (e.key === "Enter") {
             e.preventDefault()
@@ -38,7 +40,7 @@ export class Button extends Component {
     }
 }
 
-//Maps state 'text' to as a props named 'input'
+//Maps state 'text' and 'query' as props named 'input' and 'query'
 const mapStateToProps = (state) => ({
     input: state.courses.text,
     query: state.query.query

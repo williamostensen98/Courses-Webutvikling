@@ -11,9 +11,10 @@ export class CoursesContainer extends Component {
         
         // tries to add CourseCards or no result to content when searching
         try{
-
-            content = courses.length > 0 ? courses.map((course, index) => <CourseCard key={index} course={course} />) : <h4>The search got no results</h4>;
-            filter = content !== '' ?  <Filtering/> : null;
+            // If the courses array har more than 0 elements a CourseCard is created for each of the courses in the array/dictionary
+            // the same goes for the filter menu; if there is a content on the page the button for the filter menu will show 
+            content = courses.length > 0 ? courses.map((course, index) => <CourseCard key={index} course={course} />) : <h4 style={{color: '#c0ccd4'}} className="center">The search got no results</h4>;
+            filter = content !== '' ?  <Filtering/> : null; 
         }
         //  if nothing is written in the search input the content will be set to an empty string
         catch(error){
