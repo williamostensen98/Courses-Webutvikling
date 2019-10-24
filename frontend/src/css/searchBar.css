@@ -1,15 +1,14 @@
 .searchbar-container {
     display: flex;
     justify-content: center;
+}
+
+ input:focus{
     
-
+    border-style: none;
+    outline: none !important;
 }
 
-#searchBar {
-    border-radius: 10px;
-    width: 80%;
-    height: 20px;
-}
 input{
     font-family: 'Oswald', sans-serif;
   }
@@ -18,5 +17,4 @@ input{
     background-color: #484d5c !important;
     border-radius: 10px;
 }
-  
   
