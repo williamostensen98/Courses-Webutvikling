@@ -33,7 +33,7 @@ function CenteredModal(props) {
     )
 }
 function RatingModal(props) {
-    const [modalShow, setModalShow] = useState(false);
+    const [modalShow, setModalShow] = useState(false); // TODO - Change this from use of hooks to use of redux state manager
   
     return (
       <ButtonToolbar id="rating">
