@@ -8,7 +8,6 @@ import Landing from './components/Landing'
 import Header from "./components/layout/Navbar"
 
 
-import { BrowserRouter as Router, Route, Link } from "react-router-dom"; 
 import {Provider} from 'react-redux'
 import {store} from './store/store'
 

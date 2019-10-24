@@ -21,8 +21,12 @@ const initialState = {
         sclicked: false,
     },
     sort: {
-        sortby: '',
         orderby: '1',
+        codeClicked: false,
+        nameClicked: false,
+    },
+    query: {
+        query: ''
     }
 }
 

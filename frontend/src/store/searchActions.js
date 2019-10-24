@@ -3,8 +3,7 @@
 import { SEARCH_COURSE, 
          FETCH_COURSES_BEGIN, 
          FETCH_COURSES_SUCCESS, 
-         FETCH_COURSES_FAILURE,
-         ADD_REVIEW} from './actionTypes'
+         FETCH_COURSES_FAILURE} from './actionTypes'
 import axios from 'axios'
 
 
@@ -48,11 +47,10 @@ export const fetchCoursesFailure = (error) => dispatch =>{
 
 
 //The actual fetching through url from the virtual machine
-export const fetchCourses = input => {
+export const fetchCourses = (oldQuery, newQuery) => {
     return (dispatch) => {
         dispatch(fetchCoursesBegin())
-        // axios.get('http://localhost:3001/courses?'+input)
-        axios.get('http://it2810-39.idi.ntnu.no:3001/courses?'+input)
+        axios.get("http://it2810-39.idi.ntnu.no:3001/courses?"+oldQuery+newQuery)
         .then(response => {
             dispatch(fetchCoursesSuccess(response.data)) 
         })
