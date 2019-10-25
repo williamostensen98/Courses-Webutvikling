@@ -9,7 +9,7 @@ import { SEARCH_COURSE,
 import axios from 'axios'
 
 
-//'payload' is set to the text given as a parameter
+//'text' is set to the text given as a parameter
 export const searchCourse = text => dispatch => {
     dispatch ({
         type: SEARCH_COURSE,
