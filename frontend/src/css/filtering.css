@@ -96,7 +96,11 @@
     height: 5rem;
 }
 .filter{
+    color: black;
     margin-left: 0px;
+}
+.sort-text{
+    color: black;
 }
 /*------------------------------------------------------------- */
 

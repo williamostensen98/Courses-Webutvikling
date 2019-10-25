@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import "../css/courseCard.css"
+import "../css/modal.css"
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
@@ -16,16 +17,12 @@ function CenteredModal(props) {
             aria-labelledby="contained-modal-title-vcenter"
             centered
           >
-            <Modal.Header>
-              <Modal.Title id="contained-modal-title-vcenter">
-                <h2>Review of Course</h2>
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body style={{'max-height': 'calc(100vh - 210px)', 'overflow-y': 'auto'}}>
-              <h4>Review</h4>
+            
+            <Modal.Body id="background" style={{'maxHeight': 'calc(100vh - 210px)', 'overflowY': 'auto'}}>
+              <h2>Review</h2>
               <Review course={props.course}/>
             </Modal.Body>
-            <Modal.Footer>
+            <Modal.Footer id="background">
               <Button onClick={props.onHide}>Close</Button>
             </Modal.Footer>
           </Modal>
@@ -33,7 +30,7 @@ function CenteredModal(props) {
     )
 }
 function RatingModal(props) {
-    const [modalShow, setModalShow] = useState(false);
+    const [modalShow, setModalShow] = useState(false); // TODO - Change this from use of hooks to use of redux state manager
   
     return (
       <ButtonToolbar id="rating">
