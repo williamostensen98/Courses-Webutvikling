@@ -8,10 +8,6 @@ import "./default_files/App.css"
 import Landing from './components/Landing'
 import Header from "./components/layout/Navbar"
 
-
-import {Provider} from 'react-redux'
-import {store} from './store/store'
-
 import {loadMoreCourses, fetchCourses} from './store/searchActions'
 
 
@@ -19,43 +15,30 @@ class App extends Component {
 
   // event-listeners for scrolling. Enables dynamic loading upon reaching page bottom.
   componentWillMount() {
-    window.addEventListener("scroll", e => {this.handleScroll(e)});
+    window.addEventListener("scroll", this.handleScroll);
   }
 
-  // componentWillUnmount() {
-  //   window.removeEventListener("scroll", this.handleScroll);
-  // }
-  
-  // componentWillUpdate() {
-  //   this.scrollHeight = document.documentElement.scrollHeight;
-  //   this.scrollTop = document.documentElement.scrollTop;
-  // }
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll);
+  }
 
-  // componentDidUpdate () {
-  //   document.documentElement.scrollTop = this.scrollTop+(document.documentElement.scrollHeight-this.scrollHeight)
-  // }
 
   // Handler that is run when scrolling. Will load more items (increase pagination limit) if close to bottom
   handleScroll = (e) => {
     e.preventDefault()
-    // if(this.props.limit >= total) //TODO trengs denne sjekken?
-    // if (
-    //   window.innerHeight + document.documentElement.scrollTop+200
-    //   >= document.documentElement.scrollHeight
-    //   && !this.props.isLoading && 
-    //   this.props.limit<=this.props.total
-    // )
-    if(
-      (window.innerHeight + window.scrollY+200)
-       >= document.body.offsetHeight 
-      && !this.props.isLoading
-      && this.props.limit<this.props.total)
-    //  {
+    if (
+      window.innerHeight + document.documentElement.scrollTop
+      >= document.documentElement.scrollHeight
+      && !this.props.isLoading && 
+      this.props.limit<=this.props.total
+    )
+    {
+
       this.props.loadMoreCourses().then(()=>{
           this.props.fetchCourses(this.props.query, "&limit="+this.props.limit) // Run fetch_items async upon state update.
       })
     }
-  
+  }
 
   //Provider recursively gives all the elements under it in the hierarchy  access to store (and states)
   render () {
