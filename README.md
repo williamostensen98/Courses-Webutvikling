@@ -1,5 +1,4 @@
 
-
 # IT2810 Prosjekt 3 - Gruppe 39
 
 ## Innhold og funksjonalitet i brukergrensesnittet
@@ -15,8 +14,7 @@ Når brukeren scroller til bunnen av siden, vil det automatisk lastes inn flere 
 
 Ved å trykke på et av fagene vil det bli presentert mer informasjon om faget, i tillegg til at brukeren får mulighet til å se tidligere anmeldelser for faget, i form av en kommentar og en vurdering av vanskelighetsgrad fra 1-5. 
 Brukeren kan også legge til en anmeldelse på fag selv, som vil lagres i databasen. For hvert fag er også karakterstatistikk fra alle registrerte semestre tilgjengelig.
-Her kan brukeren velge et semester fra en dropdown meny og den visuelle representasjonen vil oppdatere seg.
-Ved å holde pekeren over en karakter i diagrammet får man opp nøyaktig antall som fikk den karakteren. 
+
 
 
 ## Teknologi
@@ -26,22 +24,23 @@ Ved å holde pekeren over en karakter i diagrammet får man opp nøyaktig antall
 **MongoDB, Express og Node**  
 Vi så det som hensiktsmessig å dele opp prosjektet for i en frontend-mappe og en backend-mappe, med individuelle package.json-filer. 
 Dette er fordi frontend- og backend-delen av prosjektet har få felles dependencies, og det er god praksis samt mer oversiktlig og ha det separert. 
-Når man kloner prosjektet må man derfor kjøre “npm install” i både frontend- og backend-mappen. 
-Etter alle dependencies er installert må man kjøre kommandoen “npm start” fra backend-mappen for å kjøre backend-serveren lokalt på port 3001.
+Når man kloner prosjektet må man derfor kjøre `npm install` i både frontend- og backend-mappen. 
+Etter alle dependencies er installert må man kjøre kommandoen `npm start` fra backend-mappen for å kjøre backend-serveren lokalt på port 3001.
 
 Her er en oversikt over de viktigste filene i backend-delen av prosjektet vårt:
 
 
 ```
 backend/
-	server.js 
-	package.json
-	models/
-		course.model.js
-		grades.model.js
-	routes/
-		course.js
-		grades.js
+│
+├── server.js 
+├── package.json
+└── models/
+│	├──	course.model.js
+│	└── grades.model.js
+└── routes/
+	├──	course.js
+	└── grades.js
 ```
 
 
@@ -49,7 +48,6 @@ I dette prosjektet var det et krav om en database installert på en virtuell mas
 Vi valgte å benytte oss med MongoDB som database, og brukte Express.js for å sette opp et REST API. 
 Grunnen til dette var at det var mye god dokumentasjon tilgjengelig for denne MERN-stacken (MongoDB, Express, React, Node). 
 Felles for disse fire teknologiene er at alle er basert på JavaScript, som gjør at vi kun trenger å forholde oss til ett programmeringsspråk for hele applikasjonen. 
-Det gjorde det lett å komme i gang med prosjektet, og det var mye tutorials å lene seg på for å få satt opp backenden.
 
 **Database - MongoDB**  
 MongoDB er en såkalt NoSQL-database (Not Only SQL). NoSQL-databaser har mange fordeler, deriblant at databasen er veldig skalerbar, den har høy ytelse og det er enkelt å fylle opp databasen med JSON/XML-filer.
@@ -62,65 +60,65 @@ Databasen kjører til enhver tid på en virtuell maskin som kan aksesseres på h
 I praksis er det kun Express som får hentet ut data fra databasen gjennom nettsiden, da man trenger brukernavn og passord for å få tilgang.
 
 Vi har valgt å strukturere databasen vår i to collections; courses og grades. 
-Grunnen til dette er at dersom vi skulle vevd grades inn under hvert enkelt course-dokument, ville hvert course-objekt blitt ufattelig stort og uoversiktlig.
-Dermed anså vi det som hensiktsmessig å separere disse. 
+Skulle vi vevd grades inn under hvert enkelt course-dokument, ville hvert course-objekt blitt ufattelig stort og uoversiktlig, og dermed anså vi det som hensiktsmessig å separere disse. 
 
 **Express.js**  
 Express.js er et JavaScript web framework basert på Node.js. Vi har brukt Express.js for å lage et REST (REpresentational State Transfer) API med Node.
 Kort forklart er et REST API en arkitektur for å sette opp API. APIet fungerer som en server for frontenden, men er en klient for databasen.
 
-```
 En enkel illustrasjon av kommunikasjonen mellom frontend og backend:
+
+```
+
 Frontend (React) <==> REST API (Express/Node) <==> Backend (MongoDB)
 
 
 ```
-Express gjør det mulig for frontend å hente ut data ved å sende forespørsler til http://it2810-39.idi.ntnu.no:3001/courses?, der en spørring til databasen angis bak spørsmålstegnet i URL-en.
-Eksempelvis kan man hente ut informasjon om faget IT2805 ved å gå til http://it2810-39.idi.ntnu.no:3001/courses/IT2805, og data blir da returnert på JSON-format. Dersom man ønsker å hente ut karakterstatistikken fra tidligere semestre for faget, trengs det kun å legges til /grades på adressen.
-All kommunikasjon mellom frontend og backend går gjennom APIet. Fordelen med dette er blant annet at front- og backend ikke trenger å være skrevet i samme programmeringsspråk, ettersom all dataen som går gjennom et REST API er HTTP-requests, og innholdet i meldingene enten er på JSON- eller XML-format. 
+Express gjør enkelt for frontend å sende forespørsler til databasen, ved at selve spørringen bare kan legges til i slutten av den faste URL-en, og dataen vil da bli returnert i JSON-format dersom det er tilgjengelig.
+Fordelen med at all kommunikasjon APIet er mellomleddet, er blant annet at front- og backend ikke trenger å være skrevet i samme programmeringsspråk, ettersom all dataen som går gjennom et REST API er HTTP-requests, og innholdet i meldingene enten er på JSON- eller XML-format. 
 
-Det finnes mange typer HTTP-requests, der de vanligste er GET, POST, PUT og DELETE. For vårt prosjekt var det mest naturlig å kun ha med GET og PUT/POST, da det ikke er ønskelig at brukere skal ha mulighet til å slette fag fra databasen, men kun mulighet til å skrive en anmeldelse av et fag til databasen. 
-Express gjør dette enkelt for oss, ettersom det kun trengs å initieres én instans av express. Dette gjøres ved å skrive:
+Det finnes mange typer HTTP-requests, der de vanligste er GET, POST, PUT og DELETE. For vårt prosjekt var det mest naturlig å kun ha med GET og PUT/POST, da det ikke er ønskelig at brukere skal ha mulighet til å slette ting fra databasen, men kun mulighet til å skrive en anmeldelse av et fag til databasen. 
+Dette kan gjøres med å bare initiere én instans av express:
 
-`
+```javascript
 app = express()
-`
-Deretter er det enkelt å angi hva som skal skje med ulike typer HTTP-requests. 
-Ved å skrive følgende, vil for eksempel meldingen “Hello world” sendes som en HTTP-respons tilbake til den som sender en HTTP GET-request til siden
+```
 
-`
+For å angi hva som skal skje med HTTP-requests kan man eksempelvis skrive følgende:
+
+```javascript
 app.get(function (req, res) {
 	res.send(“Hello world!”)
 }
-`
+```
+Da vil “Hello world” sendes som en HTTP-respons tilbake til den som sendte HTTP GET-requesten.
 Tilsvarende er det for de andre HTTP-requestene (app.put(), app.post()).
 
-En annen fordel er at det gjør det enkelt å begrense hvem som har tilgang til databasen, da logikken for autentisering av brukere kan skje i ved hjelp av Express. Express er også et av de mest populære web-rammeverkene, og dermed er det et stort økosystem av middleware tilgjengelig. Kort fortalt behandler middleware all dataen som går gjennom APIet. Eksempelvis benytter vi oss av bodyParser, som konverterer bodyen i en HTTP-request til JSON-format. 
+Det at man enkelt kan begrense tilganger til databasen ved hjelp av Express er en annen fordel. Express er også et av de mest populære web-rammeverkene, og dermed er det et stort økosystem av middleware (det som behandler dataen som går gjennom APIet) tilgjengelig. Eksempelvis benytter vi oss av bodyParser, som konverterer bodyen i en HTTP-request til JSON-format. 
 
-
-Den siste viktige oppgaven som Express gjør for oss er modellere dataen, slik at man smertefritt kan utføre spørringer til databasen.
-I backend/models ligger det to filer som representerer hver sin collection i databasen, og er knyttet opp mot MongoDB gjennom et bibliotek kalt mongoose.
+Sist, men ikke misnt så modellerer Express dataen for oss, slik at spørringer til databasen er lett å utføre.
+I backend/models ligger det to filer som representerer hver sin collection i databasen, og er knyttet opp mot MongoDB gjennom et bibliotek kalt Mongoose.
 
 **Node.js**  
-Noe forenklet kan man si at Node.js gjør at man kan skrive backend-/server-koden i JavaScript. I utgangspunktet kan ikke Node kjøre moderne JavaScript - som f.eks. ES6, men ved bruk av kompilatoren Babel blir dette muliggjort. Babel transpilerer moderne JavaScript til vanilla JavaScript. 
-For at Babel skal transpilere koden vår har vi endret “npm start”-scriptet i package.json for backend til følgende: 
-`
-nodemon ./server.js --exec babel-node
-`
+Noe forenklet kan man si at Node.js gjør at man kan skrive backend-/server-koden i JavaScript. I utgangspunktet kan ikke Node kjøre moderne JavaScript - som f.eks. ES6, men ved bruk av kompilatoren Babel blir dette muliggjort. Babel transpilerer moderne JavaScript til vanilla JavaScript for oss. 
+For å få det til å skje har vi endret “npm start”-scriptet i package.json for backend til følgende: 
 
-Som man kan se bruker vi også Nodemon. Det er et verktøy som ser etter endringer i koden, og automatisk restarter serveren dersom noe har blitt endret. Dette er en stor fordel under utvikling da det er svært tidsbesparende.
+```javascript
+nodemon ./server.js --exec babel-node
+```
+
+Som man kan se brukes også Nodemon. Det er et verktøy som ser etter endringer i koden, og automatisk restarter serveren dersom noe har blitt endret. Dette har vært en stor fordel under utvikling da det er svært tidsbesparende.
 
 ### Frontend  
 
 
 Gjennom prosjektet har vi prøvd å finne relevante biblioteker og komponenter, og vi har blant annet tatt i bruk [React-Bootstrap](https://react-bootstrap.github.io/) som komponent- og styling- rammeverk. 
 Bootstrap for React kommer med ferdigbygde React-komponenter som kan tas i bruk ved import. 
-Siden React Bootstrap er bygget helt på [Bootstrap-rammeverket](https://getbootstrap.com/) kommer disse ferdigstylet, og man kan velge å beholde som de er eller å legge til egen styling.
+Siden React Bootstrap er helt basert på [Bootstrap-rammeverket](https://getbootstrap.com/) kommer disse ferdigstylet men man kan velge å beholde som de er eller å legge til egen styling.
 Det kan også brukes innebygde Bootstrap-klasser på elementer og komponenter som gir mulighet for å bygge bl.a. responsive grid-systemer uten ekstra css-kode. 
 Vi valgte derfor å ta i bruk dette rammeverket, da det forenklet hele denne prosessen for oss.
 
- Vi har også tatt i bruk noen andre React-biblioteker med relevante funksjonaliteter, blant annet [Animated-biblioteket fra react-animated-css](https://www.npmjs.com/package/react-animated-css) som inneholder en del animasjoner.
- Det har vi brukt til for eksempel pop-up av filtermenyen.Vi hasr også tatt i bruk [react-recharts](http://recharts.org/en-US) som har blitt benyttet til visuell visning av karakterstatistikk.
+Vi har også tatt i bruk noen andre React-biblioteker med relevante funksjonaliteter, blant annet [Animated-biblioteket fra react-animated-css](https://www.npmjs.com/package/react-animated-css) som inneholder en del animasjoner. Det har vi brukt til for eksempel pop-up av filtermenyen.Vi hasr også tatt i bruk [react-recharts](http://recharts.org/en-US) som har blitt benyttet til visuell visning av karakterstatistikk.
 
 Det har også blitt brukt diverse ikon-biblioteker fra [fontawesome](https://fontawesome.com/) og [material-icons](https://material.io/resources/icons/?style=baseline) for å hente ut ulike ikoner på siden. 
 
@@ -136,40 +134,41 @@ Dette gjør at det er betydelig mye enklere å bruke og oppdatere statene i alle
 Vi har valgt å strukturere det slik at filene sorteres etter hvilken React Redux-funksjon de har: store og initialState er lagret i mappen store, action creators og actionTypes i mappen action, og reducers og combineReducer er lagret i mappen reducers.
 Action-filer og deres tilhørende reducere er intuitivt navngitt, f.eks. filterAction.js og filterReducer.js, slik at det skal være lett å se hvilke actions og reducers som hører sammen selv om de er i ulike mapper.
 Her er en grov oversikt over mappehierarkiet:
-````
+```
 frontend/
-    actions/
-	actionTypes.js
-	courseActions.js
-	…
-	toggleActions.js
-	
-    components/
-  	Button.js
- 	…
- 	SearchBar.js
- 		
-    css/
-	button.css
-	…
-	searchBar.css
-		
-    reducers/
-	combineReducers.js
-	courseReducer.js
-	…
- 	toggleReducer.js
- 		
-    store/
-	initialState.js
-	store.js
-	
-    App.js
-    index.js
+│
+├── actions/
+│   ├── actionTypes.js
+│   ├── courseActions.js
+│   ├── …
+│   └── toggleActions.js
+│	
+├── components/
+│   ├── Button.js
+│   ├──	…
+│   └── SearchBar.js
+│ 		
+├── css/
+│   ├──	button.css
+│   ├──	…
+│   └──	searchBar.css
+│		
+├── reducers/
+│   ├──	combineReducers.js
+│   ├──	courseReducer.js
+│   ├──	…
+│   └── toggleReducer.js
+│		
+├── store/
+│   ├── initialState.js
+│   └── store.js
+│
+├── App.js
+└── index.js
 
-````
+```
 
-Vi benytter **Axios** for å hente ut data fra databasen, og denne dataen lagres i tilpasset state. 
+Vi benytter **Axios** for å hente ut data fra databasen, og denne dataen lagres i tilhørende state. 
 Data hentes ut ved at URL-en tilpasses etter hva som er søkt, filtrert eller sortert på. 
 Når brukeren velger å spesifisere disse valgene, lagres de i state og legges til i URL-en.
 Den siste HTTP-requesten som har blitt utført lagres alltid i query-staten, slik at man kan ta utgangspunkt i den når det legges til flere detaljer ved søket.
@@ -218,7 +217,7 @@ Vi har aktivt brukt Git under dette prosjektet også. Vi brukte igjen branchen �
 I dette prosjektet har vi også forbedret oss til at vi nå tagger issue-nummeret som committen bidrar til i commit-meldingen. 
 Dette gjelder i hovedsak commits der betydelige endringer har blitt gjort, så det er fortsatt en del commits som ikke inkluderer tag da det ikke nødvendigvis er knyttet opp med en spesifikk issue. 
 
-## Kilder
+## Andre kilder
 
 https://alligator.io/redux/redux-thunk/  
 https://redux.js.org/introduction/getting-started  
