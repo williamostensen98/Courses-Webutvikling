@@ -6,8 +6,6 @@ import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from 'react-bootstrap/Dropdown'
 import {setChosenSemester} from '../actions/semesterAction'
 
-// import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
-
 
 class Chart extends Component {
 
@@ -47,7 +45,7 @@ class Chart extends Component {
                     this.props.setChosenSemester(semesterCodes[0]) 
                 }
                 
-                return semesterCodes
+                return semesterCodes.sort(function(a, b) {return (a.slice(1) - b.slice(1))}).reverse()
             }
             catch (err) {
                 console.log(err)
@@ -72,8 +70,8 @@ class Chart extends Component {
             return (
                 <div>
                     {this.renderChart(this.props.activeSemester)}
-                    <Dropdown >
-                        <DropdownButton id="semesters" title="Semester" >
+                    <Dropdown style={{overflowY: "scroll"}} >
+                        <DropdownButton id="semesters" title="Semester" style={{ "maxHeight" : "500px"}}>
                             {dropdown}
                         </DropdownButton>
                     </Dropdown>

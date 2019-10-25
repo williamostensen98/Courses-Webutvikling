@@ -28,7 +28,7 @@ export const fetchGradesFailure = (error) => dispatch => {
 export const fetchGrades = (coursecode) => { 
     return (dispatch) => {
         dispatch(fetchGradesBegin())
-        axios.get('http://localhost:3001/courses/'+coursecode+'/grades/')
+        axios.get('http://it2810-39.idi.ntnu.no:3001/courses/'+coursecode+'/grades/')
         .then(response => {
             dispatch(fetchGradesSuccess(response.data)) //skal det være .data her?
         })
