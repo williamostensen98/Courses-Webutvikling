@@ -1,6 +1,5 @@
 
 
-
 # IT2810 Prosjekt 3 - Gruppe 39
 
 ## Innhold og funksjonalitet i brukergrensesnittet
@@ -191,8 +190,9 @@ Vi har derfor en test som sjekker at bruker ikke kan sende inn en anmeldelse med
 Vi har også en test som sjekker at man faktisk får frem riktig søkeresultat når man utfører et søk, og også en som sjekker at man får en beskjed om at et søk ikke har noen treff dersom man søker etter noe som ikke ligger i databasen, se Bilde 2.
 
 
-# BIlde 1 her
-# Bilde 2 her
+![](public/bilde1.png)
+  
+![](public/bilde2.png)
 
 Det er mulig å kjøre testene lokalt selv. For at frontend- og backend-server skal kjøre må man kjøre kommandoen “npm install” fra både /,   /backend og /frontend. Start serverne opp med kommandoen “npm start” fra /backend og fra /frontend. 
 Begge serverne må kjøre samtidig. Begge testfilene ligger lokalisert under /cypress/integration/.
@@ -205,7 +205,7 @@ Der har vi to tester for hver av de to reducerne som sjekkes; courseReducer og t
 For courseReducer testes det at dersom ingen action type sendes inn, så skal den returnere initialState, og `SEARCH_COURSE` testes for å sjekke at text-staten blir oppdatert med det som sendes inn.
 For toggleReducer  testes både `TOGGLE_FILTER`  og `TOGGLE_MODAL`, der staten for de aktuelle actionene blir det motsatte av det som sendes inn.
 
-# BIlde 3 her
+![](public/bilde3.png)
 
 På bildet ovenfor ser man at begge testene ble “godkjent”, altså at statene oppdaterte seg riktig i sammenheng med slik det var tiltenkt. 
 
