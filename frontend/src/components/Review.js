@@ -28,7 +28,7 @@ export class Review extends Component {
             
         }
         
-        axios.put('http://localhost:3001/courses/'+ this.props.course.course_code, content) // TODO - change this to database om server
+        axios.put('http://localhost:3001/courses/'+ this.props.course.course_code, content) 
         document.getElementById("review").value = "";
         document.getElementById("difficulty").value = "";
         const alert = this.renderAlert();

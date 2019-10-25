@@ -8,24 +8,7 @@
     
 }
 /* ------------------------  */
-/* #but{
-    width: 7rem;
-    height: 3rem;
-    background-color: #ffce00;
-    margin:auto;
-    margin-bottom: 1em;
-    color: #484d5c;
-    border-radius:100%;
-    padding-right: 1vh;
-    border-style: none; 
-    border: 1px solid #ffce00;
-    outline: none;
-    font-family: 'Oswald', sans-serif;
-    font-size: 20px;
-    align-content: center;
-    justify-content: center;
 
-} */
 
 /*------------------ FILTER BUTTON ----------------------- */
 #but{
@@ -139,7 +122,11 @@
 }
 /*------------------------------------------------------------- */
 
-
+.flip{
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
 
 /*------------------ BUTTON IF CLICKED ----------------------- */
 .clicked{

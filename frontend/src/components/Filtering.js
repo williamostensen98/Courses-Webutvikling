@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import {Animated} from "react-animated-css";
 import {toggleFilter} from '../actions/toggleActions'
 import {setFclicked, setSclicked} from '../actions/filterActions'
-import {setCodeClicked, setNameClicked} from '../actions/sortActions'
+import {setCodeClicked, setNameClicked, setOrder} from '../actions/sortActions'
 import {fetchCourses, resetLimit} from "../actions/courseActions"
 import {setQuery} from "../actions/queryAction"
 
@@ -55,16 +55,23 @@ export class Filtering extends Component{
             this.props.setNameClicked(this.props.name_is_clicked)
         }  
     }
+    // sets the order button to the opposite of current
+    // order = true --> corresponds to DESCENDING ORDER
+    // order = false --> corresponds to ASCENDING ORDER
+    onOrderClicked = () => {
+        
+        this.props.setOrder(this.props.order)
+       
+      
+       
+    }
 
     // checks if the query already contains the the filter when applying
     // this is to avoid added the query multiple times when apllying a filter
     filterChecks(input){
         return this.props.query.includes(input) ? '': input 
     }
-    // checks if the query already contains the the sort when applying
-    sortChecks(input){
-        return this.props.query.includes(input) ? '': input 
-    }
+    
     /*
     Since it is only possible to set either fall or spring and either code or name 
     this function checks of one of the sentences is already in the query and if the other box is checked
@@ -85,6 +92,10 @@ export class Filtering extends Component{
         else if(this.props.query.includes(fallQuery) && spring){
             changed = s.replace("autumn","spring")
         }
+        if(this.props.query.includes("&order=-1") && !this.props.order){
+
+        }
+        
         return changed
         
     }
@@ -94,17 +105,18 @@ export class Filtering extends Component{
     When some of the filter or sort buttons is clicked the "Apply" buttom will be able to 
     press and will run this function when clicked
     */
-    applyFilter = () => { // TODO - Apply logic such that buttons are disabled after applying
+    applyFilter = () => { 
         const fall = this.props.fall_is_clicked
         const spring = this.props.spring_is_clicked
         const code = this.props.code_is_clicked
         const name = this.props.name_is_clicked
+        
         const fallQuery = "&taught_in_autumn=true"
         const springQuery = "&taught_in_spring=true"
         const codeQuery = "&sorting=course_code"
         const nameQuery = "&sorting=norwegian_name"
  
-        if(!(fall | spring | code | name)){                  // If none of the buttons are clicked it will not be possible to press the apply button
+        if(!(fall | spring | code | name | this.props.order)){    // If none of the buttons are clicked it will not be possible to press the apply button
             this.resetFilter()
             return
         }
@@ -114,27 +126,30 @@ export class Filtering extends Component{
         let sort= ''  
         let concat= ''  
         let change = ''
+        let ordering = '&order=1' // default ordering is set to ascending 
         change = this.changed(codeQuery, nameQuery, fallQuery, springQuery, code, name, fall, spring)   
 
         filter = spring ? "&taught_in_spring=true": ''              // Filter is then set to either the query for filtering the courses  
         filter = fall ? "&taught_in_autumn=true": filter            // on autumn or spring    
         sort = code ? "&sorting=course_code" : ''                   // Sort is also set to either the query for sorting on code or name or empty
         sort = name ? "&sorting=norwegian_name": sort
+        ordering = this.props.order ? "&order=-1": ordering        // changes the order query is the button is pressed to DESC
+        
 
         filter = this.filterChecks(filter)
-        sort = this.sortChecks(sort)
-        concat = filter + sort                                      // concat is set to the concatination of filter and sort
+        sort = this.filterChecks(sort)
+        concat = filter + sort                                     // concat is set to the concatination of filter and sort
         var newQuery = ''                                           // If none of the filter buttons or sorting buttons are clicked the variables will be empty 
          
         if(change !== ''){                                          // If the change variable is not empty a new filter has been set and 
-            newQuery = change                                       // we need to send this change in query in to a new fetch
-            this.props.fetchCourses(change, '') 
+            newQuery = change                                      // we need to send this change in query in to a new fetch
+            this.props.fetchCourses(change, ordering) 
             
         } else{
-            newQuery = this.props.query + concat                 // newQuery it set to the concatination of filter amd sort  
-            this.props.fetchCourses(this.props.query, concat)       // The fetchCourses action is then run with the current query that is in state 
-                        }                                           // and the new query that should be added to the current
-                                                                    
+            newQuery = this.props.query + concat                               // newQuery it set to the concatination of filter amd sort  
+            this.props.fetchCourses(this.props.query, concat+ordering)       // The fetchCourses action is then run with the current query that is in state 
+        }                                                                    // and the new query that should be added to the current
+                                        
         this.props.setQuery(newQuery)                            // setQuery is run and updates the query variable in state to the current plus the new query
         this.props.resetLimit()                            
         this.props.toggleFilter(this.props.check)                   // These functions runs a new search with the new query and therefor the filter menu
@@ -221,6 +236,7 @@ export class Filtering extends Component{
                                 {/* If a button is clicked it needs to change is class for styling to clicked */}
                                 <button className={"btn " + (this.props.code_is_clicked ? "clicked": "sort-button")} onClick={this.onCodeClicked}>CODE</button>
                                 <button className={"btn " + (this.props.name_is_clicked ? "clicked": "sort-button")} onClick={this.onNameClicked}>NAME</button>
+                                <button className="btn sort-button" onClick={this.onOrderClicked}>{this.props.order ? 'DESC' : 'ASC'} <i className={"fas fa-arrow-" + (this.props.order ? "down": "up")}></i></button>
                             </div>
                         </div>
 
@@ -235,12 +251,6 @@ export class Filtering extends Component{
             <h3 className="center">FILTER SEARCH</h3>
         </div>
         {/* Button for toggling the filter menu. Icon from material-icons library */}
-        {/* <button ref="filterButton" id="but" onClick={this.handleToggle} className="btn btn-info fixed-bottom">
-                <i id="tune" className="large material-icons">tune</i>      
-               
-
-                
-        </button> */}
         <button ref="filterButton" id="but" onClick={this.handleToggle} className="btn btn-info fixed-bottom">
                 <i id="tune" className="large material-icons">tune</i>           
         </button>
@@ -261,7 +271,11 @@ const mapStateToProps = (state) => ({
     input: state.courses.text, 
     query: state.query.query,
     code_is_clicked: state.sort.codeClicked,
-    name_is_clicked: state.sort.nameClicked
+    name_is_clicked: state.sort.nameClicked,
+    order: state.sort.orderBy
 })
 
-export default connect(mapStateToProps, {toggleFilter, setFclicked, setSclicked, setQuery, fetchCourses, setCodeClicked, setNameClicked, resetLimit})(Filtering)
+export default connect(mapStateToProps, {toggleFilter,
+                         setFclicked, setSclicked, setQuery, 
+                         fetchCourses, setCodeClicked, setNameClicked,
+                          resetLimit, setOrder})(Filtering)

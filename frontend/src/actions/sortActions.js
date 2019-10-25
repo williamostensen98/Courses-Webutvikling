@@ -1,5 +1,5 @@
 import { SET_CODE_CLICKED,
-    SET_NAME_CLICKED } from "./actionTypes"
+    SET_NAME_CLICKED, SET_ORDER } from "./actionTypes"
     
 export const setCodeClicked = (value) => dispatch => {
 dispatch ({
@@ -14,3 +14,10 @@ dispatch ({
    clicked: value
 })
 }
+
+export const setOrder = (value) => dispatch => {
+   dispatch ({
+      type: SET_ORDER,
+      clicked: value
+   })
+   }
