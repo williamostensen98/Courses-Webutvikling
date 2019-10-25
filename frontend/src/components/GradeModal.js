@@ -1,13 +1,14 @@
-import React, { useState, Component } from 'react'
+import React, { Component } from 'react'
 import "../css/courseCard.css"
+import "../css/modal.css"
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
-import {toggleModal} from "../store/toggleActions"
+import {toggleModal} from "../actions/toggleActions"
 import {connect} from 'react-redux'
-import {fetchGrades} from '../store/gradeActions'
-import Chart, {renderActiveShape} from "./Chart"
-import Spinner from 'react-bootstrap/Spinner'
+import {fetchGrades} from '../actions/gradeActions'
+import Chart from "./Chart"
+
 
 
 

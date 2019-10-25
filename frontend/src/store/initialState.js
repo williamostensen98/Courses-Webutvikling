@@ -4,7 +4,8 @@ const initialState = {
         text: '',
         coursedata: [],
         loading: false,
-        error: false
+        error: false, 
+        limit: 10,
     },
     grades: {
         gradedata: [],
@@ -21,11 +22,15 @@ const initialState = {
         sclicked: false,
     },
     sort: {
-        sortby: '',
         orderby: '1',
+        codeClicked: false,
+        nameClicked: false,
     },
     semester: {
         activeSemester: ''
+    },
+    query: {
+        query: ''
     }
 }
 

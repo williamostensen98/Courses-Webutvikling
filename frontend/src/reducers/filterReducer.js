@@ -1,5 +1,7 @@
 import initialState from "../store/initialState";
-import { SET_SCLICKED, SET_FCLICKED } from "../store/actionTypes";
+import { SET_SCLICKED, 
+         SET_FCLICKED } from "../actions/actionTypes";
+
 
 export default function filterReducer(state = initialState, action) {
     switch(action.type) {
@@ -8,7 +10,6 @@ export default function filterReducer(state = initialState, action) {
                 ...state, 
                 fclicked: !action.clicked
             }
-
         case SET_SCLICKED: 
             return {
                 ...state,

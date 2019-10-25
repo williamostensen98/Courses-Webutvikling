@@ -1,6 +1,6 @@
 import { FETCH_GRADES_BEGIN, 
-    FETCH_GRADES_SUCCESS, 
-    FETCH_GRADES_FAILURE} from '../store/actionTypes'
+        FETCH_GRADES_SUCCESS, 
+        FETCH_GRADES_FAILURE} from '../actions/actionTypes'
 import initialState from '../store/initialState'
 
 

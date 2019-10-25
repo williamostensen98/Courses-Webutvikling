@@ -4,7 +4,7 @@ import {BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar, Label} from
 import Spinner from 'react-bootstrap/Spinner'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from 'react-bootstrap/Dropdown'
-import {setChosenSemester} from '../store/semesterAction'
+import {setChosenSemester} from '../actions/semesterAction'
 
 // import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
 

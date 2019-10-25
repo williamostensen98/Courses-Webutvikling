@@ -33,12 +33,9 @@ courseRoutes.route('/').get(async function(req, res) {
   
     // Only handles input from written in search bar in GUI. User only searches for norwegian_name or course_code
     function searchOnly(stringQuery) {
-      if(allLetters(stringQuery)) {
+      if(allValid(stringQuery)) {
         containsCode(stringQuery) ? content.course_code = {$regex: RegExp(stringQuery), $options:'-i'} : 
                                     content.norwegian_name = {$regex : RegExp(stringQuery), $options:'-i'}
-      }
-      else if (containsNumber(stringQuery)) {
-        content.course_code = {$regex: RegExp(stringQuery), $options:'-i'}
       }
     }
     
@@ -51,7 +48,7 @@ courseRoutes.route('/').get(async function(req, res) {
     let pages=parseInt(page);
     let limit = req.query.limit ? req.query.limit : 10;
     let lim=parseInt(limit);
-    // console.log(content)
+
 
     // Uses mongoose-paginate to paginate results. Plugin in imported in the course.model.js. Response to client is sent in this function. 
     // Takes to arguments. One content object, and one object containing pages, page limit and what to sort by.
@@ -129,17 +126,13 @@ courseRoutes.put('/:course_code', (req, res) => {
 export default courseRoutes;
 
 function containsCode(query) {
-  let codes = "tma tdt ttm it tfy"
-  return codes.includes(query.toLowerCase())
+  //possible course code prefixes
+  const codes = "tma tdt ttm it tfy"
+  return codes.includes(query.slice(0,3).toLowerCase())
 }
 
 
-function allLetters(query) {
-  let letters = /^[A-Za-z\s]+$/
+function allValid(query) {
+  let letters = /^[A-Za-z\s/\d/]+$/
   return letters.test(query)
-}
-
-function containsNumber(query) {
-  let numbers = /\d/
-  return numbers.test(query)
 }

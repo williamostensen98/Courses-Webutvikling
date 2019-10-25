@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
 import ReactDOM from "react-dom"
-import Accordion from 'react-bootstrap/Accordion'
-import GradeModal from "./GradeModal"
-import PropTypes from 'prop-types'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
@@ -31,7 +28,7 @@ export class Review extends Component {
             
         }
         
-        axios.put('http://localhost:3001/courses/'+ this.props.course.course_code, content)
+        axios.put('http://localhost:3001/courses/'+ this.props.course.course_code, content) // TODO - change this to database om server
         document.getElementById("review").value = "";
         document.getElementById("difficulty").value = "";
         const alert = this.renderAlert();
@@ -71,14 +68,14 @@ export class Review extends Component {
                 <div id="alert-container"></div>
                 <Form onSubmit={this.onSubmit}>
                     <Form.Group controlId="formReview">
-                        <Form.Label>Write your review of this course here</Form.Label>
+                        <h5>Write your review of this course here</h5>
                         <Form.Control type="textarea" placeholder="This course is amazing..." name="review" required id="review" />
                         <Form.Text className="text-muted">
                         </Form.Text>
                     </Form.Group>
 
                     <Form.Group controlId="formDifficulty">
-                        <Form.Label>Difficulty</Form.Label>
+                        <h5>Difficulty</h5>
                     <Form.Control type="number" placeholder="1-5" min="1" max="5" name="difficulty" required id="difficulty"/>
                     </Form.Group>
                 
@@ -90,7 +87,7 @@ export class Review extends Component {
                 
                 
                 <div className="review-wrapper">
-                    <h3 style={{'fontStyle': 'bold'}}>Other students reviews:</h3>
+                    <h2 style={{'fontStyle': 'bold'}}>Other students reviews:</h2>
                     {console.log(this.props.course)}
                     {this.renderReviews()}
 

@@ -4,21 +4,28 @@ import Accordion from 'react-bootstrap/Accordion'
 import RatingModal from "./RatingModal"
 import GradeModal from "./GradeModal"
 import "../css/courseCard.css"
-import axios from "axios";
+
 
 export class CourseCard extends Component {
     constructor(props){
         super(props);
-        this.toggleSidenav = this.toggleSidenav.bind(this);
+        this.toggleIconFlip = this.toggleIconFlip.bind(this);
+        this.renderAverageDifficulty = this.renderAverageDifficulty.bind(this);
     }
-    // Render average difficulty. Iterates through difficulty ratings if available and calculates avergage. Returns "No ratings yet" if not ratings are present.
+   
     renderAverageDifficulty() {
+        // console.log(this.props.course.difficulty)
         if (this.props.course.difficulty.length > 0) {
             const difficulty = this.props.course.difficulty
-            if (difficulty.length == 1) { return difficulty[0] + "/5" }
+            if (difficulty.length === 1) {
+                return difficulty[0] + "/5"
+            }
             let sum = 0;
             let length = difficulty.length ;
-            for (var i in difficulty) { sum += parseInt(i) }
+            for (var i in difficulty) {
+                sum += parseInt(i)
+            }
+            // console.log("Length: ", length, "\nSum: ", sum)
             return sum/length + "/5"
         }
         return "No ratings yet"
@@ -34,13 +41,14 @@ export class CourseCard extends Component {
             taught_in = course.taught_in_spring ? "Spring" : "Fall" // check if course is taught in spring or fall
         }
 
+        
         return (
             <div className="card-wrap container">
                 
                 <Accordion >
-                    <Card id="card"> 
-                        <Accordion.Toggle as={Card.Header} eventKey="0">
-                            <div ref="card" className="row">
+                    <Card id="card" > 
+                        <Accordion.Toggle as={Card.Header} eventKey="0" onClick={this.toggleIconFlip}>
+                            <div className="row" >
                                 <div className="col-9">
                                     {/* displays coursecode and name inside the card */}
                                     <h5>{course.course_code} - {course.norwegian_name}</h5> 
@@ -65,7 +73,8 @@ export class CourseCard extends Component {
                                 <b>Average difficulty: {this.renderAverageDifficulty()} </b>
                                 <div className="row">
                                     <div id="rating" className="col">
-                                        <RatingModal course={course} />
+                                        {/* The popup modal for Review and ratings on the course */}
+                                        <RatingModal course={course} /> 
                                     </div>
                                     <div id="grade" className="col">
                                         <GradeModal course_code={course.course_code}/>
@@ -82,16 +91,9 @@ export class CourseCard extends Component {
         )
     }
 
-    toggleSidenav() {
-        this.refs.icon.classList.toggle('flip');
-    }
 
-    componentDidMount() {
-        this.refs.card.addEventListener('click', this.toggleSidenav);
-    }
-
-    componentWillUnmount() {
-        this.refs.card.removeEventListener('click', this.toggleSidenav);
+    toggleIconFlip() {
+        this.refs.icon.classList.toggle('flip'); // adds class that flips the icon on right side of Card
     }
 }
 

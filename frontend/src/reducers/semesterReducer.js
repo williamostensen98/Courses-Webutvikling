@@ -1,5 +1,5 @@
 import initialState from "../store/initialState";
-import { SET_CHOSEN_SEMESTER} from "../store/actionTypes";
+import { SET_CHOSEN_SEMESTER} from "../actions/actionTypes";
 
 export default function semesterReducer(state = initialState, action) {
     switch(action.type) {
