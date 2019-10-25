@@ -30,7 +30,7 @@ class CenteredModal extends Component {
               Grade stats
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body style={{'maxHeight': 'calc(100vh - 210px)', 'overflowY': 'auto'}}>
+          <Modal.Body style={{'maxHeight': 'calc(100vh - 210px)', 'overflowY': 'hidden'}}>
             {/* <h4>Average grades</h4> */}
             
              <Chart course_code={this.props.course_code}/>

@@ -29,3 +29,4 @@ export const SET_CHOSEN_SEMESTER = 'SET_CHOSEN_SEMESTER'
 //Action types for what is chosen to be sorted by
 export const SET_CODE_CLICKED = 'SET_CODE_CLICKED'
 export const SET_NAME_CLICKED = 'SET_NAME_CLICKED'
+export const SET_ORDER = 'SET_ORDER'

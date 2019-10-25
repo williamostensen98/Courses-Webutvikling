@@ -22,7 +22,7 @@ const initialState = {
         sclicked: false,
     },
     sort: {
-        orderby: '1',
+        orderBy: false,
         codeClicked: false,
         nameClicked: false,
     },
