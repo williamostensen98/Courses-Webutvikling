@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { connect } from 'react-redux';
 import SearchBar from './SearchBar';
 import "../css/landing.css"
 import CoursesContainer from "./CoursesContainer"

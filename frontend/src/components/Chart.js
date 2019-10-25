@@ -1,6 +1,6 @@
-import React, { PureComponent, Component} from 'react';
+import React, { Component} from 'react';
 import {connect} from 'react-redux'
-import {BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar, Label} from 'recharts'
+import {BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar} from 'recharts'
 import Spinner from 'react-bootstrap/Spinner'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from 'react-bootstrap/Dropdown'
@@ -18,7 +18,7 @@ class Chart extends Component {
                 const semesters = this.props.grades[0].semesters
                 let data = []
                 semesters.map((sem) => {
-                    if (sem.semester_code ==  semcode) {
+                    if (sem.semester_code === semcode) {
                         data.push(
                             [  
                                 {"name": "A", "Antall": sem.a},

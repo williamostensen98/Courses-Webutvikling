@@ -13,9 +13,7 @@ import Chart from "./Chart"
 
 
 class CenteredModal extends Component {
-  constructor(props) {
-    super(props)
-  }
+  
   
   render() {
       return (
