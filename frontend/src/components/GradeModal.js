@@ -7,6 +7,7 @@ import {toggleModal} from "../store/toggleActions"
 import {connect} from 'react-redux'
 import {fetchGrades} from '../store/gradeActions'
 import Chart, {renderActiveShape} from "./Chart"
+import Spinner from 'react-bootstrap/Spinner'
 
 
 
@@ -39,7 +40,8 @@ class CenteredModal extends Component {
           <Modal.Body style={{'maxHeight': 'calc(100vh - 210px)', 'overflowY': 'auto'}}>
             <h4>Average grades</h4>
             
-            <Chart />
+            {this.props.loading ? <div className="spinner-container"><Spinner id="loading-spinner" animation="border" variant="light" /></div>: <Chart />}
+
             <p>
               Here you can choose a semester and see the average grade for this course in this semester.
             </p>
@@ -87,7 +89,8 @@ export class GradeModal extends Component {
 const mapStateToProps = (state) => ({
     check: state.toggle.modal,
     course: state.courses,
-    grades: state.grades.gradedata
+    grades: state.grades.gradedata,
+    loading: state.grades.loading
 })
 
 export default connect(mapStateToProps, {toggleModal, fetchGrades })(GradeModal, CenteredModal)
