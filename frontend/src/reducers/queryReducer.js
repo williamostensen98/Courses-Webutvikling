@@ -1,5 +1,5 @@
 import initialState from "../store/initialState";
-import { SET_QUERY } from "../store/actionTypes";
+import { SET_QUERY } from "../actions/actionTypes";
 
 export default function queryReducer(state = initialState, action) {
     switch(action.type) {

@@ -1,5 +1,6 @@
 import initialState from "../store/initialState";
-import { SET_SCLICKED, SET_FCLICKED } from "../store/actionTypes";
+import { SET_SCLICKED, 
+         SET_FCLICKED } from "../actions/actionTypes";
 
 
 export default function filterReducer(state = initialState, action) {

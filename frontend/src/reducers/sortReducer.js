@@ -1,5 +1,5 @@
 import initialState from "../store/initialState";
-import { SET_CODE_CLICKED, SET_NAME_CLICKED } from "../store/actionTypes";
+import { SET_CODE_CLICKED, SET_NAME_CLICKED } from "../actions/actionTypes";
 
 
 export default function sortReducer(state = initialState, action) {

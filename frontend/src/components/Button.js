@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {fetchCourses, resetLimit} from '../store/searchActions'
-import {setQuery} from '../store/queryAction'
+import {fetchCourses, resetLimit} from '../actions/courseActions'
+import {setQuery} from '../actions/queryAction'
 import "../css/button.css"
 
 export class Button extends Component {

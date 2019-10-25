@@ -8,7 +8,7 @@ import "./default_files/App.css"
 import Landing from './components/Landing'
 import Header from "./components/layout/Navbar"
 
-import {loadMoreCourses, fetchCourses} from './store/searchActions'
+import {loadMoreCourses, fetchCourses} from './actions/courseActions'
 
 
 class App extends Component {

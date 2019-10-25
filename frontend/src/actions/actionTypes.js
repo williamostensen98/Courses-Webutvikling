@@ -1,4 +1,5 @@
 //Separate module that defines the action types to be used. 
+
 export const SET_QUERY = 'SET_QUERY'
 
 //Action types for handling courses (search and fetch)

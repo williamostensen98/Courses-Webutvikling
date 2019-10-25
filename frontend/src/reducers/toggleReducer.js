@@ -1,5 +1,5 @@
 import { TOGGLE_FILTER,
-         TOGGLE_MODAL } from "../store/actionTypes";
+         TOGGLE_MODAL } from "../actions/actionTypes";
 import initialState from "../store/initialState"
 
 export default function toggleReducer(state = initialState, action) {

@@ -9,7 +9,7 @@ import {SEARCH_COURSE,
         FETCH_COURSES_SUCCESS,
         FETCH_COURSES_FAILURE,
         LOAD_MORE_COURSES,
-        RESET_LIMIT} from '../store/actionTypes'
+        RESET_LIMIT} from '../actions/actionTypes'
 import initialState from '../store/initialState'
 
 
@@ -17,7 +17,7 @@ import initialState from '../store/initialState'
     SEARCH_COURSE updates the state 'text' as user types in the search bar
     FETCH-action is split into three parts, to make an asynchronous action into three synchronous ones
 */
-export default function searchReducer(state = initialState, action) {
+export default function courseReducer(state = initialState, action) {
     switch(action.type) {
         //Sets state 'text' to payload defined in action.js
         case SEARCH_COURSE:

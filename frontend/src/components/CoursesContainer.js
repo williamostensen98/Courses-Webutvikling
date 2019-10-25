@@ -2,9 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import CourseCard from "./CourseCard"
 import Filtering from "./Filtering"
-import InifinteScroll from "react-infinite-scroller"
 
-import {loadMoreCourses, fetchCourses} from '../store/searchActions'
+import {loadMoreCourses, fetchCourses} from '../actions/courseActions'
 
 export class CoursesContainer extends Component {
     

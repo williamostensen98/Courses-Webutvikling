@@ -4,9 +4,9 @@ import "../css/modal.css"
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
-import {toggleModal} from "../store/toggleActions"
+import {toggleModal} from "../actions/toggleActions"
 import {connect} from 'react-redux'
-import {fetchGrades} from '../store/gradeActions'
+import {fetchGrades} from '../actions/gradeActions'
 
 
 const renderAverageDifficulty = (props) => {
