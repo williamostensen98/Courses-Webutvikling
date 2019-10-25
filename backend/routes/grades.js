@@ -7,13 +7,6 @@ const gradeRoutes = express.Router();
 // Further on, we're calling Grades.find to get a list of all course items from the MongoDB. The find function takes one argument, a callback function
 // which is executed once the result is available. All results available in courses are added in JSON format to the response by calling res.json(courses).
 gradeRoutes.route('/').get(async function(req, res) {
-    let sorting = req.query.sorting ? req.query.sorting: 'semester_code';
-    let order = req.query.order ? req.query.order : '1'; // Ascending order unless else is specified
-    let page = req.query.page ? req.query.page : 1;
-    let pages=parseInt(page);
-    let limit = req.query.limit ? req.query.limit : 10;
-    let lim=parseInt(limit);
-    
     // Initiate an empty content object to save possible attributes for a grade document in the collection in content object
     let content = {};
     // Access course_code from URL by splitting on / and selecting the 3rd element. Will work for every possible state in this project.
@@ -22,19 +15,12 @@ gradeRoutes.route('/').get(async function(req, res) {
 
     
     // The content object being send into find is of the form e.g., {course_code = "TDT4140"}
-    const grades = await Grade.find(content).then(page => {
-      res.json(page);
+    const grades = await Grade.find(content).then(grades => {
+      res.json(grades);
     })
       .catch(err => {
         res.status(500).json(err);
       })
-
-    // Uses mongoose-paginate to paginate results. Plugin in imported in the course.model.js. Response to client is sent in this function. 
-    // Takes to arguments. One content object, and one object containing pages, page limit and what to sort by.
-    // To go to next page of query results, add &page=<page_number> to the end of the query.
-    // Sorts by norwegian name unless sorting is specified in the query in ascending order (order : 1, use -1 for descending).
-    // Sorting and order may also be added to the query &sorting=course_code&order=-1.
-    
 });
 
 

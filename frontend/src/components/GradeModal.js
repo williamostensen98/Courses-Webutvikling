@@ -15,13 +15,7 @@ class CenteredModal extends Component {
   constructor(props) {
     super(props)
   }
-
-  // componentDidUpdate() {
-  //   console.log(this.props.grades)
-  // }
-
-
-
+  
   render() {
       return (
           <Modal
@@ -38,13 +32,13 @@ class CenteredModal extends Component {
             </Modal.Title>
           </Modal.Header>
           <Modal.Body style={{'maxHeight': 'calc(100vh - 210px)', 'overflowY': 'auto'}}>
-            <h4>Average grades</h4>
+            {/* <h4>Average grades</h4> */}
             
-            {this.props.loading ? <div className="spinner-container"><Spinner id="loading-spinner" animation="border" variant="light" /></div>: <Chart />}
+             <Chart />
 
-            <p>
-              Here you can choose a semester and see the average grade for this course in this semester.
-            </p>
+            {/* <p>
+              Here you can choose a semester and see the average grade for this course in this semester. */}
+            {/* </p> */}
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.props.onHide}>Close</Button>
@@ -61,7 +55,6 @@ export class GradeModal extends Component {
   onClick = () => {
     this.props.toggleModal(this.props.check)
     this.props.fetchGrades(this.props.course_code)
-    console.log("Grades: ", this.props.grades)
   }
 
   toggleModal = () => {
