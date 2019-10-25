@@ -3,7 +3,9 @@ import pandas as pd
 import requests
 import json
 
-
+# Python script used to scrape grades.no for courses to our database collection. 
+# This file can be ignore, but is in the project folder to demonstrate how we fetched all our data.
+# If you still want to run the script, be sure to pip install numpy and pandas first.
 def fetch_courses(course_code_prefix, lower, upper):
     # content = json.dumps(JSONContent, indent = 4, sort_keys=True)
     # List of channels we want to access
