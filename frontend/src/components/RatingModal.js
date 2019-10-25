@@ -21,7 +21,7 @@ function CenteredModal(props) {
                 <h2>Review of Course</h2>
               </Modal.Title>
             </Modal.Header>
-            <Modal.Body style={{'max-height': 'calc(100vh - 210px)', 'overflow-y': 'auto'}}>
+            <Modal.Body style={{'maxHeight': 'calc(100vh - 210px)', 'overflowY': 'auto'}}>
               <h4>Review</h4>
               <Review course={props.course}/>
             </Modal.Body>

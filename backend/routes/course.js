@@ -1,40 +1,22 @@
 import express from 'express';
-import cors from 'cors';
 import Course from '../models/course.model';
-import { model } from 'mongoose';
-import { clearScreenDown } from 'readline';
 
 // TODO: Add catch blocks for all functions to handle warnings in the console.
 
 const courseRoutes = express.Router()
 
-// Cross-Origin Resource Sharing (CORS). Used to specify what type of requests is allowed, who may send requests and what header-types. 
-// CORS works by adding new HTTP headers that let servers describe which origins are permitted to read information from a web browser.
-courseRoutes.use(cors());
-  // Allow client to fetch data
-  courseRoutes.use(function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*'); // Can change * to allow request from specific clients. In this project we dont care to handle security issues.
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-      res.header('Access-Control-Allow-Methods', 'GET, PUT'); // We only allow GET and PUT requests. On purpose, we decided to not have any functionality to add courses, neither delete them.
-      next();
-});
-
 // The function passed into the get function handles all GET requests sent to it2810-39.idi.ntnu.no:<PORT-NUMBER>/courses 
 // Further on, we're calling Course.find to get a list of all course items from the MongoDB. The find function takes one argument, a callback function
 // which is executed once the result is available. All results available in courses are added in JSON format to the response by calling res.json(courses).
 courseRoutes.route('/').get(async function(req, res) {
-    
-
     // Saving all possible attributes for a course document in the collection in content object. 
     // Checks if attribute exists on req.query and saves it if it exists.
     let content = {};
     const query = await req.query;
     var stringQuery = Object.keys(query)[0] //This will be the input the user writes in the search bar
-
     //Checks if there are any sort/filter specifications the query other than the key words
     Object.keys(query).length > 1 ? ( delete query[stringQuery], filtSort(query)) : searchOnly(stringQuery)
    
-  
     //Makes query from user chosen filtering/sorting
     function filtSort(query) {
 
@@ -45,12 +27,11 @@ courseRoutes.route('/').get(async function(req, res) {
       if (query.content) { content.content = {$regex: RegExp(query.content), $options:'-i'}}
       if (query.learning_goal) { content.learning_goal = {$regex: RegExp(query.learning_goal), $options:'-i'}}
 
-
-      //Have to make the search as well, in addition to the sorting/filtering
+      // Have to make the search as well, in addition to the sorting/filtering
       searchOnly(stringQuery)
     }
   
-    //Only handles input from written in search bar in GUI. User only searches for norwegian_name or course_code
+    // Only handles input from written in search bar in GUI. User only searches for norwegian_name or course_code
     function searchOnly(stringQuery) {
       if(allLetters(stringQuery)) {
         containsCode(stringQuery) ? content.course_code = {$regex: RegExp(stringQuery), $options:'-i'} : 
@@ -61,7 +42,6 @@ courseRoutes.route('/').get(async function(req, res) {
       }
     }
     
-
     const courses = await Course.find((content), function(err, courses) {}).catch(err => console.log(err));
     
     // Values retrieved by the query, else set to default values. Used in pagination and sorting of results.
@@ -126,6 +106,23 @@ courseRoutes.put('/:course_code', (req, res) => {
 
   });
 
+  courseRoutes.post('/:course_code', (req, res) => {
+    // console.log(req.body.difficulty)
+    let difficulty = parseInt(req.body.difficulty)
+    let review = req.body.review
+    // Find the correct course in the DB. Course_code is a primary key, and the search will always return one result.
+    let course = Course.find({course_code : req.params.course_code})
+
+    console.log("review: ", review)
+    if (req.body.review && 6>difficulty>0) {
+        // console.log(req.params.course_code)
+        // Find document "course" in db and push the review to the review array on the document. Also update difficulty to new average.
+        Course.findOneAndUpdate(course, {"$push" : {"reviews": review, "difficulty" : parseInt(req.body.difficulty)}})
+        .then(res.json("Your review was successfully added!"))
+        .catch(err => console.log(err))
+      }  
+
+  });
 
 
 

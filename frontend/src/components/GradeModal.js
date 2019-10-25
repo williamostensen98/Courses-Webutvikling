@@ -19,6 +19,8 @@ class CenteredModal extends Component {
   //   console.log(this.props.grades)
   // }
 
+
+
   render() {
       return (
           <Modal
@@ -34,11 +36,10 @@ class CenteredModal extends Component {
               Grade stats
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body style={{'max-height': 'calc(100vh - 210px)', 'overflow-y': 'auto'}}>
+          <Modal.Body style={{'maxHeight': 'calc(100vh - 210px)', 'overflowY': 'auto'}}>
             <h4>Average grades</h4>
             
             <Chart />
-            <i className="fas fa-chart-bar fa-10x"></i>
             <p>
               Here you can choose a semester and see the average grade for this course in this semester.
             </p>
@@ -57,8 +58,12 @@ export class GradeModal extends Component {
   //Toggles value of CenteredModal (child component) by using our predefined actions and states
   onClick = () => {
     this.props.toggleModal(this.props.check)
-    // this.props.fetchGrades(this.props.course.coursecode)
-    console.log("Course.coursecode: ", this.props.course)
+    this.props.fetchGrades(this.props.course_code)
+    console.log("Grades: ", this.props.grades)
+  }
+
+  toggleModal = () => {
+    this.props.toggleModal(this.props.check)
   }
 
 
@@ -71,7 +76,7 @@ export class GradeModal extends Component {
   
         <CenteredModal
           show={this.props.check}
-          onHide={this.onClick}
+          onHide={this.toggleModal}
           grades={this.props.grades}
         />
       </ButtonToolbar>
