@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import CourseCard from "./CourseCard"
 import Filtering from "./Filtering"
 
+
 import {loadMoreCourses, fetchCourses} from '../actions/courseActions'
 
 export class CoursesContainer extends Component {
