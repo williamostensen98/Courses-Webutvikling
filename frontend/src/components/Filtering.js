@@ -55,12 +55,20 @@ export class Filtering extends Component{
         }  
     }
 
+    // checks if the query already contains the the filter when applying
+    // this is to avoid added the query multiple times when apllying a filter
     filterChecks(input){
-        return this.props.query.includes(input) ? '': input // checks if the query already contains the the filter when applying
+        return this.props.query.includes(input) ? '': input 
     }
+    // checks if the query already contains the the sort when applying
     sortChecks(input){
         return this.props.query.includes(input) ? '': input 
     }
+    /*
+    Since it is only possible to set either fall or spring and either code or name 
+    this function checks of one of the sentences is already in the query and if the other box is checked
+    if so the query has to be replaced with the query for the checked box
+    */
     changed(codeQuery, nameQuery, fallQuery, springQuery, code, name, fall, spring){
         let changed = ''
         let s = this.props.query
@@ -99,35 +107,36 @@ export class Filtering extends Component{
             this.resetFilter()
             return
         }
-    
+
+        // This firsts sets the variables "filter", "sort", "concat", and 'changed' to empty strings 
         let filter= ''  
         let sort= ''  
         let concat= ''  
         let change = ''
-        change = this.changed(codeQuery, nameQuery, fallQuery, springQuery, code, name, fall, spring)      
-                                                                         // This firsts sets the variables "filter", "sort", and "concat" to empty strings 
-        filter = spring ? "&taught_in_spring=true": ''                    // Filter is then set to either the query for filtering the courses  
-        filter = fall ? "&taught_in_autumn=true": filter                   // on autumn or spring    
-        sort = code ? "&sorting=course_code" : ''                         // Sort is also set to either the query for sorting on code or name or empty
+        change = this.changed(codeQuery, nameQuery, fallQuery, springQuery, code, name, fall, spring)   
+
+        filter = spring ? "&taught_in_spring=true": ''              // Filter is then set to either the query for filtering the courses  
+        filter = fall ? "&taught_in_autumn=true": filter            // on autumn or spring    
+        sort = code ? "&sorting=course_code" : ''                   // Sort is also set to either the query for sorting on code or name or empty
         sort = name ? "&sorting=norwegian_name": sort
 
         filter = this.filterChecks(filter)
         sort = this.sortChecks(sort)
-        concat = filter + sort   
-        var newQuery = ''                         // If none of the filter buttons or sorting buttons are clicked the variables will be empty 
+        concat = filter + sort                                      // concat is set to the concatination of filter and sort
+        var newQuery = ''                                           // If none of the filter buttons or sorting buttons are clicked the variables will be empty 
          
-        if(change !== ''){
-            newQuery = change
+        if(change !== ''){                                          // If the change variable is not empty a new filter has been set and 
+            newQuery = change                                       // we need to send this change in query in to a new fetch
             this.props.fetchCourses(change, '') 
             
         } else{
-            newQuery = this.props.query + concat
-            this.props.fetchCourses(this.props.query, concat) 
-        }                                                   // newQuery it set to the concatination of filter amd sort   
-                                                            // The fetchCourses action is then run with the current query that is in state and the new query that should be added to the current
-        this.props.setQuery(newQuery)                       // setQuery is the run and update the query variable in state to the current plus the new query
-        this.props.toggleFilter(this.props.check)           // These functions runs a new sesarch with the new query and therefor the filter menu
-                                                            // needs to be toggled to keep the current state its in    
+            newQuery = this.props.query + concat                 // newQuery it set to the concatination of filter amd sort  
+            this.props.fetchCourses(this.props.query, concat)       // The fetchCourses action is then run with the current query that is in state 
+                        }                                           // and the new query that should be added to the current
+                                                                    
+        this.props.setQuery(newQuery)                               // setQuery is run and updates the query variable in state to the current plus the new query
+        this.props.toggleFilter(this.props.check)                   // These functions runs a new search with the new query and therefor the filter menu
+                                                                    // needs to be toggled to keep the current state its in    
     }
     
     /*
