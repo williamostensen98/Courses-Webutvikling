@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 
 import {Animated} from "react-animated-css";
-import {toggleFilter} from '../store/toggleActions'
-import {setFclicked, setSclicked} from '../store/filterActions'
-import {setCodeClicked, setNameClicked} from '../store/sortActions'
-import {fetchCourses} from "../store/searchActions"
-import {setQuery} from "../store/queryAction"
+import {toggleFilter} from '../actions/toggleActions'
+import {setFclicked, setSclicked} from '../actions/filterActions'
+import {setCodeClicked, setNameClicked} from '../actions/sortActions'
+import {fetchCourses} from "../actions/courseActions"
+import {setQuery} from "../actions/queryAction"
 import { connect } from 'react-redux'
 import "../css/filtering.css"
 

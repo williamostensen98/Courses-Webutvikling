@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
 import ReactDOM from "react-dom"
-import Accordion from 'react-bootstrap/Accordion'
-import GradeModal from "./GradeModal"
-import PropTypes from 'prop-types'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'

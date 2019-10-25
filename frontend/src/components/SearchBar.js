@@ -1,7 +1,7 @@
 import React from 'react';
 import '../css/searchBar.css';
-import {searchCourse, fetchCourses, resetLimit} from '../store/searchActions'
-import {setQuery} from '../store/queryAction'
+import {searchCourse, fetchCourses, resetLimit} from '../actions/courseActions'
+import {setQuery} from '../actions/queryAction'
 import { connect } from 'react-redux';
 import {Component} from 'react';
 import Button from './Button'
