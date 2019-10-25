@@ -3,7 +3,13 @@ import { connect } from 'react-redux'
 import CourseCard from "./CourseCard"
 import Filtering from "./Filtering"
 
+
+import {loadMoreCourses, fetchCourses} from '../store/searchActions'
+
 export class CoursesContainer extends Component {
+    
+
+
     render() {
         const {courses} = this.props;
         let content = '';
@@ -26,6 +32,7 @@ export class CoursesContainer extends Component {
             <div className="coursecontainer container">  
                 {filter}
                 <div className="row">
+                    
                     {content}
                 </div>  
             </div>
@@ -33,12 +40,9 @@ export class CoursesContainer extends Component {
     }
 }
 
-// fetches and stores coursesdata from state and into prop courses
-const mapStateToProps = (state) => ({
-    courses: state.courses.coursedata.docs
-})
 
-
-
-export default connect(mapStateToProps)(CoursesContainer)
-
+const mapStateToProps = state => ({
+    courses: state.courses.coursedata.docs,
+  })
+  
+  export default connect(mapStateToProps, {loadMoreCourses, fetchCourses})(CoursesContainer)

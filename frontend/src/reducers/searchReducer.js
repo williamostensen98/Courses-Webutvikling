@@ -7,7 +7,9 @@
 import {SEARCH_COURSE,
         FETCH_COURSES_BEGIN,
         FETCH_COURSES_SUCCESS,
-        FETCH_COURSES_FAILURE} from '../store/actionTypes'
+        FETCH_COURSES_FAILURE,
+        LOAD_MORE_COURSES,
+        RESET_LIMIT} from '../store/actionTypes'
 import initialState from '../store/initialState'
 
 
@@ -44,6 +46,17 @@ export default function searchReducer(state = initialState, action) {
                 ...state,
                 loading: false,
                 error: action.error
+            }
+        case LOAD_MORE_COURSES:
+            return {
+                ...state,
+                loading: true,
+                limit: state.limit+10
+            }
+        case RESET_LIMIT:
+            return {
+                ...state,
+                limit: 10
             }
         default:
             return state

@@ -1,6 +1,6 @@
 import React from 'react';
 import '../css/searchBar.css';
-import {searchCourse, fetchCourses} from '../store/searchActions'
+import {searchCourse, fetchCourses, resetLimit} from '../store/searchActions'
 import {setQuery} from '../store/queryAction'
 import { connect } from 'react-redux';
 import {Component} from 'react';
@@ -21,6 +21,7 @@ class SearchBar extends Component {
             e.preventDefault()
             this.props.setQuery(this.props.text)
             this.props.fetchCourses(this.props.text, '')
+            this.props.resetLimit()
         }
       }
 
@@ -53,8 +54,9 @@ class SearchBar extends Component {
 
 const mapStateToProps = state => ({
     // fetches the text input from state and maps it to a prop called text
-    text: state.courses.text 
+    text: state.courses.text, 
+    limit: state.courses.limit
 })
 
-export default connect(mapStateToProps, {searchCourse, fetchCourses, setQuery})(SearchBar)
+export default connect(mapStateToProps, {searchCourse, fetchCourses, setQuery, resetLimit})(SearchBar)
 

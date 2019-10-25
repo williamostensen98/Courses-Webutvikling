@@ -18,7 +18,7 @@ export class CourseCard extends Component {
         // console.log(this.props.course.difficulty)
         if (this.props.course.difficulty.length > 0) {
             const difficulty = this.props.course.difficulty
-            if (difficulty.length == 1) {
+            if (difficulty.length === 1) {
                 return difficulty[0] + "/5"
             }
             let sum = 0;

@@ -6,6 +6,8 @@ export const SEARCH_COURSE = 'SEARCH_COURSE'
 export const FETCH_COURSES_BEGIN = 'FETCH_COURSES_BEGIN'
 export const FETCH_COURSES_SUCCESS = 'FETCH_COURSES_SUCCESS'
 export const FETCH_COURSES_FAILURE = 'FETCH_COURSES_FAILURE'
+export const LOAD_MORE_COURSES = 'LOAD_MORE_COURSES'
+export const RESET_LIMIT = 'RESET_LIMIT'
 
 //Action types for handling grades (fetching)
 export const FETCH_GRADES_BEGIN = 'FETCH_GRADES_BEGIN'
