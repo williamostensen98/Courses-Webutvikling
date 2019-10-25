@@ -26,6 +26,9 @@ const initialState = {
         codeClicked: false,
         nameClicked: false,
     },
+    semester: {
+        activeSemester: ''
+    },
     query: {
         query: ''
     }

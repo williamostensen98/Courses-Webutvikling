@@ -7,7 +7,6 @@ import "../css/courseCard.css"
 
 
 export class CourseCard extends Component {
-
     constructor(props){
         super(props);
         this.toggleIconFlip = this.toggleIconFlip.bind(this);
@@ -30,13 +29,9 @@ export class CourseCard extends Component {
             return sum/length + "/5"
         }
         return "No ratings yet"
-        
-
-
     }
 
     render() {
-        
         const {course} = this.props; // fetches course thats sent as prop from CourseContainer
         let taught_in = ''
         if(course.taught_in_spring && course.taught_in_autumn){
@@ -45,6 +40,7 @@ export class CourseCard extends Component {
         else{
             taught_in = course.taught_in_spring ? "Spring" : "Fall" // check if course is taught in spring or fall
         }
+
         
         return (
             <div className="card-wrap container">
@@ -81,8 +77,7 @@ export class CourseCard extends Component {
                                         <RatingModal course={course} /> 
                                     </div>
                                     <div id="grade" className="col">
-                                        {/* Popup modal for visual representation of grades */}
-                                        <GradeModal />
+                                        <GradeModal course_code={course.course_code}/>
                                     </div>
                                 </div>
                                
@@ -101,8 +96,5 @@ export class CourseCard extends Component {
         this.refs.icon.classList.toggle('flip'); // adds class that flips the icon on right side of Card
     }
 }
-
-
-
 
 export default CourseCard

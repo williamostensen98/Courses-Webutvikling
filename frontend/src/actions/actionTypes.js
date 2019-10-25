@@ -23,6 +23,8 @@ export const TOGGLE_MODAL = 'TOGGLE_MODAL'
 export const SET_FCLICKED = 'SET_FCLICKED'
 export const SET_SCLICKED = 'SET_SCLICKED'
 
+//Action type for which semester code is chosen in dropdown
+export const SET_CHOSEN_SEMESTER = 'SET_CHOSEN_SEMESTER'
 
 //Action types for what is chosen to be sorted by
 export const SET_CODE_CLICKED = 'SET_CODE_CLICKED'

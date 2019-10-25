@@ -3,6 +3,7 @@ import courseReducer from './courseReducer'
 import gradeReducer from './gradeReducer'
 import toggleReducer from './toggleReducer'
 import filterReducer from './filterReducer'
+import semesterReducer from './semesterReducer'
 import sortReducer from './sortReducer'
 import queryReducer from './queryReducer'
 
@@ -14,5 +15,7 @@ export default combineReducers({
     toggle:  (toggleReducer),  //will access and update all the toggleReducer states
     filter:  (filterReducer),
     sort:    (sortReducer),
+    semester: (semesterReducer),
     query:   (queryReducer)
+   
 })
