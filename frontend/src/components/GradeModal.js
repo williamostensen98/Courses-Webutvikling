@@ -34,7 +34,7 @@ class CenteredModal extends Component {
           <Modal.Body style={{'maxHeight': 'calc(100vh - 210px)', 'overflowY': 'auto'}}>
             {/* <h4>Average grades</h4> */}
             
-             <Chart />
+             <Chart course_code={this.props.course_code}/>
 
             {/* <p>
               Here you can choose a semester and see the average grade for this course in this semester. */}
@@ -73,6 +73,7 @@ export class GradeModal extends Component {
           show={this.props.check}
           onHide={this.toggleModal}
           grades={this.props.grades}
+          course_code={this.props.course_code}
         />
       </ButtonToolbar>
     );

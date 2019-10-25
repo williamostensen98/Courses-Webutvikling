@@ -1,10 +1,13 @@
 import React, { PureComponent, Component} from 'react';
 import {connect} from 'react-redux'
-import {BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar} from 'recharts'
+import {BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar, Label} from 'recharts'
 import Spinner from 'react-bootstrap/Spinner'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from 'react-bootstrap/Dropdown'
 import {setChosenSemester} from '../store/semesterAction'
+
+// import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
+
 
 class Chart extends Component {
 
@@ -40,6 +43,10 @@ class Chart extends Component {
         if (!this.props.loading) {
             try {
                 let semesterCodes = this.props.grades[0].semesters.map(sem => sem.semester_code)
+                if (!this.props.activeSemester) {
+                    this.props.setChosenSemester(semesterCodes[0]) 
+                }
+                
                 return semesterCodes
             }
             catch (err) {
@@ -48,18 +55,28 @@ class Chart extends Component {
         }
         return []
     }
+
+    handleChange = (e) => {
+            console.log("Value: ", e.target.innerHTML)
+            this.props.setChosenSemester(e.target.innerHTML) 
+        
+    }
    
     renderDropdown = () => {
+        console.log(this.props.activeSemester)
         let semesterCodes = this.getSemesterCodes()
         let dropdown =  semesterCodes.map(code => 
-                <Dropdown.Item key={code} value={code} >{code}</Dropdown.Item> )
+                <Dropdown.Item eventKey={code} value={code} onClick={this.handleChange} >
+                {code}
+                </Dropdown.Item> )
             return (
                 <div>
-                    {this.renderChart('H2017')}
-                    <DropdownButton id="semesters" title="Semester" >
-                       
-                        {dropdown}
-                    </DropdownButton>
+                    {this.renderChart(this.props.activeSemester)}
+                    <Dropdown >
+                        <DropdownButton id="semesters" title="Semester" >
+                            {dropdown}
+                        </DropdownButton>
+                    </Dropdown>
                 </div>
             )
         }
@@ -72,7 +89,10 @@ class Chart extends Component {
         if (!this.props.loading) {
             const data = this.mapGradesToData(semester_code)
             return (
+                <div>
+                    <h2>{this.props.activeSemester}</h2>
                 <BarChart width={730} height={250} data={data[0]}>
+                    
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="name" />
                     <YAxis />
@@ -80,6 +100,7 @@ class Chart extends Component {
                     <Legend />
                     <Bar dataKey="Antall" fill="#8884d8" />
                 </BarChart>
+                </div>
             )
         }
         return (
