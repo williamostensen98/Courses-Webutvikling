@@ -4,8 +4,9 @@ import {Animated} from "react-animated-css";
 import {toggleFilter} from '../actions/toggleActions'
 import {setFclicked, setSclicked} from '../actions/filterActions'
 import {setCodeClicked, setNameClicked} from '../actions/sortActions'
-import {fetchCourses} from "../actions/courseActions"
+import {fetchCourses, resetLimit} from "../actions/courseActions"
 import {setQuery} from "../actions/queryAction"
+
 import { connect } from 'react-redux'
 import "../css/filtering.css"
 
@@ -134,7 +135,8 @@ export class Filtering extends Component{
             this.props.fetchCourses(this.props.query, concat)       // The fetchCourses action is then run with the current query that is in state 
                         }                                           // and the new query that should be added to the current
                                                                     
-        this.props.setQuery(newQuery)                               // setQuery is run and updates the query variable in state to the current plus the new query
+        this.props.setQuery(newQuery)                            // setQuery is run and updates the query variable in state to the current plus the new query
+        this.props.resetLimit()                            
         this.props.toggleFilter(this.props.check)                   // These functions runs a new search with the new query and therefor the filter menu
                                                                     // needs to be toggled to keep the current state its in    
     }
@@ -154,6 +156,7 @@ export class Filtering extends Component{
         this.props.setSclicked(true)
         this.props.setCodeClicked(true)
         this.props.setNameClicked(true)
+        this.props.resetLimit()
     }
 
     /*
@@ -261,4 +264,4 @@ const mapStateToProps = (state) => ({
     name_is_clicked: state.sort.nameClicked
 })
 
-export default connect(mapStateToProps, {toggleFilter, setFclicked, setSclicked, setQuery, fetchCourses, setCodeClicked, setNameClicked})(Filtering)
+export default connect(mapStateToProps, {toggleFilter, setFclicked, setSclicked, setQuery, fetchCourses, setCodeClicked, setNameClicked, resetLimit})(Filtering)
