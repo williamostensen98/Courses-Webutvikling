@@ -13,7 +13,7 @@ export class Button extends Component {
         this.props.fetchCourses(this.props.input,'') // Fetches courses based on the input in searchbar with the fetchcourses action in store
                                                     // since the only thing that should be taken into account when fetching courses
                                                     // is the input newQuery is set to an empty string (see fetchCourses in actions)
-        this.props.resetLimit()
+        this.props.resetLimit()                     // resets the limit of how many courses are shown on page back to 10
     }
 
     // Makes it possible to search by clicking on enter

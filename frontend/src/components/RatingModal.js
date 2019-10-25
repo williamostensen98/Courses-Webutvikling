@@ -34,8 +34,7 @@ function CenteredModal(props) {
     )
 }
 function RatingModal(props) {
-    const [modalShow, setModalShow] = useState(false); // TODO - Change this from use of hooks to use of redux state manager
-  
+    const [modalShow, setModalShow] = useState(false); 
     return (
       <ButtonToolbar id="rating">
         <Button className="btn mt-4 review"  onClick={() => setModalShow(true)}>
@@ -44,7 +43,7 @@ function RatingModal(props) {
   
         <CenteredModal
           show={modalShow}
-          onHide={() => setModalShow(false)}
+          onHide={() => setModalShow(false)} // changes the modal to show/hide on the click of the button above
           course={props.course}
         />
       </ButtonToolbar>
