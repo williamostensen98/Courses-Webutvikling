@@ -1,4 +1,3 @@
-
 # IT2810 Prosjekt 3 - Gruppe 39
 
 ## Innhold og funksjonalitet i brukergrensesnittet
@@ -36,7 +35,7 @@ backend/
 ├── server.js 
 ├── package.json
 └── models/
-│	├──	course.model.js
+│	├── course.model.js
 │	└── grades.model.js
 └── routes/
 	├──	course.js
