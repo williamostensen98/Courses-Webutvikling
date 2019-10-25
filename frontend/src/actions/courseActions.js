@@ -34,7 +34,6 @@ export const fetchCoursesSuccess = (response) => dispatch => {
         type: FETCH_COURSES_SUCCESS,
         data: response
     })
-    /* console.log("SUCCESS:",response) */
 }
 
 //If the courses are NOT fetched successfully from database
@@ -62,6 +61,7 @@ export const fetchCourses = (oldQuery, newQuery) => {
     }
 }
 
+//Increases the limit+= 10.
 export const loadMoreCourses = () => dispatch => {
     dispatch({
         type: LOAD_MORE_COURSES,
@@ -69,6 +69,7 @@ export const loadMoreCourses = () => dispatch => {
     return Promise.resolve()
 }
 
+//Resets to limit=10
 export const resetLimit = () => dispatch => {
     dispatch({
         type: RESET_LIMIT

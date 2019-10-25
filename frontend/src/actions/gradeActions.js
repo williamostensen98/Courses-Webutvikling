@@ -3,6 +3,7 @@ import { FETCH_GRADES_BEGIN,
     FETCH_GRADES_FAILURE} from './actionTypes'
 import axios from 'axios'
 
+//Same logic as in courseActions
 
 export const fetchGradesBegin = () => dispatch => {
     dispatch( {

@@ -6,6 +6,7 @@ import initialState from '../store/initialState'
 
 export default function gradeReducer(state = initialState, action) {
     switch(action.type) {
+        //Same logic and principle as in courseReducer.js
         case FETCH_GRADES_BEGIN:
             return {
                 ...state,

@@ -7,12 +7,11 @@ import semesterReducer from './semesterReducer'
 import sortReducer from './sortReducer'
 import queryReducer from './queryReducer'
 
-//Combines reducers and states 
-//Made in case there were going to be several reducers handling different states
+//Combines reducers, so that all of the states and actions are available
 export default combineReducers({
-    courses: (courseReducer), //will access and update all the searchReducer states
-    grades:  (gradeReducer),   //will access and update all the gradeReducer states
-    toggle:  (toggleReducer),  //will access and update all the toggleReducer states
+    courses: (courseReducer),  
+    grades:  (gradeReducer),  
+    toggle:  (toggleReducer), 
     filter:  (filterReducer),
     sort:    (sortReducer),
     semester: (semesterReducer),

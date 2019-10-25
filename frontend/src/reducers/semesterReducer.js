@@ -8,8 +8,6 @@ export default function semesterReducer(state = initialState, action) {
                 ...state, 
                 activeSemester: action.payload
             }
-
-       
         default:
             return state
     }

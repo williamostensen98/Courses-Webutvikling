@@ -1,6 +1,8 @@
 import { SET_FCLICKED,
          SET_SCLICKED } from "./actionTypes"
          
+
+//When FALL-button is clicked
 export const setFclicked = (value) => dispatch => {
     dispatch ({
         type: SET_FCLICKED,
@@ -8,6 +10,7 @@ export const setFclicked = (value) => dispatch => {
     })
 }
 
+//When SPRING-button is clicked
 export const setSclicked = (value) => dispatch => {
     dispatch ({
         type: SET_SCLICKED,

@@ -47,12 +47,16 @@ export default function courseReducer(state = initialState, action) {
                 loading: false,
                 error: action.error
             }
+        //Sets state 'limit' to increase with 10
+        //'Loading' to true
         case LOAD_MORE_COURSES:
             return {
                 ...state,
                 loading: true,
                 limit: state.limit+10
             }
+        //Resets state 'limit' to 10, no watter what the value was
+        //'Loading' to true
         case RESET_LIMIT:
             return {
                 ...state,
