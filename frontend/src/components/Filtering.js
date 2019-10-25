@@ -77,7 +77,7 @@ export class Filtering extends Component{
     this function checks of one of the sentences is already in the query and if the other box is checked
     if so the query has to be replaced with the query for the checked box
     */
-    changed(codeQuery, nameQuery, fallQuery, springQuery, code, name, fall, spring){
+    changed(codeQuery, nameQuery, fallQuery, springQuery, code, name, fall, spring, order){
         let changed = ''
         let s = this.props.query
         if(this.props.query.includes(codeQuery) && name){
@@ -93,7 +93,10 @@ export class Filtering extends Component{
             changed = s.replace("autumn","spring")
         }
         if(this.props.query.includes("&order=-1") && !this.props.order){
-
+            changed = s.replace('order=-1','order=1')
+        }
+        else if(this.props.query.includes("&order=1") && this.props.order){
+            changed = s.replace("order=1","order=-1")
         }
         
         return changed
@@ -127,31 +130,34 @@ export class Filtering extends Component{
         let concat= ''  
         let change = ''
         let ordering = '&order=1' // default ordering is set to ascending 
-        change = this.changed(codeQuery, nameQuery, fallQuery, springQuery, code, name, fall, spring)   
+        
+        change = this.changed(codeQuery, nameQuery, fallQuery, springQuery, code, name, fall, spring)  
 
         filter = spring ? "&taught_in_spring=true": ''              // Filter is then set to either the query for filtering the courses  
         filter = fall ? "&taught_in_autumn=true": filter            // on autumn or spring    
         sort = code ? "&sorting=course_code" : ''                   // Sort is also set to either the query for sorting on code or name or empty
         sort = name ? "&sorting=norwegian_name": sort
         ordering = this.props.order ? "&order=-1": ordering        // changes the order query is the button is pressed to DESC
-        
-
+    
+        ordering= this.filterChecks(ordering)
         filter = this.filterChecks(filter)
         sort = this.filterChecks(sort)
-        concat = filter + sort                                     // concat is set to the concatination of filter and sort
+        concat = filter + sort + ordering                                   // concat is set to the concatination of filter and sort
         var newQuery = ''                                           // If none of the filter buttons or sorting buttons are clicked the variables will be empty 
          
         if(change !== ''){                                          // If the change variable is not empty a new filter has been set and 
             newQuery = change                                      // we need to send this change in query in to a new fetch
-            this.props.fetchCourses(change, ordering) 
+            this.props.fetchCourses(change, '') 
+           
             
         } else{
-            newQuery = this.props.query + concat                               // newQuery it set to the concatination of filter amd sort  
-            this.props.fetchCourses(this.props.query, concat+ordering)       // The fetchCourses action is then run with the current query that is in state 
+            newQuery = this.props.query + concat                         // newQuery it set to the concatination of filter amd sort  
+            this.props.fetchCourses(this.props.query, concat)
+                    // The fetchCourses action is then run with the current query that is in state 
         }                                                                    // and the new query that should be added to the current
                                         
         this.props.setQuery(newQuery)                            // setQuery is run and updates the query variable in state to the current plus the new query
-        this.props.resetLimit()                            
+        this.props.resetLimit()                         
         this.props.toggleFilter(this.props.check)                   // These functions runs a new search with the new query and therefor the filter menu
                                                                     // needs to be toggled to keep the current state its in    
     }
