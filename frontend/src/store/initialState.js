@@ -23,6 +23,9 @@ const initialState = {
     sort: {
         sortby: '',
         orderby: '1',
+    },
+    semester: {
+        activeSemester: ''
     }
 }
 

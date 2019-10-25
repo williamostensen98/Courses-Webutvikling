@@ -5,7 +5,7 @@ export default function filterReducer(state = initialState, action) {
     switch(action.type) {
         case SET_FCLICKED:
             return {
-                ... state, 
+                ...state, 
                 fclicked: !action.clicked
             }
 

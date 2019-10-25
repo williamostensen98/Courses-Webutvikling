@@ -4,8 +4,11 @@ import {BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar} from 'recha
 import Spinner from 'react-bootstrap/Spinner'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from 'react-bootstrap/Dropdown'
+import {setChosenSemester} from '../store/semesterAction'
 
 class Chart extends Component {
+
+    
     mapGradesToData = (semcode) => {
         if (!this.props.loading) {
             try {
@@ -45,21 +48,24 @@ class Chart extends Component {
         }
         return []
     }
-
+   
     renderDropdown = () => {
         let semesterCodes = this.getSemesterCodes()
-        let dropdown = semesterCodes.map(code => 
-                <Dropdown.Item value={code} >{code}</Dropdown.Item>
+        let dropdown =  semesterCodes.map(code => 
+                <Dropdown.Item key={code} value={code} >{code}</Dropdown.Item> )
+            return (
+                <div>
+                    {this.renderChart('H2017')}
+                    <DropdownButton id="semesters" title="Semester" >
+                       
+                        {dropdown}
+                    </DropdownButton>
+                </div>
             )
-        return (
-            <div>
-                {this.renderChart("H2017")}
-                <DropdownButton id="semesters" title="Semester">
-                    {dropdown}
-                </DropdownButton>
-            </div>
-        )
-    }
+        }
+       
+        
+    
     
 
     renderChart = (semester_code) => {
@@ -82,7 +88,8 @@ class Chart extends Component {
         )
     }
 
-  render() {
+
+    render(){
     return (
         <div>
             {this.renderDropdown()}
@@ -93,7 +100,9 @@ class Chart extends Component {
 
 const mapStateToProps = (state) => ({
     grades: state.grades.gradedata,
-    loading: state.grades.loading
+    loading: state.grades.loading,
+    activeSemester: state.semester.activeSemester
 })
 
-export default connect(mapStateToProps)(Chart)
+
+export default connect(mapStateToProps, {setChosenSemester})(Chart)
