@@ -1,0 +1,36 @@
+/* 
+PRIMARY COLOR: #484d5c
+SECONDARY COLOR: #3b3f4b
+
+HEADLINE COLOR: #ffce00
+TEXT COLOR: #c0ccd4
+
+*/
+
+body{
+  background-color: #484d5c;
+  font-family: 'Cardo', serif;
+  color: #c0ccd4;
+}
+
+ h1, h2, h3, h4, h5, h6 {
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+ }
+
+h1, h5{
+  color: #ffce00;
+}
+.btn{
+  background-color: #ffce00;
+  color: #3b3f4b;
+  border-style: none; 
+  outline: none; 
+  font-family: 'Oswald', 'sans-serif'
+}
+.btn:focus,.btn:active,.btn:visited, .btn:hover{
+  background-color: #ffce00;
+  color: #3b3f4b;
+  outline: none !important;
+  box-shadow: none;
+}

@@ -1,0 +1,20 @@
+.searchbar-container {
+    display: flex;
+    justify-content: center;
+}
+
+ input:focus{
+    
+    border-style: none;
+    outline: none !important;
+}
+
+input{
+    font-family: 'Oswald', sans-serif;
+  }
+ 
+#jumbo{
+    background-color: #484d5c !important;
+    border-radius: 10px;
+}
+  

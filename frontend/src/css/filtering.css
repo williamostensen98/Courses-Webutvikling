@@ -1,0 +1,142 @@
+/* ---- FILTER ICON -------  */
+#tune{
+    color: #3b3f4b;
+   font-size: 2rem;
+    margin:auto;
+    
+    
+    
+}
+/* ------------------------  */
+
+
+/*------------------ FILTER BUTTON ----------------------- */
+#but{
+    width: 4rem;
+    height: 4rem;
+    background-color: #ffce00;
+    margin:auto;
+    margin-bottom: 3em;
+    border-radius:100%;
+    padding-right: 1vh;
+    border-style: none; 
+    border: 3px solid #3b3f4b;
+    outline: none;
+
+}
+/*--------------------------------------------------------- */
+
+
+
+/*------------------ APPLY BUTTON ------------------------- */
+.apply{
+    background-color: #ffce00;
+    color: black;
+    border: 3px solid black;
+    /* align-self: center; */
+    margin: 1vh;
+    font-family: 'Oswald', sans-serif;
+    outline: none;
+}
+
+.apply:hover{
+    background-color: black !important;
+    color: #ffce00 !important;
+}
+.btn{
+    outline: none !important;
+}
+/*------------------------------------------------------- */
+
+
+
+/*------------------ FILTER MENU ------------------------- */
+.footer{
+    background-color: #ffce00;
+    height: 20rem;
+    visibility: hidden;
+}
+.center{
+    margin: auto;
+    margin-top: 1.2em;
+}
+.foot-display{
+    background-color: #ffce00;
+    height: 23rem;
+    visibility: visible;
+}
+.top-text{
+    color: black;
+    font-size: 50px;
+    text-align: center;
+    margin: auto;
+}
+.foot-filter{
+    background-color: #3b3f4b;
+    color: #ffce00;
+    text-align: center;
+    /* border-top: 1px solid #ffce00; */
+    height: 5rem;
+}
+.filter{
+    color: black;
+    margin-left: 0px;
+}
+.sort-text{
+    color: black;
+}
+/*------------------------------------------------------------- */
+
+
+
+/*------------------ FILTER/SORT BUTTONS ----------------------- */
+.sort-button, .filter-button{
+    height: 5rem;
+    width: 5rem;
+    background-color: #ffce00 !important;
+    border: 3px solid black;
+    border-radius: 100%;
+    margin: 1vh;
+    color: #000000!important;
+    font-family: 'Oswald', sans-serif;
+}
+.sort-button:hover{
+    background-color: black !important;
+    color: #ffce00 !important;
+}
+
+.button-wrap{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* align-items: center; */
+    
+}
+.apply-wrap{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-top: 3rem;
+}
+/*------------------------------------------------------------- */
+
+.flip{
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+
+/*------------------ BUTTON IF CLICKED ----------------------- */
+.clicked{
+    height: 5rem;
+    width: 5rem;
+    background-color: black !important;
+    color: #ffce00 !important;
+    border: 3px solid black;
+    border-radius: 100%;
+    margin: 1vh;
+    font-family: 'Oswald', sans-serif;
+}
+/*------------------------------------------------------------- */
